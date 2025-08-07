@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Time Input Test</title>
+    <style>
+        select {
+            padding: 5px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            min-width: 60px;
+        }
+        
+        label {
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        
+        .time-group {
+            display: inline-block;
+            margin-right: 20px;
+        }
+        
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            margin: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>ทดสอบ Input Time</h1>
+    
+    <div style="margin: 20px; padding: 20px; border: 1px solid #ccc;">
+        <h3>วันที่และเวลา</h3>
+        
+        <label for="startDate">วันที่เริ่ม:</label>
+        <input type="date" id="startDate" value="2025-08-05">
+        <br><br>
+        
+        <label for="startTime">เวลาเริ่ม:</label>
+        <select id="startHour">
+            <option value="04" selected>04</option>
+        </select> :
+        <select id="startMinute">
+            <option value="13" selected>13</option>
+        </select> น.
+        <br><br>
+        
+        <label for="endDate">วันที่สิ้นสุด:</label>
+        <input type="date" id="endDate" value="2025-08-05">
+        <br><br>
+        
+        <label for="endTime">เวลาสิ้นสุด:</label>
+        <select id="endHour">
+            <option value="21" selected>21</option>
+        </select> :
+        <select id="endMinute">
+            <option value="00" selected>00</option>
+        </select> น.
+        <br><br>
+        
+        <button onclick="testDateTime()">ทดสอบ DateTime</button>
+        <button onclick="testFormatting()">ทดสอบ Formatting</button>
+    </div>
+    
+    <div id="output" style="margin: 20px; padding: 20px; background: #f5f5f5; white-space: pre-wrap;"></div>
+
+    <script>
+        // สร้าง options สำหรับ dropdown
+        function populateTimeDropdowns() {
+            const hourSelects = ['startHour', 'endHour'];
+            const minuteSelects = ['startMinute', 'endMinute'];
+            
+            // สร้าง options สำหรับชั่วโมง (00-23)
+            hourSelects.forEach(selectId => {
+                const select = document.getElementById(selectId);
+                const currentValue = select.value; // เก็บค่าปัจจุบัน
+                select.innerHTML = ''; // ล้าง options เดิม
+                
+                for (let i = 0; i <= 23; i++) {
+                    const option = document.createElement('option');
+                    const hourValue = String(i).padStart(2, '0');
+                    option.value = hourValue;
+                    option.textContent = hourValue;
+                    if (hourValue === currentValue) {
+                        option.selected = true;
+                    }
+                    select.appendChild(option);
+                }
+            });
+            
+            // สร้าง options สำหรับนาที (00-59)
+            minuteSelects.forEach(selectId => {
+                const select = document.getElementById(selectId);
+                const currentValue = select.value; // เก็บค่าปัจจุบัน
+                select.innerHTML = ''; // ล้าง options เดิม
+                
+                for (let i = 0; i <= 59; i++) {
+                    const option = document.createElement('option');
+                    const minuteValue = String(i).padStart(2, '0');
+                    option.value = minuteValue;
+                    option.textContent = minuteValue;
+                    if (minuteValue === currentValue) {
+                        option.selected = true;
+                    }
+                    select.appendChild(option);
+                }
+            });
+        }
+
+        function testDateTime() {
+            console.clear();
+            const output = document.getElementById('output');
+            
+            // Get values from inputs
+            const startDate = document.getElementById('startDate').value;
+            const startHour = document.getElementById('startHour').value;
+            const startMinute = document.getElementById('startMinute').value;
+            const startTime = `${startHour}:${startMinute}`;
+            
+            const endDate = document.getElementById('endDate').value;
+            const endHour = document.getElementById('endHour').value;
+            const endMinute = document.getElementById('endMinute').value;
+            const endTime = `${endHour}:${endMinute}`;
+            
+            console.log('Input values:', { startDate, startTime, endDate, endTime });
+            console.log('Dropdown values:', { startHour, startMinute, endHour, endMinute });
+            
+            // Create DateTime objects
+            const startDateTime = new Date(`${startDate}T${startTime}`);
+            const endDateTime = new Date(`${endDate}T${endTime}`);
+            
+            console.log('DateTime objects:', { startDateTime, endDateTime });
+            
+            // Test comparison
+            const isEndAfterStart = endDateTime > startDateTime;
+            const timeDiff = endDateTime - startDateTime;
+            
+            console.log('Comparison:', { isEndAfterStart, timeDiff });
+            
+            // Format for SQL
+            const startFormatted = formatDateTimeSQL(startDateTime);
+            const endFormatted = formatDateTimeSQL(endDateTime);
+            
+            // Format dates in DD/MM/YYYY
+            const formatDateDDMMYYYY = (date) => {
+                const day = String(date.getDate()).padStart(2, '0');
+                const month = String(date.getMonth() + 1).padStart(2, '0');
+                const year = date.getFullYear();
+                return `${day}/${month}/${year}`;
+            };
+            
+            const result = `
+Input Values:
+- Start Date: ${startDate} (YYYY-MM-DD format)
+- Start Date (DD/MM/YYYY): ${formatDateDDMMYYYY(startDateTime)}
+- Start Time: ${startTime}
+- End Date: ${endDate} (YYYY-MM-DD format)  
+- End Date (DD/MM/YYYY): ${formatDateDDMMYYYY(endDateTime)}
+- End Time: ${endTime}
+
+DateTime Objects:
+- Start: ${startDateTime.toString()}
+- End: ${endDateTime.toString()}
+
+ISO Strings:
+- Start: ${startDateTime.toISOString()}
+- End: ${endDateTime.toISOString()}
+
+Local Time Components:
+Start DateTime:
+- Year: ${startDateTime.getFullYear()}
+- Month: ${startDateTime.getMonth() + 1}
+- Date: ${startDateTime.getDate()}
+- Hours (24h): ${startDateTime.getHours()}
+- Minutes: ${startDateTime.getMinutes()}
+- Time (24h): ${String(startDateTime.getHours()).padStart(2, '0')}:${String(startDateTime.getMinutes()).padStart(2, '0')}
+
+End DateTime:
+- Year: ${endDateTime.getFullYear()}
+- Month: ${endDateTime.getMonth() + 1}
+- Date: ${endDateTime.getDate()}
+- Hours (24h): ${endDateTime.getHours()}
+- Minutes: ${endDateTime.getMinutes()}
+- Time (24h): ${String(endDateTime.getHours()).padStart(2, '0')}:${String(endDateTime.getMinutes()).padStart(2, '0')}
+
+Comparison:
+- End > Start: ${isEndAfterStart}
+- Time Difference (ms): ${timeDiff}
+- Time Difference (hours): ${(timeDiff / (1000 * 60 * 60)).toFixed(2)}
+
+SQL Formatted (DD/MM/YYYY):
+- Start: ${startFormatted}
+- End: ${endFormatted}
+
+Timezone Info:
+- Timezone Offset: ${startDateTime.getTimezoneOffset()} minutes
+- Local Time Zone: ${Intl.DateTimeFormat().resolvedOptions().timeZone}
+            `;
+            
+            output.textContent = result;
+        }
+        
+        function testFormatting() {
+            console.clear();
+            const output = document.getElementById('output');
+            
+            // ใช้เฉพาะเวลาปัจจุบันที่ผู้ใช้เลือก
+            const startDate = document.getElementById('startDate').value;
+            const startHour = document.getElementById('startHour').value;
+            const startMinute = document.getElementById('startMinute').value;
+            const endDate = document.getElementById('endDate').value;
+            const endHour = document.getElementById('endHour').value;
+            const endMinute = document.getElementById('endMinute').value;
+            
+            const startDateTime = new Date(`${startDate}T${startHour}:${startMinute}`);
+            const endDateTime = new Date(`${endDate}T${endHour}:${endMinute}`);
+            
+            let result = 'Format Testing (DD/MM/YYYY format):\n\n';
+            
+            [
+                { label: 'Start DateTime', date: startDateTime },
+                { label: 'End DateTime', date: endDateTime }
+            ].forEach((item, index) => {
+                const date = item.date;
+                const hour12 = date.getHours() > 12 ? `${date.getHours() - 12}:${String(date.getMinutes()).padStart(2, '0')} PM` 
+                             : date.getHours() === 12 ? `12:${String(date.getMinutes()).padStart(2, '0')} PM`
+                             : date.getHours() === 0 ? `12:${String(date.getMinutes()).padStart(2, '0')} AM`
+                             : `${date.getHours()}:${String(date.getMinutes()).padStart(2, '0')} AM`;
+                
+                result += `${item.label}:\n`;
+                result += `- Original: ${date.toString()}\n`;
+                result += `- 24-hour: ${String(date.getHours()).padStart(2, '0')}:${String(date.getMinutes()).padStart(2, '0')}\n`;
+                result += `- 12-hour: ${hour12}\n`;
+                result += `- Date (DD/MM/YYYY): ${String(date.getDate()).padStart(2, '0')}/${String(date.getMonth() + 1).padStart(2, '0')}/${date.getFullYear()}\n`;
+                result += `- ISO: ${date.toISOString()}\n`;
+                result += `- SQL (UTC): ${date.toISOString().slice(0, 19).replace('T', ' ')}\n`;
+                result += `- SQL (DD/MM/YYYY): ${formatDateTimeSQL(date)}\n`;
+                result += `- Timezone Offset: ${date.getTimezoneOffset()}\n\n`;
+            });
+            
+            output.textContent = result;
+        }
+        
+        function formatDateTimeSQL(date) {
+            if (!date || isNaN(date.getTime())) {
+                throw new Error('Invalid date object provided to formatDateTimeSQL');
+            }
+            
+            // ใช้ local time และรูปแบบ DD/MM/YYYY
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
+            const hours = String(date.getHours()).padStart(2, '0');
+            const minutes = String(date.getMinutes()).padStart(2, '0');
+            const seconds = String(date.getSeconds()).padStart(2, '0');
+            
+            return `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
+        }
+        
+        // Auto-test when page loads
+        window.onload = function() {
+            populateTimeDropdowns(); // สร้าง options ทั้งหมด
+            testDateTime(); // ทดสอบทันทีหลังจากโหลดหน้า
+        };
+    </script>
+</body>
+</html>

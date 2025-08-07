@@ -1,0 +1,2036 @@
+/* ================================================================
+ * GLOBAL FONT FAMILY - Prompt Font for entire project
+ * ================================================================ */
+*, *::before, *::after {
+    font-family: 'Prompt', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif !important;
+}
+
+/* Exception: Keep FullCalendar icons with their original font */
+.fc-icon, 
+.fc-icon-chevron-left, 
+.fc-icon-chevron-right, 
+.fc-icon-chevrons-left, 
+.fc-icon-chevrons-right,
+.fc-button .fc-icon {
+    font-family: "courier new", courier, monospace !important;
+    font-style: normal !important;
+    font-weight: normal !important;
+    font-variant: normal !important;
+    text-transform: none !important;
+    line-height: 1 !important;
+    -webkit-font-smoothing: antialiased !important;
+    -moz-osx-font-smoothing: grayscale !important;
+}
+
+/* Specific icon characters for FullCalendar */
+.fc-icon-chevron-left:before {
+    content: "\2039" !important;
+}
+.fc-icon-chevron-right:before {
+    content: "\203A" !important;
+}
+.fc-icon-chevrons-left:before {
+    content: "\00AB" !important;
+}
+.fc-icon-chevrons-right:before {
+    content: "\00BB" !important;
+}
+
+/* Specific font weights for better readability */
+body {
+    font-family: 'Prompt', sans-serif !important;
+    font-weight: 400;
+    line-height: 1.6;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Prompt', sans-serif !important;
+    font-weight: 600;
+}
+
+.fw-bold, .font-weight-bold {
+    font-weight: 600 !important;
+}
+
+.fw-semibold {
+    font-weight: 500 !important;
+}
+
+.fw-light {
+    font-weight: 300 !important;
+}
+
+/* Custom orange badge for OEE 40-59% */
+.bg-orange {
+    background-color: #fd7e14 !important;
+    color: #212529 !important;
+}
+
+/* Department badge status colors */
+.status-planning .fc-event-title-container .department-badge {
+    background: rgba(108, 117, 125, 0.8) !important;
+    border-color: #6c757d !important;
+    color: white !important;
+}
+
+.status-in-progress .fc-event-title-container .department-badge {
+    background: rgba(255, 193, 7, 0.8) !important;
+    border-color: #ffc107 !important;
+    color: #212529 !important;
+}
+
+.status-completed .fc-event-title-container .department-badge {
+    background: rgba(25, 135, 84, 0.8) !important;
+    border-color: #198754 !important;
+    color: white !important;
+}
+
+.status-pending-confirmation .fc-event-title-container .department-badge {
+    background: rgba(108, 117, 125, 0.8) !important;
+    border-color: #6c757d !important;
+    color: white !important;
+}
+
+.status-cancelled .fc-event-title-container .department-badge {
+    background: rgba(220, 53, 69, 0.8) !important;
+    border-color: #dc3545 !important;
+    color: white !important;
+}
+.fc-toolbar {
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 20px;
+}
+
+.fc-toolbar-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #0d6efd;
+}
+
+.fc-button-primary {
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+}
+
+.fc-button-primary:hover {
+    background-color: #0b5ed7;
+    border-color: #0a58ca;
+}
+
+
+/* Enhanced Event Styling for Multiple Events */
+.fc-event {
+    border: none !important;
+    border-radius: 4px !important;
+    font-size: 0.6rem !important;
+    padding: 2px 4px !important;
+    margin: 1px !important;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12) !important;
+    cursor: pointer !important;
+    transition: all 0.2s ease !important;
+    min-height: 50px !important; /* เพิ่มความสูงขั้นต่ำเพื่อให้แสดงข้อมูลครบ */
+    display: flex !important;
+    align-items: flex-start !important;
+    flex-direction: column !important;
+    position: relative !important;
+    overflow: hidden !important;
+    min-width: 80px !important;
+    z-index: 1 !important;
+}
+
+
+/* ปรับปรุงการแสดงผลข้อมูลการผลิต */
+.fc-event-title-container .production-info {
+    font-size: 0.55rem !important;
+    font-weight: bold !important;
+    margin-top: 1px !important;
+    padding: 1px 3px !important;
+    background-color: rgba(0, 0, 0, 0.25) !important;
+    border-radius: 2px !important;
+    color: rgba(255, 255, 255, 0.95) !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    max-width: 100% !important;
+}
+
+/* Multiple events stacking - ให้งานที่ซ้อนกันแสดงแบบ cascade */
+.fc-daygrid-event {
+    margin: 0.5px 1px !important;
+    padding: 1px 3px !important;
+    min-height: 18px !important;
+    opacity: 0.95 !important;
+}
+
+.fc-daygrid-event:nth-child(even) {
+    margin-left: 3px !important;
+    margin-right: 0px !important;
+}
+
+.fc-daygrid-event:nth-child(odd) {
+    margin-left: 0px !important;
+    margin-right: 3px !important;
+}
+
+/* Event clustering for overlapping events */
+.fc-daygrid-event-harness {
+    margin: 0.5px 0 !important;
+}
+
+.fc-daygrid-event-harness:hover {
+    z-index: 10 !important;
+}
+
+/* Compact display for multiple events */
+.fc-daygrid-more-link {
+    background: #6c757d !important;
+    color: white !important;
+    border-radius: 4px !important;
+    padding: 2px 6px !important;
+    font-size: 0.65rem !important;
+    font-weight: 600 !important;
+    margin: 1px !important;
+    text-align: center !important;
+    cursor: pointer !important;
+    transition: all 0.2s ease !important;
+}
+
+.fc-daygrid-more-link:hover {
+    background: #5a6268 !important;
+    transform: scale(1.05) !important;
+}
+
+/* Time grid specific styling - Enhanced for vertical time display */
+.fc-timegrid .fc-event {
+    min-height: 20px !important;
+    width: calc(100% - 2px) !important;
+    margin-left: 1px !important;
+    margin-right: 1px !important;
+    margin-bottom: 1px !important;
+    font-size: 0.6rem !important;
+    padding: 2px 4px !important;
+}
+
+/* Ensure events span the full time duration vertically */
+.fc-timegrid-event-harness {
+    position: absolute !important;
+    left: 1px !important;
+    right: 1px !important;
+}
+
+.fc-timegrid-event-harness .fc-event {
+    width: 100% !important;
+    height: 100% !important;
+    min-height: 100% !important;
+}
+
+/* Events should not overlap vertically, but can be side by side */
+.fc-timegrid-col .fc-timegrid-col-events {
+    position: relative !important;
+    margin: 0 !important;
+}
+
+/* Side-by-side events for same time slots */
+.fc-timegrid-event-harness[style*="left: 0%"][style*="width: 50%"] {
+    left: 0% !important;
+    width: 49% !important;
+}
+
+.fc-timegrid-event-harness[style*="left: 50%"][style*="width: 50%"] {
+    left: 50% !important;
+    width: 49% !important;
+}
+
+.fc-timegrid-event-harness[style*="width: 33.33%"]:nth-child(1) {
+    left: 0% !important;
+    width: 32% !important;
+}
+
+.fc-timegrid-event-harness[style*="width: 33.33%"]:nth-child(2) {
+    left: 33% !important;
+    width: 32% !important;
+}
+
+.fc-timegrid-event-harness[style*="width: 33.33%"]:nth-child(3) {
+    left: 66% !important;
+    width: 32% !important;
+}
+
+/* Event title styling - support for multi-line text display */
+.fc-event-title {
+    font-size: 0.6rem !important;
+    line-height: 1.1 !important;
+    white-space: pre-line !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+/* Enhanced event title container with organized layout */
+.fc-event-title-container {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: flex-start !important;
+    align-items: stretch !important;
+    height: 100% !important;
+    padding: 1px 3px !important;
+    gap: 1px !important;
+    overflow: hidden !important;
+}
+
+/* Top row containing department badge and time info */
+.fc-event-title-container .top-row {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    margin-bottom: 2px !important;
+}
+
+/* Department badge styling */
+.fc-event-title-container .department-badge {
+    font-size: 0.5rem !important;
+    font-weight: 600 !important;
+    padding: 1px 3px !important;
+    border-radius: 3px !important;
+    background: rgba(255, 255, 255, 0.2) !important;
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+    color: white !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.3px !important;
+    flex-shrink: 0 !important;
+}
+
+/* Product information styling */
+.fc-event-title-container .product-info {
+    font-size: 0.6rem !important;
+    font-weight: 500 !important;
+    line-height: 1.0 !important;
+    margin: 1px 0 !important;
+    flex: 1 !important;
+    overflow: hidden !important;
+    display: -webkit-box !important;
+    -webkit-box-orient: vertical !important;
+    -webkit-line-clamp: 2 !important;
+    line-clamp: 2 !important;
+    color: white !important;
+}
+
+
+/* Machine information styling (enhanced visibility) */
+.fc-event-title-container .machine-info {
+    font-size: 0.55rem !important;
+    font-style: italic !important;
+    color: rgba(255, 255, 255, 0.9) !important;
+    background: rgba(0, 0, 0, 0.3) !important;
+    padding: 2px 4px !important;
+    border-radius: 3px !important;
+    margin-top: 2px !important;
+    text-align: center !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    border-top: 2px solid rgba(255, 255, 255, 0.3) !important;
+    font-weight: 500 !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    flex-shrink: 0 !important; /* ป้องกันการหดตัว */
+    min-height: 16px !important; /* ความสูงขั้นต่ำเพื่อให้มองเห็นได้ชัดเจน */
+}
+
+
+
+/* Ensure machine info is always visible */
+.fc-event-title-container .machine-info,
+.fc-event-title-container .machine-info-compact {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    z-index: 10 !important;
+}
+
+/* Force text to be visible */
+.fc-event-title-container * {
+    text-rendering: optimizeLegibility !important;
+    -webkit-font-smoothing: antialiased !important;
+}
+
+/* Production information styling (จำนวนที่ผลิต + จำนวนคน) */
+.fc-event-title-container .production-info {
+    font-size: 0.65rem !important;
+    font-weight: bold !important;
+    color: rgba(255, 255, 255, 0.95) !important;
+    background: rgba(0, 0, 0, 0.3) !important;
+    padding: 2px 6px !important;
+    border-radius: 4px !important;
+    margin-top: 2px !important;
+    text-align: center !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2) !important;
+    letter-spacing: 0.3px !important;
+}
+
+/* Compact styles for short events */
+.fc-event-title-container .product-info-compact {
+    font-size: 0.6rem !important;
+    font-weight: bold !important;
+    color: white !important;
+    line-height: 1.1 !important;
+    margin-bottom: 1px !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+}
+
+.fc-event-title-container .compact-info {
+    font-size: 0.55rem !important;
+    font-weight: 500 !important;
+    color: rgba(255, 255, 255, 0.9) !important;
+    background: rgba(0, 0, 0, 0.2) !important;
+    padding: 1px 3px !important;
+    border-radius: 2px !important;
+    text-align: center !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    max-width: 100% !important;
+}
+
+/* Status-specific department badge colors */
+.fc-event.status-planning .department-badge {
+    background: rgba(255, 255, 255, 0.25) !important;
+    border-color: rgba(255, 255, 255, 0.4) !important;
+}
+
+.fc-event.status-in-progress .department-badge {
+    background: rgba(0, 0, 0, 0.15) !important;
+    border-color: rgba(0, 0, 0, 0.2) !important;
+    color: #5a5c69 !important;
+}
+
+.fc-event.status-completed .department-badge {
+    background: rgba(255, 255, 255, 0.25) !important;
+    border-color: rgba(255, 255, 255, 0.4) !important;
+}
+
+.fc-event.status-pending-confirmation .department-badge {
+    background: rgba(255, 255, 255, 0.25) !important;
+    border-color: rgba(255, 255, 255, 0.4) !important;
+}
+
+.fc-event.status-cancelled .department-badge {
+    background: rgba(255, 255, 255, 0.25) !important;
+    border-color: rgba(255, 255, 255, 0.4) !important;
+}
+
+/* Status-specific production info colors */
+.fc-event.status-planning .production-info {
+    background: rgba(108, 117, 125, 0.8) !important;
+    border-color: rgba(108, 117, 125, 0.9) !important;
+}
+
+.fc-event.status-in-progress .production-info {
+    background: rgba(255, 193, 7, 0.8) !important;
+    border-color: rgba(255, 193, 7, 0.9) !important;
+    color: #212529 !important;
+}
+
+.fc-event.status-completed .production-info {
+    background: rgba(25, 135, 84, 0.8) !important;
+    border-color: rgba(25, 135, 84, 0.9) !important;
+}
+
+.fc-event.status-pending-confirmation .production-info {
+    background: rgba(13, 110, 253, 0.8) !important;
+    border-color: rgba(13, 110, 253, 0.9) !important;
+}
+
+.fc-event.status-cancelled .production-info {
+    background: rgba(220, 53, 69, 0.8) !important;
+    border-color: rgba(220, 53, 69, 0.9) !important;
+}
+
+.fc-event::before {
+    content: '' !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    height: 2px !important;
+    background: rgba(255, 255, 255, 0.3) !important;
+}
+
+.fc-event:hover {
+    transform: translateY(-1px) scale(1.02) !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2) !important;
+    z-index: 10 !important;
+}
+
+/* Enhanced multiple events handling */
+.fc-daygrid-event {
+    margin: 0.5px 1px !important;
+    padding: 2px 4px !important;
+    min-height: 20px !important;
+}
+
+.fc-daygrid-event .fc-event-title {
+    margin-top: 1px !important;
+    font-size: 0.65rem !important;
+    line-height: 1.1 !important;
+}
+
+/* Event stacking visual indicators */
+.fc-event::before {
+    content: '' !important;
+    position: absolute !important;
+    top: 1px !important;
+    right: 2px !important;
+    width: 3px !important;
+    height: 3px !important;
+    background: rgba(255, 255, 255, 0.8) !important;
+    border-radius: 50% !important;
+    display: none !important;
+}
+
+/* Show indicators for stacked events */
+.fc-daygrid-event-harness:nth-child(n+2) .fc-event::before {
+    display: block !important;
+}
+
+.fc-daygrid-event-harness:nth-child(2) .fc-event::before {
+    background: #ffc107 !important;
+}
+
+.fc-daygrid-event-harness:nth-child(3) .fc-event::before {
+    background: #dc3545 !important;
+    top: 1px !important;
+    right: 6px !important;
+}
+
+.fc-daygrid-event-harness:nth-child(n+4) .fc-event::before {
+    background: #6f42c1 !important;
+    top: 1px !important;
+    right: 10px !important;
+}
+
+/* Task Status Colors - แบบใหม่ที่สวยงาม */
+.fc-event.status-planning {
+  background: linear-gradient(135deg, #007bff 0%, #0056b3 100%) !important; /* ฟ้า - เหมือน bg-gradient-primary */
+  color: white !important;
+  border-left: 5px solid #004085 !important; /* ฟ้าเข้ม */
+  box-shadow: 0 2px 8px rgba(0, 123, 255, 0.3) !important;
+  opacity: 1 !important;
+  animation: none !important;
+}
+
+.fc-event.status-in-progress {
+  background: linear-gradient(135deg, #ffc107 0%, #e0a800 100%) !important; /* เหลือง - เหมือน bg-gradient-warning */
+  color: #212529 !important; /* ข้อความเข้ม */
+  border-left: 5px solid #b8860b !important; /* เหลืองเข้ม */
+  box-shadow: 0 2px 8px rgba(255, 193, 7, 0.3) !important;
+  opacity: 1 !important;
+  animation: none !important;
+}
+
+.fc-event.status-completed {
+  background: linear-gradient(135deg, #28a745 0%, #1e7e34 100%) !important; /* เขียว - เหมือน bg-gradient-success */
+  color: white !important;
+  border-left: 5px solid #155724 !important; /* เขียวเข้ม */
+  box-shadow: 0 2px 8px rgba(40, 167, 69, 0.3) !important;
+  opacity: 1 !important;
+  animation: none !important;}
+
+.fc-event.status-pending-confirmation {
+  background: linear-gradient(135deg, #6c757d 0%, #5a6268 100%) !important; /* เทา - เหมือน bg-gradient-secondary */
+  color: white !important;
+  border-left: 5px solid #495057 !important; /* เทาเข้ม */
+  box-shadow: 0 2px 8px rgba(108, 117, 125, 0.3) !important;
+  opacity: 1 !important;
+  animation: none !important;
+}
+
+.fc-event.status-cancelled {
+  background: linear-gradient(135deg, #dc3545 0%, #c82333 100%) !important; /* แดง - เหมือน bg-gradient-danger */
+  color: white !important;
+  border-left: 5px solid #a71e2a !important; /* แดงเข้ม */
+  box-shadow: 0 2px 8px rgba(220, 53, 69, 0.3) !important;
+  opacity: 1 !important;
+  animation: none !important;
+}
+
+/* Event Detail Information */
+.fc-event-main {
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100% !important;
+    z-index: 2 !important;
+    position: relative !important;
+}
+
+.fc-event-header {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: flex-start !important;
+    margin-bottom: 2px !important;
+    font-size: 0.6rem !important;
+    position: relative !important;
+}
+
+/* ป้องกันการซ้อน header */
+.fc-event-header .fc-event-header {
+    display: none !important;
+}
+
+.fc-event-time {
+    font-size: 0.6rem !important;
+    opacity: 0.8 !important;
+    font-weight: 500 !important;
+    text-align: right !important;
+    position: relative !important;
+}
+
+/* ป้องกันการซ้อน time */
+.fc-event-time .fc-event-time {
+    display: none !important;
+}
+
+.fc-event-department {
+    font-size: 0.6rem !important;
+    font-weight: 600 !important;
+    color: inherit !important;
+    opacity: 0.9 !important;
+    position: relative !important;
+}
+
+/* ป้องกันการซ้อน department */
+.fc-event-department .fc-event-department {
+    display: none !important;
+}
+
+.fc-event-title {
+    font-weight: 600 !important;
+    line-height: 1.2 !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+    width: 100% !important;
+    font-size: 0.75rem !important;
+    text-align: center !important;
+    margin: 2px 0 !important;
+    position: relative !important;
+}
+
+/* เพิ่ม CSS เพื่อป้องกันการแสดงข้อความซ้ำ */
+.fc-event-title > * {
+  display: block !important;
+}
+
+.fc-event-title .fc-event-title {
+  display: none !important; /* ซ่อน title ที่ซ้อนกัน */
+}
+
+/* ป้องกันการซ้อนของ elements อื่นๆ */
+.fc-event-main .fc-event-main {
+  display: none !important;
+}
+
+.fc-event-header .fc-event-header {
+  display: none !important;
+}
+
+.fc-event-time .fc-event-time {
+  display: none !important;
+}
+
+.fc-event-department .fc-event-department {
+  display: none !important;
+}
+
+.fc-event-machine .fc-event-machine {
+  display: none !important;
+}.fc-event-machine {
+    font-size: 0.6rem !important;
+    opacity: 0.8 !important;
+    font-weight: 400 !important;
+    text-align: center !important;
+    margin-top: 1px !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+}
+
+/* Special styling for productionE (50ml) like in the image */
+.fc-event.product-productionE {
+    background: linear-gradient(135deg, #ffc107 0%, #e0a800 100%) !important;
+    color: #212529 !important;
+    border-left: 4px solid #28a745 !important;
+    font-weight: 600 !important;
+    box-shadow: 0 3px 6px rgba(255, 193, 7, 0.3) !important;
+}
+
+.fc-event.product-productionE .fc-event-title {
+    color: #212529 !important;
+    font-weight: 700 !important;
+}
+
+.fc-event.product-productionE .fc-event-time {
+    color: #495057 !important;
+    font-weight: 500 !important;
+}
+
+.fc-event.product-productionE .fc-event-machine {
+    color: #495057 !important;
+    font-weight: 400 !important;
+}
+
+/* Enhanced styling for other products */
+.fc-event.product-productionA {
+    background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%) !important;
+    color: #1565c0 !important;
+    border-left: 4px solid #2196f3 !important;
+}
+
+.fc-event.product-productionB {
+    background: linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%) !important;
+    color: #7b1fa2 !important;
+    border-left: 4px solid #9c27b0 !important;
+}
+
+.fc-event.product-productionC {
+    background: linear-gradient(135deg, #e8f5e8 0%, #c8e6c9 100%) !important;
+    color: #2e7d32 !important;
+    border-left: 4px solid #4caf50 !important;
+}
+
+.fc-event.product-productionD {
+    background: linear-gradient(135deg, #fff3e0 0%, #ffcc02 100%) !important;
+    color: #ef6c00 !important;
+    border-left: 4px solid #ff9800 !important;
+}
+
+.fc-event.product-productionF {
+    background: linear-gradient(135deg, #fce4ec 0%, #f8bbd9 100%) !important;
+    color: #c2185b !important;
+    border-left: 4px solid #e91e63 !important;
+}
+
+.fc-event.product-productionH {
+    background: linear-gradient(135deg, #f1f8e9 0%, #dcedc8 100%) !important;
+    color: #558b2f !important;
+    border-left: 4px solid #8bc34a !important;
+}
+
+/* Month view specific styles */
+.fc-daygrid-day-events {
+    margin-bottom: 2px !important;
+}
+
+.fc-daygrid-day-number {
+    font-weight: 600 !important;
+    color: #5a5c69 !important;
+}
+
+.fc-daygrid-day-top {
+    flex-direction: row !important;
+    justify-content: center !important;
+}
+
+/* Enhanced DayGrid event title container for compact display */
+.fc-daygrid-event .fc-event-title-container {
+    flex-direction: row !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    height: auto !important;
+    padding: 1px 3px !important;
+    gap: 2px !important;
+}
+
+.fc-daygrid-event .fc-event-title-container .top-row {
+    display: flex !important;
+    justify-content: flex-start !important;
+    align-items: center !important;
+    margin-bottom: 0px !important;
+    flex: 1 !important;
+}
+
+.fc-daygrid-event .fc-event-title-container .department-badge {
+    font-size: 0.45rem !important;
+    padding: 0px 2px !important;
+    margin: 0 !important;
+    flex-shrink: 0 !important;
+    margin-right: 2px !important;
+}
+
+.fc-daygrid-event .fc-event-title-container .product-info {
+    font-size: 0.6rem !important;
+    margin: 0 !important;
+    flex: 1 !important;
+    text-align: left !important;
+    -webkit-line-clamp: 1 !important;
+    line-clamp: 1 !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+}
+
+.fc-daygrid-event .fc-event-title-container .time-info {
+    font-size: 0.45rem !important;
+    margin: 0 !important;
+    flex-shrink: 0 !important;
+    background: rgba(0, 0, 0, 0.2) !important;
+    padding: 0px 2px !important;
+    border-radius: 2px !important;
+}
+
+.fc-daygrid-event .fc-event-title-container .machine-info {
+    display: none !important; /* ซ่อนใน day grid เพื่อประหยัดพื้นที่ */
+}
+
+/* Popover for multiple events - FullCalendar built-in */
+.fc-popover {
+    background: white !important;
+    border: 1px solid #dee2e6 !important;
+    border-radius: 8px !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+    z-index: 1050 !important;
+}
+
+.fc-popover-header {
+    background: #f8f9fa !important;
+    border-bottom: 1px solid #dee2e6 !important;
+    padding: 8px 12px !important;
+    border-radius: 8px 8px 0 0 !important;
+    font-weight: 600 !important;
+    color: #495057 !important;
+}
+
+.fc-popover-body {
+    padding: 8px !important;
+    max-height: 300px !important;
+    overflow-y: auto !important;
+}
+
+.fc-popover .fc-event {
+    margin: 2px 0 !important;
+    border-radius: 4px !important;
+    font-size: 0.75rem !important;
+}
+
+/* Event hover effects for better visibility */
+.fc-event:hover {
+    transform: translateY(-1px) scale(1.02) !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25) !important;
+    z-index: 100 !important;
+}
+
+.fc-daygrid-event:hover {
+    transform: translateY(-1px) scale(1.05) !important;
+}
+
+/* Week and Day view enhancements for vertical time display */
+.fc-timegrid-event {
+    border-radius: 4px !important;
+    padding: 2px 4px !important;
+    min-height: 20px !important;
+    opacity: 0.95 !important;
+    border: none !important;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15) !important;
+    font-size: 0.6rem !important;
+    display: flex !important;
+    flex-direction: column !important;
+}
+
+.fc-timegrid-event .fc-event-main {
+    overflow: hidden !important;
+    display: flex !important;
+    flex-direction: column !important;
+    height: 100% !important;
+}
+
+.fc-timegrid-event .fc-event-title {
+    font-size: 0.7rem !important;
+    font-weight: 600 !important;
+    white-space: pre-line !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    color: white !important;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3) !important;
+    line-height: 1.2 !important;
+    flex: 1 !important;
+    display: -webkit-box !important;
+    -webkit-box-orient: vertical !important;
+    -webkit-line-clamp: 3 !important;
+    line-clamp: 3 !important;
+}
+
+/* Time display improvements */
+.fc-event-time {
+    display: block !important;
+    font-size: 0.65rem !important;
+    font-weight: 700 !important;
+    margin-bottom: 3px !important;
+    padding: 2px 4px !important;
+    background: rgba(0, 0, 0, 0.3) !important;
+    border-radius: 3px !important;
+    text-align: center !important;
+    color: white !important;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5) !important;
+}
+
+/* Duration indicator for long events */
+.fc-timegrid-event.fc-event-start.fc-event-end {
+    border-left: 4px solid rgba(255, 255, 255, 0.8) !important;
+}
+
+/* Start time indicator */
+.fc-timegrid-event.fc-event-start:not(.fc-event-end)::before {
+    content: '▶' !important;
+    position: absolute !important;
+    left: 2px !important;
+    top: 2px !important;
+    font-size: 0.5rem !important;
+    color: rgba(255, 255, 255, 0.9) !important;
+}
+
+/* End time indicator */
+.fc-timegrid-event.fc-event-end:not(.fc-event-start)::after {
+    content: '◀' !important;
+    position: absolute !important;
+    left: 2px !important;
+    bottom: 2px !important;
+    font-size: 0.5rem !important;
+    color: rgba(255, 255, 255, 0.9) !important;
+}
+
+/* Better time slot visibility */
+.fc-timegrid-slot {
+    border-bottom: 1px solid #e9ecef !important;
+    height: 60px !important; /* เพิ่มความสูงของ time slot */
+}
+
+.fc-timegrid-slot-label {
+    font-weight: 600 !important;
+    color: #6c757d !important;
+    font-size: 0.8rem !important;
+    padding: 4px 8px !important;
+}
+
+.fc-timegrid-axis {
+    width: 80px !important; /* เพิ่มความกว้างของแกนเวลา */
+}
+
+/* Time grid background lines */
+.fc-timegrid-slots {
+    background: linear-gradient(to bottom, #f8f9fa 0%, #ffffff 100%) !important;
+}
+
+.fc-timegrid-divider {
+    border-top: 2px solid #dee2e6 !important;
+}
+
+/* Improved time display for events */
+.fc-timegrid-event .fc-event-time-range {
+    font-size: 0.6rem !important;
+    background: rgba(0, 0, 0, 0.4) !important;
+    color: white !important;
+    padding: 1px 4px !important;
+    border-radius: 3px !important;
+    margin-bottom: 2px !important;
+    text-align: center !important;
+    font-weight: 700 !important;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5) !important;
+}
+
+/* Event positioning for better vertical alignment */
+.fc-timegrid-col .fc-timegrid-col-events {
+    padding: 0 2px !important;
+}
+
+/* Enhanced event borders for time clarity */
+.fc-timegrid-event::before {
+    content: '' !important;
+    position: absolute !important;
+    left: 0 !important;
+    top: 0 !important;
+    bottom: 0 !important;
+    width: 3px !important;
+    background: rgba(255, 255, 255, 0.9) !important;
+    border-radius: 2px 0 0 2px !important;
+}
+
+/* Current time indicator enhancement */
+.fc-timegrid-now-indicator-line {
+    border-top: 2px solid #dc3545 !important;
+    opacity: 0.8 !important;
+}
+
+.fc-timegrid-now-indicator-arrow {
+    border-color: #dc3545 !important;
+    border-width: 6px !important;
+    margin-top: -6px !important;
+}
+
+/* Enhanced TimGrid event title container */
+/* Enhanced TimGrid event title container for vertical time display */
+.fc-timegrid-event .fc-event-title-container {
+    height: 100% !important;
+    min-height: 100% !important;
+    justify-content: flex-start !important;
+    padding: 2px 4px !important;
+    display: flex !important;
+    flex-direction: column !important;
+}
+
+.fc-timegrid-event .fc-event-title-container .department-badge {
+    font-size: 0.55rem !important;
+    padding: 1px 3px !important;
+    margin-bottom: 2px !important;
+    flex-shrink: 0 !important;
+}
+
+.fc-timegrid-event .fc-event-title-container .product-info {
+    font-size: 0.65rem !important;
+    margin: 1px 0 !important;
+    flex: 1 !important;
+    -webkit-line-clamp: 2 !important;
+    line-clamp: 2 !important;
+    word-wrap: break-word !important;
+}
+
+.fc-timegrid-event .fc-event-title-container .time-info {
+    font-size: 0.55rem !important;
+    margin-top: auto !important;
+    margin-bottom: 1px !important;
+    background: rgba(0, 0, 0, 0.3) !important;
+    padding: 1px 3px !important;
+    border-radius: 2px !important;
+    text-align: center !important;
+    flex-shrink: 0 !important;
+}
+
+.fc-timegrid-event .fc-event-title-container .machine-info {
+    font-size: 0.5rem !important;
+    margin-top: 1px !important;
+    padding: 1px 2px !important;
+    background: rgba(0, 0, 0, 0.2) !important;
+    border-radius: 2px !important;
+    text-align: center !important;
+    opacity: 0.9 !important;
+    flex-shrink: 0 !important;
+}
+
+/* Show time range in events */
+.fc-timegrid-event .fc-event-time {
+    font-size: 0.6rem !important;
+    opacity: 0.9 !important;
+    font-weight: 600 !important;
+    color: white !important;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5) !important;
+    margin-bottom: 2px !important;
+    text-align: center !important;
+    background: rgba(0, 0, 0, 0.2) !important;
+    padding: 1px 3px !important;
+    border-radius: 2px !important;
+    flex-shrink: 0 !important;
+}
+
+/* Event collision and overlapping handling */
+.fc-timegrid-event.fc-event-mirror {
+    opacity: 0.5 !important;
+    z-index: 999 !important;
+}
+
+/* Events with same start time - side by side layout */
+.fc-timegrid-col-events {
+    position: relative !important;
+}
+
+/* Overlapping events management */
+.fc-timegrid-event-harness.fc-event-harness-abs {
+    z-index: 1 !important;
+}
+
+.fc-timegrid-event-harness.fc-event-harness-abs:hover {
+    z-index: 100 !important;
+}
+
+/* Multiple events in same time slot */
+.fc-timegrid-event-harness[style*="width: 50%"] {
+    border-right: 1px solid rgba(255, 255, 255, 0.3) !important;
+}
+
+.fc-timegrid-event-harness[style*="width: 33.33%"] {
+    border-right: 1px solid rgba(255, 255, 255, 0.3) !important;
+}
+
+/* Event priority levels for overlapping */
+.fc-event.priority-high {
+    z-index: 10 !important;
+    border: 2px solid #ffc107 !important;
+}
+
+.fc-event.priority-medium {
+    z-index: 5 !important;
+}
+
+.fc-event.priority-low {
+    z-index: 1 !important;
+    opacity: 0.8 !important;
+}
+
+/* Better visibility for overlapped events */
+.fc-event:not(:first-child) {
+    margin-left: 2px !important;
+    border-left: 2px solid rgba(255, 255, 255, 0.5) !important;
+}
+
+/* Improve readability when events stack */
+.fc-daygrid-day-events .fc-daygrid-event-harness:nth-child(odd) .fc-event {
+    margin-left: 0px !important;
+    margin-right: 2px !important;
+}
+
+.fc-daygrid-day-events .fc-daygrid-event-harness:nth-child(even) .fc-event {
+    margin-left: 2px !important;
+    margin-right: 0px !important;
+    border-left: 1px solid rgba(255, 255, 255, 0.3) !important;
+}
+
+/* Enhanced time grid slot styling */
+.fc-timegrid-slot {
+    height: 30px !important;
+    border-color: #e3e6f0 !important;
+}
+
+.fc-timegrid-slot-label {
+    font-size: 0.8rem !important;
+    color: #6c757d !important;
+    font-weight: 500 !important;
+}
+
+.fc-timegrid-axis {
+    border-color: #e3e6f0 !important;
+}
+
+/* Time grid background lines */
+.fc-timegrid-slots {
+    border-color: #e3e6f0 !important;
+}
+
+.fc-timegrid-divider {
+    border-color: #d1d3e2 !important;
+    border-width: 2px !important;
+}
+
+/* Event duration display improvements */
+.fc-timegrid-event.fc-event-start.fc-event-end {
+    border-radius: 8px !important;
+}
+
+.fc-timegrid-event.fc-event-start:not(.fc-event-end) {
+    border-bottom-left-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+    border-top-left-radius: 8px !important;
+    border-top-right-radius: 8px !important;
+}
+
+.fc-timegrid-event.fc-event-end:not(.fc-event-start) {
+    border-top-left-radius: 0 !important;
+    border-top-right-radius: 0 !important;
+    border-bottom-left-radius: 8px !important;
+    border-bottom-right-radius: 8px !important;
+}
+
+/* Current time indicator - ซ่อนเส้นแสดงเวลาปัจจุบัน */
+.fc-timegrid-now-indicator-line {
+    display: none !important;
+}
+
+.fc-timegrid-now-indicator-arrow {
+    display: none !important;
+}
+
+/* Responsive design for mobile - Enhanced for multiple events */
+@media (max-width: 768px) {
+  .fc-event {
+    font-size: 0.6rem !important;
+    padding: 1px 3px !important;
+    min-height: 18px !important;
+  }
+  
+  .fc-daygrid-event {
+    margin: 0.5px !important;
+    padding: 1px 2px !important;
+    min-height: 16px !important;
+  }
+  
+  .fc-event-title {
+    font-size: 0.55rem !important;
+    line-height: 1.1 !important;
+  }
+  
+  .fc-daygrid-event .fc-event-title-container .department-badge {
+    font-size: 0.4rem !important;
+    padding: 0px 1px !important;
+  }
+  
+  .fc-daygrid-event .fc-event-title-container .product-info {
+    font-size: 0.5rem !important;
+  }
+  
+  .fc-daygrid-event .fc-event-title-container .time-info {
+    font-size: 0.4rem !important;
+    padding: 0px 1px !important;
+  }
+  
+  /* More compact "more" link for mobile */
+  .fc-daygrid-more-link {
+    font-size: 0.55rem !important;
+    padding: 1px 3px !important;
+    margin: 0.5px !important;
+  }
+  
+  /* Adjust popover for mobile */
+  .fc-popover {
+    max-width: 90vw !important;
+    max-height: 60vh !important;
+  }
+  
+  .fc-popover-body {
+    max-height: 200px !important;
+  }
+}
+
+/* Enhanced Responsive FullCalendar for multiple events */
+@media (max-width: 768px) {
+  .fc-toolbar {
+    padding: 10px !important;
+    margin-bottom: 15px !important;
+  }
+  
+  .fc-toolbar-title {
+    font-size: 1.2rem !important;
+  }
+  
+  .fc-button {
+    padding: 0.25rem 0.5rem !important;
+    font-size: 0.8rem !important;
+  }
+  
+  /* Stack events more efficiently on mobile */
+  .fc-timegrid .fc-event {
+    min-height: 16px !important;
+    font-size: 0.55rem !important;
+    padding: 1px 2px !important;
+  }
+  
+  /* Hide some less important info on mobile */
+  .fc-timegrid-event .fc-event-title-container .machine-info {
+    display: none !important;
+  }
+  
+  .fc-timegrid-event .fc-event-title-container .time-info {
+    font-size: 0.45rem !important;
+  }
+}
+
+/* Responsive FullCalendar */
+@media (max-width: 768px) {
+    .fc-toolbar {
+        flex-direction: column;
+        gap: 10px;
+    }
+    .fc-toolbar-chunk {
+        display: flex;
+        justify-content: center;
+    }
+}
+
+/* Enhanced Multi-step Form Styles */
+.progress-steps {
+    margin-bottom: 2rem;
+}
+
+.step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+}
+
+.step-number {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #e9ecef;
+    color: #6c757d;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    margin-bottom: 8px;
+    transition: all 0.3s ease;
+}
+
+.step-label {
+    font-size: 0.875rem;
+    color: #6c757d;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.step.active .step-number {
+    background: #007bff;
+    color: white;
+    transform: scale(1.1);
+}
+
+.step.active .step-label {
+    color: #007bff;
+    font-weight: bold;
+}
+
+.step.completed .step-number {
+    background: #28a745;
+    color: white;
+}
+
+.step.completed .step-label {
+    color: #28a745;
+}
+
+.progress-line {
+    position: absolute;
+    top: 20px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: #e9ecef;
+    z-index: 1;
+}
+
+.progress-line::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    background: #007bff;
+    transition: width 0.3s ease;
+    width: 0%;
+}
+
+.progress-line.step-1::after { width: 0%; }
+.progress-line.step-2::after { width: 50%; }
+.progress-line.step-3::after { width: 100%; }
+
+.form-step {
+    display: none;
+}
+
+.form-step.active {
+    display: block;
+    animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Enhanced Machine Selection */
+.machine-selection {
+    max-height: 200px;
+    overflow-y: auto;
+    padding: 1rem;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border: 2px dashed #dee2e6;
+}
+
+.machine-option {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem;
+    background: white;
+    border: 1px solid #dee2e6;
+    border-radius: 6px;
+    margin-bottom: 0.5rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.machine-option:hover {
+    background: #e3f2fd;
+    border-color: #2196f3;
+    transform: translateX(4px);
+}
+
+.machine-option input[type="radio"] {
+    margin-right: 0.75rem;
+    transform: scale(1.2);
+}
+
+.machine-option.selected {
+    background: #e8f5e8;
+    border-color: #28a745;
+    font-weight: bold;
+}
+
+
+
+/* Enhanced Current DateTime Display */
+.current-datetime {
+    font-family: 'Monaco', 'Consolas', monospace;
+    letter-spacing: 0.5px;
+}
+
+/* Improved Task Detail Modal */
+.task-detail-section {
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 1.5rem;
+    border-left: 4px solid #007bff;
+    margin-bottom: 1rem;
+}
+
+.task-detail-section h6 {
+    color: #007bff;
+    margin-bottom: 1rem;
+    font-weight: bold;
+}
+
+.detail-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.detail-item:last-child {
+    border-bottom: none;
+}
+
+.detail-label {
+    font-weight: 600;
+    color: #495057;
+    min-width: 140px;
+}
+
+.detail-value {
+    text-align: right;
+    color: #212529;
+}
+
+/* Enhanced Button Styles */
+.btn-group .btn {
+    border-radius: 0;
+}
+
+.btn-group .btn:first-child {
+    border-radius: 25px 0 0 25px;
+}
+
+.btn-group .btn:last-child {
+    border-radius: 0 25px 25px 0;
+}
+
+/* Loading States */
+.btn.loading {
+    position: relative;
+    color: transparent !important;
+}
+
+.btn.loading::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 16px;
+    height: 16px;
+    margin: -8px 0 0 -8px;
+    border: 2px solid transparent;
+    border-top: 2px solid currentColor;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Enhanced Form Validation and UX Styles */
+.form-control:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 0.25rem rgba(0, 123, 255, 0.25);
+    transform: translateY(-1px);
+    transition: all 0.15s ease-in-out;
+}
+
+.form-control.is-invalid:focus {
+    border-color: #dc3545;
+    box-shadow: 0 0 0 0.25rem rgba(220, 53, 69, 0.25);
+}
+
+.form-control.is-valid:focus {
+    border-color: #198754;
+    box-shadow: 0 0 0 0.25rem rgba(25, 135, 84, 0.25);
+}
+
+/* Enhanced Card Hover Effects */
+.card {
+    transition: transform 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+}
+
+/* Progress Bar Gradient */
+.progress-bar.bg-gradient {
+    background: linear-gradient(90deg, #007bff 0%, #0056b3 50%, #004085 100%) !important;
+}
+
+/* Bootstrap Gradient Classes */
+.bg-gradient-primary {
+    background: linear-gradient(135deg, #007bff 0%, #0056b3 100%) !important;
+    color: white !important;
+}
+
+.bg-gradient-warning {
+    background: linear-gradient(135deg, #ffc107 0%, #e0a800 100%) !important;
+    color: #212529 !important;
+}
+z
+.bg-gradient-success {
+    background: linear-gradient(135deg, #28a745 0%, #1e7e34 100%) !important;
+    color: white !important;
+}
+
+.bg-gradient-danger {
+    background: linear-gradient(135deg, #dc3545 0%, #c82333 100%) !important;
+    color: white !important;
+}
+
+.bg-gradient-secondary {
+    background: linear-gradient(135deg, #6c757d 0%, #5a6268 100%) !important;
+    color: white !important;
+}
+
+.bg-gradient-info {
+    background: linear-gradient(135deg, #17a2b8 0%, #138496 100%) !important;
+    color: white !important;
+}
+
+/* Enhanced Button Styles */
+.btn {
+    transition: all 0.15s ease-in-out;
+    border-radius: 0.5rem;
+}
+
+.btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 0.375rem 0.75rem rgba(0, 0, 0, 0.15);
+}
+
+.btn:active {
+    transform: translateY(0);
+}
+
+/* Text Shadow Utility */
+.text-shadow {
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+/* Enhanced Section Dividers */
+.section-divider {
+    position: relative;
+    overflow: hidden;
+}
+
+.section-divider::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+    0% { left: -100%; }
+    100% { left: 100%; }
+}
+
+/* Enhanced Alert Styles */
+.alert {
+    border: none;
+    border-radius: 0.75rem;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+}
+
+/* Form Check Enhanced */
+.form-check-input:checked {
+    background-color: #007bff;
+    border-color: #007bff;
+    box-shadow: 0 0 0 0.25rem rgba(0, 123, 255, 0.25);
+}
+
+.form-check-input:focus {
+    border-color: #86b7fe;
+    outline: 0;
+    box-shadow: 0 0 0 0.25rem rgba(0, 123, 255, 0.25);
+}
+
+/* Badge Enhanced */
+.badge {
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+/* Loading Animation */
+.spinner-border {
+    animation-duration: 0.75s;
+}
+
+/* Responsive Enhancements */
+@media (max-width: 768px) {
+    .card-body {
+        padding: 1rem;
+    }
+    
+    .btn-lg {
+        padding: 0.75rem 1.5rem;
+        font-size: 1rem;
+    }
+    
+    .fs-4 {
+        font-size: 1.125rem !important;
+    }
+    
+    .fs-3 {
+        font-size: 1.25rem !important;
+    }
+}
+
+/* Input Group Enhanced */
+.input-group > .form-control:focus {
+    z-index: 5;
+}
+
+.input-group-text {
+    background-color: #f8f9fa;
+    border-color: #dee2e6;
+    color: #6c757d;
+    font-weight: 500;
+}
+
+/* Toast Enhanced */
+.toast {
+    border-radius: 0.75rem;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+.toast-header {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+/* OEE Card Special Styling */
+#oeeSummaryCard .card-header {
+    border-radius: 0.5rem 0.5rem 0 0;
+}
+
+#oeeSummaryCard .badge {
+    min-width: 80px;
+    display: inline-block;
+    font-size: 1.1rem;
+    padding: 0.75rem 1rem;
+}
+
+/* Enhanced Cards */
+.card {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+  border: none;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+}
+
+.card-header {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border-bottom: 1px solid #dee2e6;
+  border-radius: 12px 12px 0 0 !important;
+  padding: 1.5rem;
+}
+
+/* Enhanced Buttons */
+.btn {
+  border-radius: 8px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  outline: none;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+  border: none;
+}
+
+.btn-success {
+  background: linear-gradient(135deg, #28a745 0%, #1e7e34 100%);
+  border: none;
+}
+
+.btn-warning {
+  background: linear-gradient(135deg, #ffc107 0%, #e0a800 100%);
+  border: none;
+}
+
+.btn-danger {
+  background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+  border: none;
+}
+
+/* Enhanced Form Controls */
+.form-control,
+.form-select {
+  border-radius: 8px;
+  border: 2px solid #e9ecef;
+  transition: all 0.3s ease;
+  padding: 0.75rem 1rem;
+  outline: none;
+}
+
+.form-control:focus,
+.form-select:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.1);
+  transform: translateY(-1px);
+}
+
+/* Enhanced Modals */
+.modal-content {
+  border-radius: 15px;
+  border: none;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+}
+
+.modal-header {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border-bottom: 1px solid #dee2e6;
+  border-radius: 15px 15px 0 0;
+  padding: 1.5rem 2rem;
+}
+
+.modal-body {
+  padding: 2rem;
+}
+
+.modal-footer {
+  padding: 1.5rem 2rem;
+  border-top: 1px solid #dee2e6;
+}
+
+/* Loading States */
+.loading {
+  position: relative;
+  pointer-events: none;
+}
+
+.loading::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  margin: -10px 0 0 -10px;
+  border: 2px solid #f3f3f3;
+  border-top: 2px solid #007bff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Toast Notifications */
+.toast-container {
+  z-index: 1060;
+}
+
+.toast {
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .card-body {
+    padding: 1rem;
+  }
+  
+  .btn-lg {
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+  }
+  
+  .fs-4 {
+    font-size: 1.125rem !important;
+  }
+  
+  .fs-3 {
+    font-size: 1.25rem !important;
+  }
+}
+
+/* Print Styles */
+@media print {
+  .card-header .btn-group,
+  .modal {
+    display: none !important;
+  }
+
+  .weekly-calendar {
+    font-size: 0.8rem;
+  }
+
+  .task-item {
+    box-shadow: none !important;
+    border: 1px solid #333 !important;
+  }
+}
+
+/* Accessibility Improvements */
+.btn:focus {
+  outline: 2px solid #007bff;
+  outline-offset: 2px;
+}
+
+/* Utility Classes */
+.text-shadow {
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.glass-effect {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.gradient-bg {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+/* เพิ่มใน style.css หรือในส่วน <style> ของ index.html */
+
+/* Machine checkbox styling */
+.machine-checkbox {
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  padding: 10px;
+  transition: all 0.2s ease;
+  background-color: #fff;
+}
+
+.machine-checkbox:hover {
+  border-color: #007bff;
+  background-color: #f8f9fa;
+  box-shadow: 0 2px 4px rgba(0,123,255,0.15);
+}
+
+.machine-checkbox input[type="checkbox"]:checked + .machine-label {
+  color: #007bff;
+  font-weight: 500;
+}
+
+.machine-label {
+  cursor: pointer;
+  margin-bottom: 0;
+  width: 100%;
+  user-select: none;
+}
+
+.machine-name {
+  font-weight: 500;
+  font-size: 0.9rem;
+  margin-bottom: 2px;
+}
+
+.run-rate {
+  display: block;
+  font-size: 0.75rem;
+  opacity: 0.8;
+  transition: opacity 0.2s ease;
+}
+
+.machine-checkbox:hover .run-rate {
+  opacity: 1;
+}
+
+.run-rate.text-success {
+  color: #28a745 !important;
+}
+
+.run-rate.text-muted {
+  color: #6c757d !important;
+}
+
+/* Tooltip styling */
+.tooltip {
+  font-size: 0.8rem;
+}
+
+.tooltip .tooltip-inner {
+  background-color: #495057;
+  color: #fff;
+  border-radius: 6px;
+  padding: 8px 12px;
+}
+
+/* เมื่อ checkbox ถูกเลือก */
+.machine-checkbox input[type="checkbox"]:checked + .machine-label .machine-name {
+  color: #007bff;
+}
+
+.machine-checkbox input[type="checkbox"]:checked + .machine-label .run-rate.text-success {
+  color: #20c997 !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .machine-checkbox {
+    margin-bottom: 8px;
+  }
+  
+  .machine-name {
+    font-size: 0.85rem;
+  }
+  
+  .run-rate {
+    font-size: 0.7rem;
+  }
+}
+
+/* Animation เมื่อโหลดเครื่องจักร */
+.machine-checkbox {
+  animation: fadeInUp 0.3s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* สำหรับ loading state */
+.machine-loading {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+/* Machine loading state */
+.machine-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  color: #6c757d;
+}
+
+.machine-loading .spinner-border-sm {
+  margin-right: 8px;
+}
+
+/* ================================================================
+ * ORGANIZED TASK DISPLAY - แสดงข้อมูลแบบเป็นระเบียบ
+ * ================================================================ */
+
+.fc-event-title-container .task-title,
+.fc-event-title-container .task-location,
+.fc-event-title-container .task-production {
+    display: block !important;
+    visibility: visible !important;
+    width: 100% !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+    line-height: 1.1 !important;
+}
+
+/* ชื่องาน - เด่นที่สุด */
+.fc-event-title-container .task-title {
+    font-weight: bold !important;
+    font-size: 0.75rem !important;
+    color: #fff !important;
+    margin-bottom: 2px !important;
+    line-height: 1.2 !important;
+}
+
+/* ตำแหน่งเครื่องจักร + แผนก */
+.fc-event-title-container .task-location {
+    font-size: 0.65rem !important;
+    color: #f0f0f0 !important;
+    margin-bottom: 1px !important;
+    line-height: 1.1 !important;
+}
+
+/* ข้อมูลการผลิต */
+.fc-event-title-container .task-production {
+    font-size: 0.6rem !important;
+    color: #e0e0e0 !important;
+    line-height: 1.1 !important;
+}
+
+/* สำหรับ events สั้นมาก - ปรับให้เหมาะสม */
+.fc-timegrid-event[style*="height: 2"] .fc-event-title-container .task-title,
+.fc-timegrid-event[style*="height: 3"] .fc-event-title-container .task-title {
+    font-size: 0.6rem !important;
+    margin-bottom: 1px !important;
+}
+
+.fc-timegrid-event[style*="height: 2"] .fc-event-title-container .task-location,
+.fc-timegrid-event[style*="height: 3"] .fc-event-title-container .task-location {
+    font-size: 0.55rem !important;
+    margin-bottom: 0 !important;
+}
+
+.fc-timegrid-event[style*="height: 2"] .fc-event-title-container .task-production,
+.fc-timegrid-event[style*="height: 3"] .fc-event-title-container .task-production {
+    display: none !important; /* ซ่อนข้อมูลการผลิตใน events สั้นมาก */
+}
