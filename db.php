@@ -1,12 +1,21 @@
 <?php
+
+// For Localhost
 $serverName = "localhost"; // IP address and port of the SQL Server
 $connectionOptions = array(
     "Database" => "PES",
     "Uid" => "",
     "PWD" => "",
-    "CharacterSet" => "UTF-8"
+    "CharacterSet" => "UTF-8",
 );
-
+// // For Sever 
+//     $serverName = "203.154.130.236"; // IP address and port of the SQL Server
+//     $connectionOptions = array(
+//      "Database" => "ProductionDB",
+//      "Uid" => "sa",
+//      "PWD" => "Journal@25",
+//      "CharacterSet" => "UTF-8"
+// );
 $conn = sqlsrv_connect($serverName, $connectionOptions);
 
 if (!$conn) {

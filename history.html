@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ประวัติงานที่เสร็จสิ้น - ระบบ OEE</title>
+    <title>ประวัติงาน</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
     <!-- Google Fonts - Prompt -->
@@ -34,41 +34,285 @@
             box-shadow: 0 10px 25px rgba(0,0,0,0.2) !important;
         }
         
-        /* History table enhancements */
-        .history-table th, .history-table td { 
-            vertical-align: middle; 
-            font-size: 0.85rem;
-            border: 1px solid #dee2e6;
-            padding: 0.6rem 0.5rem;
+        /* Enhanced History Table Design - Modern & Clean */
+        .modern-history-table {
+            background: #ffffff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            border: none;
         }
-        .history-table thead th {
-            border-bottom: 2px solid #ffffff;
-            text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+        
+        .modern-history-table thead th {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: #ffffff;
+            font-weight: 600;
+            font-size: 0.85rem;
+            text-align: center;
+            padding: 1rem 0.75rem;
+            border: none;
             position: sticky;
             top: 0;
             z-index: 10;
-        }
-        .history-table tbody tr:hover { 
-            background: linear-gradient(90deg, #f8f9fa 0%, #e9ecef 100%);
-            cursor: pointer;
-            transform: scale(1.002);
-            transition: all 0.2s ease;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-        }
-        .history-table tbody tr {
-            transition: all 0.2s ease;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+            letter-spacing: 0.5px;
         }
         
-        /* Enhanced table row styling */
-        .history-row {
+        .modern-history-table tbody tr {
+            border: none;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            background: #ffffff;
+        }
+        
+        .modern-history-table tbody tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+        
+        .modern-history-table tbody tr:hover {
+            background: linear-gradient(90deg, #e3f2fd 0%, #f3e5f5 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            cursor: pointer;
+        }
+        
+        .modern-history-table tbody td {
+            padding: 1rem 0.75rem;
+            border: none;
+            border-bottom: 1px solid #f0f0f0;
+            vertical-align: middle;
+            font-size: 0.9rem;
             transition: all 0.3s ease;
+        }
+        
+        /* Enhanced Product Cell */
+        .product-cell {
+            min-width: 220px;
+        }
+        
+        .product-name {
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 0.25rem;
+            font-size: 0.95rem;
+        }
+        
+        .product-badges {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-bottom: 0.5rem;
+        }
+        
+        .product-badge {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            font-size: 0.7rem;
+            padding: 0.2rem 0.6rem;
+            border-radius: 12px;
+            font-weight: 500;
+        }
+        
+        /* Enhanced Department Cell */
+        .department-cell {
+            text-align: center;
+            min-width: 140px;
+        }
+        
+        .department-main {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+            font-size: 0.8rem;
+            font-weight: 600;
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            margin-bottom: 0.3rem;
+            display: inline-block;
+        }
+        
+        .department-sub {
+            background: #6c757d;
+            color: white;
+            font-size: 0.7rem;
+            padding: 0.2rem 0.5rem;
+            border-radius: 10px;
+            display: inline-block;
+        }
+        
+        /* Enhanced Machine Cell */
+        .machine-cell {
+            text-align: center;
+            min-width: 120px;
+        }
+        
+        .machine-name {
+            background: linear-gradient(135deg, #17a2b8 0%, #007bff 100%);
+            color: white;
+            font-weight: 600;
+            font-size: 0.85rem;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            display: inline-block;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+        }
+        
+        /* Enhanced Data Cells */
+        .data-cell-modern {
+            text-align: center;
+            min-width: 100px;
+            background: #f8f9fa;
             border-left: 3px solid transparent;
         }
-        .history-row:hover {
-            transform: translateX(5px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-            border-left: 3px solid #0d6efd;
-            background: linear-gradient(90deg, rgba(13, 110, 253, 0.05) 0%, rgba(108, 117, 125, 0.02) 100%);
+        
+        .data-value {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+        
+        .data-label {
+            font-size: 0.7rem;
+            color: #6c757d;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 500;
+        }
+        
+        .data-progress {
+            height: 4px;
+            background: #e9ecef;
+            border-radius: 2px;
+            margin-top: 0.5rem;
+            overflow: hidden;
+        }
+        
+        .data-progress-bar {
+            height: 100%;
+            border-radius: 2px;
+            transition: width 0.6s ease;
+        }
+        
+        /* Color Coding for Data Types */
+        .data-cell-target { border-left-color: #007bff; }
+        .data-cell-produced { border-left-color: #17a2b8; }
+        .data-cell-good { border-left-color: #28a745; }
+        .data-cell-reject { border-left-color: #dc3545; }
+        .data-cell-rework { border-left-color: #ffc107; }
+        
+        .data-value-target { color: #007bff; }
+        .data-value-produced { color: #17a2b8; }
+        .data-value-good { color: #28a745; }
+        .data-value-reject { color: #dc3545; }
+        .data-value-rework { color: #fd7e14; }
+        
+        /* Enhanced OEE Cell */
+        .oee-cell {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 8px;
+            padding: 1rem;
+            text-align: center;
+            min-width: 200px;
+            border: 1px solid #dee2e6;
+        }
+        
+        .oee-metrics {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.5rem;
+            margin-bottom: 0.75rem;
+        }
+        
+        .oee-metric {
+            text-align: center;
+        }
+        
+        .oee-metric-value {
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin-bottom: 0.1rem;
+        }
+        
+        .oee-metric-label {
+            font-size: 0.65rem;
+            color: #6c757d;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+        
+        .oee-overall {
+            border-top: 2px solid #dee2e6;
+            padding-top: 0.5rem;
+            margin-top: 0.5rem;
+        }
+        
+        .oee-overall-value {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #2c3e50;
+            margin-bottom: 0.25rem;
+        }
+        
+        .oee-badge-modern {
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+        
+        /* Enhanced Time Cell */
+        .time-cell {
+            text-align: center;
+            min-width: 160px;
+            background: #f8f9fa;
+        }
+        
+        .time-duration {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 0.25rem;
+        }
+        
+        .time-hours {
+            font-size: 0.8rem;
+            color: #6c757d;
+            margin-bottom: 0.25rem;
+        }
+        
+        .time-range {
+            font-size: 0.7rem;
+            color: #6c757d;
+            font-family: 'Courier New', monospace;
+        }
+        
+        /* Enhanced Remark Cell */
+        .remark-cell {
+            max-width: 200px;
+            font-size: 0.8rem;
+            color: #495057;
+        }
+        
+        .remark-text {
+            background: #f8f9fa;
+            padding: 0.5rem;
+            border-radius: 8px;
+            border-left: 3px solid #007bff;
+            word-break: break-word;
+            line-height: 1.4;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 1400px) {
+            .modern-history-table tbody td { padding: 0.75rem 0.5rem; }
+            .oee-cell { min-width: 180px; padding: 0.75rem; }
+        }
+        
+        @media (max-width: 1200px) {
+            .modern-history-table tbody td { padding: 0.6rem 0.4rem; font-size: 0.85rem; }
+            .product-cell { min-width: 180px; }
+            .oee-cell { min-width: 160px; padding: 0.6rem; }
         }
         
         /* Enhanced status badges */
@@ -104,7 +348,7 @@
             left: 100%;
         }
         
-        /* OEE Performance indicators */
+        /* OEE Performance indicators - Updated for new 3-level criteria */
         .oee-excellent { 
             background: linear-gradient(135deg, #28a745 0%, #20c997 100%); 
             color: white !important; 
@@ -113,12 +357,8 @@
             background: linear-gradient(135deg, #ffc107 0%, #fd7e14 100%); 
             color: white !important; 
         }
-        .oee-fair { 
-            background: linear-gradient(135deg, #fd7e14 0%, #dc3545 100%); 
-            color: white !important; 
-        }
         .oee-poor { 
-            background: linear-gradient(135deg, #dc3545 0%, #6f42c1 100%); 
+            background: linear-gradient(135deg, #dc3545 0%, #e74c3c 100%); 
             color: white !important; 
         }
         
@@ -213,6 +453,43 @@
             box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
         }
         
+        /* Enhanced filter labels */
+        .form-label small {
+            font-size: 0.7rem !important;
+            opacity: 0.8;
+        }
+        
+        /* Filter info text */
+        .filter-info {
+            font-size: 0.7rem;
+            color: #6c757d;
+            transition: all 0.3s ease;
+        }
+        
+        .filter-info:hover {
+            color: #495057;
+            transform: scale(1.05);
+        }
+        
+        /* Tooltip enhancements */
+        .tooltip {
+            font-size: 0.75rem;
+        }
+        
+        .tooltip-inner {
+            background-color: #212529;
+            border-radius: 8px;
+            padding: 8px 12px;
+            max-width: 200px;
+        }
+        
+        /* Filter section improvements */
+        .filter-section {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 15px;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+        
         /* Print media styles */
         @media print {
             .filter-card, .btn, .progress { display: none !important; }
@@ -245,17 +522,7 @@
                                     ข้อมูลจากระบบฐานข้อมูลการผลิต อัปเดตแบบเรียลไทม์
                                 </small>
                             </div>
-                            <div class="col-md-4 text-end">
-                                <div class="d-flex flex-column align-items-end">
-                                    <div class="fs-6 opacity-75 mb-1">สถานะระบบ</div>
-                                    <span class="badge bg-success fs-6 px-3 py-2" id="systemStatus">
-                                        <i class="bi bi-check-circle me-1"></i>ออนไลน์
-                                    </span>
-                                    <small class="opacity-75 mt-2" id="lastUpdate">
-                                        อัปเดตล่าสุด: กำลังโหลด...
-                                    </small>
-                                </div>
-                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -418,41 +685,61 @@
                                 <i class="bi bi-funnel-fill me-2"></i>ตัวกรองข้อมูลขั้นสูง
                             </h6>
                             <div class="d-flex gap-2">
-                                <span class="badge bg-info" id="filterCount">0 รายการ</span>
                                 <button class="btn btn-outline-secondary btn-sm" id="toggleAdvancedFilters">
                                     <i class="bi bi-plus-circle me-1"></i>ตัวกรองเพิ่มเติม
                                 </button>
                             </div>
                         </div>
                         
-                        <!-- Main Filters Row -->
+                        <!-- Enhanced Main Filters Row with Better UX -->
                         <div class="row g-3 mb-3">
                             <div class="col-md-2">
                                 <label for="departmentFilter" class="form-label fw-semibold">
                                     <i class="bi bi-building me-1 text-primary"></i>แผนก
+                                    <small class="text-muted fw-normal">(มีประวัติ)</small>
                                     <span class="badge bg-primary ms-1" id="departmentCount">0</span>
                                 </label>
-                                <select id="departmentFilter" class="form-select form-select-sm">
-                                    <option value="">ทุกแผนก</option>
+                                <select id="departmentFilter" class="form-select form-select-sm" data-bs-toggle="tooltip" 
+                                        title="แสดงเฉพาะแผนกที่เคยมีการผลิตเสร็จแล้ว">
+                                    <option value="">ทุกแผนก (มีประวัติ)</option>
                                 </select>
+                                <div class="mt-1">
+                                    <small class="text-muted">
+                                        <i class="bi bi-info-circle me-1"></i>จาก <span id="totalDepartments">0</span> แผนก
+                                    </small>
+                                </div>
                             </div>
                             <div class="col-md-2">
                                 <label for="machineFilter" class="form-label fw-semibold">
                                     <i class="bi bi-gear-fill me-1 text-success"></i>เครื่องจักร
+                                    <small class="text-muted fw-normal">(มีประวัติ)</small>
                                     <span class="badge bg-success ms-1" id="machineCount">0</span>
                                 </label>
-                                <select id="machineFilter" class="form-select form-select-sm">
-                                    <option value="">ทุกเครื่อง</option>
+                                <select id="machineFilter" class="form-select form-select-sm" data-bs-toggle="tooltip" 
+                                        title="แสดงเฉพาะเครื่องจักรที่เคยมีการผลิตเสร็จแล้ว">
+                                    <option value="">ทุกเครื่อง (มีประวัติ)</option>
                                 </select>
+                                <div class="mt-1">
+                                    <small class="text-muted">
+                                        <i class="bi bi-info-circle me-1"></i>จาก <span id="totalMachines">0</span> เครื่อง
+                                    </small>
+                                </div>
                             </div>
                             <div class="col-md-2">
                                 <label for="productFilter" class="form-label fw-semibold">
                                     <i class="bi bi-box me-1 text-info"></i>ผลิตภัณฑ์
+                                    <small class="text-muted fw-normal">(มีประวัติ)</small>
                                     <span class="badge bg-info ms-1" id="productCount">0</span>
                                 </label>
-                                <select id="productFilter" class="form-select form-select-sm">
-                                    <option value="">ทุกผลิตภัณฑ์</option>
+                                <select id="productFilter" class="form-select form-select-sm" data-bs-toggle="tooltip" 
+                                        title="แสดงเฉพาะผลิตภัณฑ์ที่เคยมีการผลิตเสร็จแล้ว">
+                                    <option value="">ทุกผลิตภัณฑ์ (มีประวัติ)</option>
                                 </select>
+                                <div class="mt-1">
+                                    <small class="text-muted">
+                                        <i class="bi bi-info-circle me-1"></i>จาก <span id="totalProducts">0</span> รายการ
+                                    </small>
+                                </div>
                             </div>
                             <div class="col-md-2">
                                 <label for="dateFromFilter" class="form-label fw-semibold">
@@ -478,17 +765,6 @@
                         <!-- Advanced Filters Row (Hidden by default) -->
                         <div class="row g-3 mb-3 d-none" id="advancedFiltersRow">
                             <div class="col-md-2">
-                                <label for="shiftFilter" class="form-label fw-semibold">
-                                    <i class="bi bi-clock me-1 text-primary"></i>กะการทำงาน
-                                </label>
-                                <select id="shiftFilter" class="form-select form-select-sm">
-                                    <option value="">ทุกกะ</option>
-                                    <option value="morning">กะเช้า (06:00-14:00)</option>
-                                    <option value="afternoon">กะบ่าย (14:00-22:00)</option>
-                                    <option value="night">กะกลางคืน (22:00-06:00)</option>
-                                </select>
-                            </div>
-                            <div class="col-md-2">
                                 <label for="oeeRangeFilter" class="form-label fw-semibold">
                                     <i class="bi bi-speedometer me-1 text-success"></i>ช่วง OEE
                                 </label>
@@ -497,7 +773,7 @@
                                     <option value="excellent">ดีเยี่ยม (≥85%)</option>
                                     <option value="good">ดี (70-84%)</option>
                                     <option value="fair">พอใช้ (50-69%)</option>
-                                    <option value="poor">ต้องปรับปรุง (<50%)</option>
+                                    <option value="poor">ต้องปรับปรุง (50%)</option>
                                 </select>
                             </div>
                             <div class="col-md-2">
@@ -549,9 +825,6 @@
                                         <button class="btn btn-outline-secondary btn-sm" id="clearFiltersBtn">
                                             <i class="bi bi-x-lg me-1"></i>ล้างตัวกรอง
                                         </button>
-                                        <button class="btn btn-outline-info btn-sm" id="saveFiltersBtn">
-                                            <i class="bi bi-bookmark me-1"></i>บันทึกตัวกรอง
-                                        </button>
                                     </div>
                                     <div class="d-flex gap-2">
                                         <button class="btn btn-primary btn-sm" id="refreshHistoryBtn">
@@ -560,9 +833,9 @@
                                         <button class="btn btn-success btn-sm" id="exportHistoryBtn">
                                             <i class="bi bi-download me-1"></i>ส่งออก Excel
                                         </button>
-                                        <button class="btn btn-outline-primary btn-sm" id="printReportBtn">
+                                        <!-- <button class="btn btn-outline-primary btn-sm" id="printReportBtn">
                                             <i class="bi bi-printer me-1"></i>พิมพ์รายงาน
-                                        </button>
+                                        </button> -->
                                     </div>
                                 </div>
                             </div>
@@ -572,50 +845,92 @@
             </div>
         </div>
 
-        <!-- History Table -->
+        <!-- Filter Summary Panel -->
+        <div class="row mb-3">
+            <div class="col-12">
+                <div class="alert alert-light border-0 shadow-sm" style="border-radius: 12px;">
+                    <div class="row align-items-center">
+                        <div class="col-md-8">
+                            <div class="d-flex flex-wrap gap-3 align-items-center">
+                                <div class="filter-info">
+                                    <i class="bi bi-info-circle text-primary me-1"></i>
+                                    <strong>แสดงข้อมูล:</strong> เฉพาะรายการที่มีประวัติการผลิตเสร็จแล้ว
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 text-end">
+                            <div class="d-flex justify-content-end align-items-center gap-2">
+                                <span class="badge bg-success fs-6 px-3 py-2" id="totalFilterCount">0 รายการ</span>
+                                <small class="text-muted">
+                                    อัปเดตล่าสุด: <span id="lastUpdate">-</span>
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modern History Table -->
         <div class="row">
             <div class="col-12">
-                <div class="card shadow-sm">
+                <div class="card shadow-lg border-0" style="border-radius: 15px;">
+                    <div class="card-header bg-transparent border-0 p-4">
+                        <div class="row align-items-center">
+                            <div class="col">
+                                <h5 class="mb-0 fw-bold text-dark">
+                                    <i class="bi bi-table me-2 text-primary"></i>ตารางประวัติการผลิต
+                                </h5>
+                                <p class="mb-0 text-muted small mt-1">ข้อมูลการผลิตทั้งหมดแสดงแบบเรียลไทม์</p>
+                            </div>
+                            <div class="col-auto">
+                                <span class="badge bg-primary" id="filterCount">0 รายการ</span>
+                            </div>
+                        </div>
+                    </div>
                     <div class="card-body p-0">
-                        <div class="table-responsive">
-                            <table class="table table-bordered table-hover history-table align-middle mb-0" id="historyTable">
-                                <thead style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+                        <div class="table-responsive" style="max-height: 700px; overflow-y: auto;">
+                            <table class="table modern-history-table mb-0" id="historyTable">
+                                <thead>
                                     <tr>
-                                        <th class="text-center fw-bold py-3" width="9%">
-                                            <i class="bi bi-calendar3 me-1"></i>วันที่ผลิต
+                                        <th style="width: 90px;">
+                                            <i class="bi bi-calendar3 me-1"></i>วันที่
                                         </th>
-                                        <th class="fw-bold py-3" width="18%">
-                                            <i class="bi bi-box me-1"></i>สินค้าที่ผลิต
+                                        <th style="width: 220px;">
+                                            <i class="bi bi-box me-1"></i>สินค้า
                                         </th>
-                                        <th class="text-center fw-bold py-3" width="7%">
+                                        <th style="width: 140px;">
                                             <i class="bi bi-building me-1"></i>แผนก
                                         </th>
-                                        <th class="text-center fw-bold py-3" width="8%">
+                                        <th style="width: 120px;">
                                             <i class="bi bi-gear me-1"></i>เครื่องจักร
                                         </th>
-                                        <th class="text-center fw-bold py-3" width="8%">
+                                        <th style="width: 100px;">
                                             <i class="bi bi-tag me-1"></i>รหัสล็อต
                                         </th>
-                                        <th class="text-center fw-bold py-3" width="7%">
+                                        <th style="width: 100px;">
                                             <i class="bi bi-target me-1"></i>ขนาดล็อต
-                                            <br><small class="opacity-75">(วางแผน)</small>
                                         </th>
-                                        <th class="text-center fw-bold py-3" width="7%">
-                                            <i class="bi bi-bar-chart me-1"></i>จำนวนผลผลิต
-                                            <br><small class="opacity-75">(ผลิตได้จริง)</small>
+                                        <th style="width: 100px;">
+                                            <i class="bi bi-bar-chart me-1"></i>ผลิตได้
                                         </th>
-                                        <th class="text-center fw-bold py-3" width="6%">
+                                        <th style="width: 100px;">
                                             <i class="bi bi-check-circle me-1"></i>ของดี
                                         </th>
-                                        <th class="text-center fw-bold py-3" width="6%">
+                                        <th style="width: 100px;">
                                             <i class="bi bi-x-circle me-1"></i>ของเสีย
                                         </th>
-                                        <th class="text-center fw-bold py-3" width="14%">
-                                            <i class="bi bi-speedometer me-1"></i>OEE รายละเอียด
-                                            <br><small class="opacity-75">(ความพร้อม | ประสิทธิภาพ | คุณภาพ)</small>
+                                        <th style="width: 100px;">
+                                            <i class="bi bi-arrow-clockwise me-1"></i>แก้ไข
                                         </th>
-                                        <th class="text-center fw-bold py-3" width="10%">
-                                            <i class="bi bi-clock me-1"></i>เวลาการผลิต
+                                        <th style="width: 200px;">
+                                            <i class="bi bi-speedometer me-1"></i>OEE
+                                        </th>
+                                        <th style="width: 160px;">
+                                            <i class="bi bi-clock me-1"></i>เวลา
+                                        </th>
+                                        <th style="width: 200px;">
+                                            <i class="bi bi-chat-text me-1"></i>หมายเหตุ
                                         </th>
                                     </tr>
                                 </thead>
@@ -641,11 +956,11 @@
     <div class="modal fade" id="jobDetailsModal" tabindex="-1" aria-labelledby="jobDetailsModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-xl">
             <div class="modal-content">
-                <div class="modal-header bg-primary text-white">
+                <div class="modal-header bg-primary">
                     <h5 class="modal-title" id="jobDetailsModalLabel">
                         <i class="bi bi-info-circle-fill me-2"></i>รายละเอียดงานการผลิต
                     </h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body" id="jobDetailsModalBody">
                     <!-- Content will be populated by JavaScript -->

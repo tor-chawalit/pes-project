@@ -51,38 +51,6 @@
 
       <!-- User Actions -->
       <div class="navbar-nav ms-auto">
-        <!-- Quick Actions Dropdown -->
-        <div class="nav-item dropdown me-2">
-          <a
-            class="nav-link dropdown-toggle nav-link-enhanced"
-            href="#"
-            role="button"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
-          >
-            <i class="bi bi-lightning-charge-fill me-1"></i>
-            <span class="d-none d-lg-inline">เครื่องมือ</span>
-          </a>
-          <ul class="dropdown-menu dropdown-menu-end shadow border-0">
-            <li>
-              <a class="dropdown-item" href="#" onclick="location.reload()">
-                <i class="bi bi-arrow-clockwise me-2 text-primary"></i>รีเฟรชข้อมูล
-              </a>
-            </li>
-            <li>
-              <a class="dropdown-item" href="#" onclick="exportData()">
-                <i class="bi bi-download me-2 text-success"></i>ส่งออกข้อมูล
-              </a>
-            </li>
-            <li><hr class="dropdown-divider" /></li>
-            <li>
-              <a class="dropdown-item" href="#" onclick="showSettings()">
-                <i class="bi bi-gear me-2 text-secondary"></i>ตั้งค่า
-              </a>
-            </li>
-          </ul>
-        </div>
-
         <!-- User Profile Dropdown -->
         <div class="nav-item dropdown">
           <a
@@ -355,24 +323,6 @@ function updateUserInfo() {
   if (userIdElement) {
     // This can be replaced with actual user data from session/API
     userIdElement.textContent = '1';
-  }
-}
-
-function exportData() {
-  // Placeholder for export functionality
-  if (typeof showToast === 'function') {
-    showToast('ฟีเจอร์ส่งออกข้อมูลกำลังพัฒนา', 'info');
-  } else {
-    alert('ฟีเจอร์ส่งออกข้อมูลกำลังพัฒนา');
-  }
-}
-
-function showSettings() {
-  // Placeholder for settings functionality
-  if (typeof showToast === 'function') {
-    showToast('ฟีเจอร์ตั้งค่ากำลังพัฒนา', 'info');
-  } else {
-    alert('ฟีเจอร์ตั้งค่ากำลังพัฒนา');
   }
 }
 

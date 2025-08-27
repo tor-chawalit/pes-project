@@ -131,6 +131,14 @@
                   <!-- จะโหลดจากฐานข้อมูล Departments ผ่าน JavaScript -->
                 </select>
               </div>
+              <!-- หน่วยงานย่อยฟิลเตอร์ -->
+              <div class="col-6 col-md-2 col-lg-2">
+                <label class="form-label visually-hidden" for="subDepartmentFilter">หน่วยงานย่อย</label>
+                <select class="form-select form-select-sm" id="subDepartmentFilter" aria-label="เลือกหน่วยงานย่อย" disabled>
+                  <option value="">ทุกหน่วยงาน</option>
+                  <!-- จะโหลดตามแผนกที่เลือก -->
+                </select>
+              </div>
               <div class="col-6 col-md-3 col-lg-2">
                 <label class="form-label visually-hidden" for="statusFilter">สถานะ</label>
                 <select class="form-select form-select-sm" id="statusFilter" aria-label="เลือกสถานะ">
@@ -234,11 +242,22 @@
                         <!-- จะโหลดจากฐานข้อมูล Departments ผ่าน JavaScript -->
                       </select>
                     </div>
+                    <!-- หน่วยงานย่อย -->
+                    <div class="col-lg-4 mb-3">
+                      <label class="form-label fw-bold">
+                        หน่วยงานย่อย <span class="text-muted">(เลือกหรือไม่เลือกก็ได้)</span>
+                      </label>
+                      <div id="subDepartmentCheckboxGroup" class="sub-department-selection" style="max-height: 300px; overflow-y: auto;">
+                        <div class="text-muted text-center py-3">
+                          <i class="bi bi-arrow-left me-2"></i>กรุณาเลือกแผนกก่อน
+                        </div>
+                      </div>
+                    </div>
                     <div class="col-lg-6 mb-3">
                       <label class="form-label fw-bold">
                         เครื่องจักร <span class="text-danger">*</span>
                       </label>
-                      <div id="machineCheckboxGroup" class="machine-selection">
+                      <div id="machineCheckboxGroup" class="machine-selection" style="max-height: 300px; overflow-y: auto;">
                         <div class="text-muted text-center py-3">
                           <i class="bi bi-arrow-left me-2"></i>กรุณาเลือกแผนกก่อน
                         </div>
@@ -337,7 +356,7 @@
                   </div>
 
                   <!-- Hidden Job Status (always set to planning) -->
-                  <input type="hidden" id="status" name="planStatus" value="planning" />
+                  <input type="hidden" id="status" name="Status" value="planning" />
 
                   <!-- Job Details -->
                   <div class="row">
@@ -368,7 +387,13 @@
                       <label class="form-label fw-bold">
                         <i class="bi bi-calendar-date me-1"></i>วันที่เริ่มต้น <span class="text-danger">*</span>
                       </label>
-                      <input type="date" class="form-control form-control-lg" id="startDate" name="startDate" required />
+                      <div class="input-group">
+                        <input type="text" class="form-control form-control-lg" id="startDate" placeholder="วัน/เดือน/ปี" readonly />
+                        <input type="date" class="form-control form-control-lg" id="startDateHidden" name="startDate" required style="position: absolute; opacity: 0; pointer-events: none;" />
+                        <button class="btn btn-outline-secondary" type="button" id="startDateBtn">
+                          <i class="bi bi-calendar3"></i>
+                        </button>
+                      </div>
                     </div>
                     <div class="col-lg-6 mb-3">
                       <label class="form-label fw-bold">
@@ -393,7 +418,13 @@
                       <label class="form-label fw-bold">
                         <i class="bi bi-calendar-date me-1"></i>วันที่สิ้นสุด <span class="text-danger">*</span>
                       </label>
-                      <input type="date" class="form-control form-control-lg" id="endDate" name="endDate" required />
+                      <div class="input-group">
+                        <input type="text" class="form-control form-control-lg" id="endDate" placeholder="วัน/เดือน/ปี" readonly />
+                        <input type="date" class="form-control form-control-lg" id="endDateHidden" name="endDate" required style="position: absolute; opacity: 0; pointer-events: none;" />
+                        <button class="btn btn-outline-secondary" type="button" id="endDateBtn">
+                          <i class="bi bi-calendar3"></i>
+                        </button>
+                      </div>
                     </div>
                     <div class="col-lg-6 mb-3">
                       <label class="form-label fw-bold">
@@ -412,12 +443,112 @@
                     </div>
                   </div>
 
+                  <!-- Break Time Settings -->
+                  <div class="card border-0 shadow-sm mb-4">
+                    <div class="card-header bg-light border-0">
+                      <h6 class="mb-0 text-primary">
+                        <i class="bi bi-cup-fill me-2"></i>กำหนดเวลาพัก
+                      </h6>
+                    </div>
+                    <div class="card-body">
+                      <div class="row g-3">
+                        <div class="col-md-4">
+                          <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="breakMorning" name="breakMorning">
+                            <label class="form-check-label fw-bold" for="breakMorning">
+                              <i class="bi bi-sunrise me-1"></i>พักเช้า
+                            </label>
+                          </div>
+                          <div class="input-group input-group-sm mt-2">
+                            <input type="number" class="form-control" id="breakMorningMinutes" name="breakMorningMinutes" 
+                                   min="0" max="120" value="15" disabled>
+                            <span class="input-group-text">นาที</span>
+                          </div>
+                        </div>
+                        <div class="col-md-4">
+                          <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="breakLunch" name="breakLunch" checked>
+                            <label class="form-check-label fw-bold" for="breakLunch">
+                              <i class="bi bi-sun me-1"></i>พักกลางวัน
+                            </label>
+                          </div>
+                          <div class="input-group input-group-sm mt-2">
+                            <input type="number" class="form-control" id="breakLunchMinutes" name="breakLunchMinutes" 
+                                   min="0" max="120" value="60">
+                            <span class="input-group-text">นาที</span>
+                          </div>
+                        </div>
+                        <div class="col-md-4">
+                          <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="breakEvening" name="breakEvening">
+                            <label class="form-check-label fw-bold" for="breakEvening">
+                              <i class="bi bi-sunset me-1"></i>พักเย็น
+                            </label>
+                          </div>
+                          <div class="input-group input-group-sm mt-2">
+                            <input type="number" class="form-control" id="breakEveningMinutes" name="breakEveningMinutes" 
+                                   min="0" max="120" value="15" disabled>
+                            <span class="input-group-text">นาที</span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row mt-3">
+                        <div class="col-12">
+                          <small class="text-muted">
+                            <i class="bi bi-info-circle me-1"></i>
+                            เวลาพักรวม: <span id="totalBreakTime" class="fw-bold">60</span> นาที
+                          </small>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Setup Time Settings -->
+                  <div class="card border-0 shadow-sm mb-4">
+                    <div class="card-header bg-light border-0">
+                      <h6 class="mb-0 text-warning">
+                        <i class="bi bi-gear-fill me-2"></i>เวลาเตรียมการ (Setup Time)
+                      </h6>
+                    </div>
+                    <div class="card-body">
+                      <div class="row g-3">
+                        <div class="col-md-6">
+                          <label class="form-label fw-bold">
+                            <i class="bi bi-stopwatch me-1"></i>เวลาเตรียมเครื่องจักร
+                          </label>
+                          <div class="input-group">
+                            <input type="number" class="form-control" id="setupTimeMinutes" name="setupTimeMinutes" 
+                                   min="0" max="480" value="30" placeholder="30">
+                            <span class="input-group-text">นาที</span>
+                          </div>
+                          <div class="form-text">เวลาที่ใช้ในการเตรียมเครื่องจักร เปลี่ยน Die หรือปรับตั้งค่า</div>
+                        </div>
+                        <div class="col-md-6">
+                          <label class="form-label fw-bold">
+                            <i class="bi bi-journal-text me-1"></i>หมายเหตุการ Setup
+                          </label>
+                          <textarea class="form-control" id="setupNotes" name="setupNotes" rows="2" 
+                                    placeholder="เช่น เปลี่ยน Die, ปรับความร้อน, ทดสอบคุณภาพ..."></textarea>
+                          <div class="form-text">รายละเอียดงานเตรียมการที่ต้องทำ</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
                   <!-- Duration Display -->
                   <div class="row">
                     <div class="col-12">
                       <div class="alert alert-info d-flex align-items-center">
                         <i class="bi bi-stopwatch me-2"></i>
-                        <span>ระยะเวลาดำเนินการ: <strong id="durationDisplay">-</strong></span>
+                        <div class="w-100">
+                          <div>ระยะเวลาดำเนินการรวม: <strong id="durationDisplay">-</strong></div>
+                          <div class="mt-2">
+                            <small class="text-muted">
+                              เวลาทำงานสุทธิ: <strong id="netWorkingTime">-</strong>
+                              (หักเวลาพัก <span id="breakTimeDisplay">60</span> นาที และเวลา Setup <span id="setupTimeDisplay">30</span> นาที)
+                            </small>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -459,6 +590,65 @@
         <div class="modal-footer d-flex flex-column flex-sm-row gap-2">
           <button type="button" class="btn btn-secondary flex-fill flex-sm-grow-0" data-bs-dismiss="modal">
             ปิด
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Start Work Order Modal -->
+  <div class="modal fade" id="startWorkOrderModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content border-0 shadow-lg">
+        <div class="modal-header bg-warning">
+          <h5 class="modal-title d-flex align-items-center">
+            <i class="bi bi-clipboard-plus-fill me-2"></i>
+            กรอกเลข Order เพื่อเริ่มดำเนินงาน
+          </h5>
+          <button type="button" class="btn-close btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body p-4">
+          <form id="startWorkOrderForm">
+            <div class="mb-4">
+              <div class="alert alert-info d-flex align-items-center">
+                <i class="bi bi-info-circle-fill me-2"></i>
+                <div>
+                  <strong>กรุณากรอกเลข Order</strong><br>
+                  <small>เลข Order จะถูกบันทึกและแสดงในรายละเอียดงาน</small>
+                </div>
+              </div>
+            </div>
+            
+            <div class="mb-4">
+              <label for="orderNumber" class="form-label fw-bold">
+                <i class="bi bi-hash me-1"></i>เลข Order <span class="text-danger">*</span>
+              </label>
+              <input type="text" 
+                     class="form-control form-control-lg" 
+                     id="orderNumber" 
+                     name="orderNumber" 
+                     placeholder="เช่น ORD-2025-001" 
+                     required
+                     autocomplete="off">
+              <div class="invalid-feedback">
+                กรุณากรอกเลข Order
+              </div>
+              <div class="form-text">
+                <i class="bi bi-lightbulb me-1"></i>
+                ตัวอย่าง: ORD-2025-001, ORDER-20250807-001, หรือรูปแบบอื่นตามความเหมาะสม
+              </div>
+            </div>
+
+            <!-- Hidden field เก็บ planId -->
+            <input type="hidden" id="startWorkPlanId" name="planId">
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+            <i class="bi bi-x-circle me-1"></i>ยกเลิก
+          </button>
+          <button type="button" class="btn btn-warning" id="confirmStartWorkBtn">
+            <i class="bi bi-play-circle-fill me-1"></i>เริ่มดำเนินงาน
           </button>
         </div>
       </div>

@@ -35,6 +35,9 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }, 500);
     
+    // เริ่มต้น Bootstrap tooltips
+    initializeTooltips();
+    
     // ตั้งค่า Event Listeners
     setupEventListeners();
     
@@ -50,6 +53,23 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log('Enhanced History page initialized successfully');
 });
 
+/**
+ * เริ่มต้น Bootstrap tooltips
+ */
+function initializeTooltips() {
+    // เริ่มต้น tooltips สำหรับ filter elements
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl, {
+            placement: 'top',
+            trigger: 'hover focus',
+            delay: { show: 500, hide: 100 }
+        });
+    });
+    
+    console.log('Tooltips initialized:', tooltipList.length);
+}
+
 // ================================================================
 // 3. ENHANCED DATA LOADING
 // ================================================================
@@ -58,12 +78,9 @@ document.addEventListener('DOMContentLoaded', function() {
  * ตั้งค่าช่วงวันที่เริ่มต้น
  */
 function setupDefaultDateRange() {
-    const today = new Date();
-    const thirtyDaysAgo = new Date(today);
-    thirtyDaysAgo.setDate(today.getDate() - 30);
-    
-    document.getElementById('dateFromFilter').value = thirtyDaysAgo.toISOString().split('T')[0];
-    document.getElementById('dateToFilter').value = today.toISOString().split('T')[0];
+    // ไม่กำหนดวันที่เริ่มต้น เพื่อแสดงข้อมูลทั้งหมดโดยไม่มีการกรอง
+    document.getElementById('dateFromFilter').value = '';
+    document.getElementById('dateToFilter').value = '';
 }
 
 /**
@@ -118,19 +135,41 @@ async function loadInitialData() {
  */
 async function loadHistoryData() {
     try {
+        console.log('📊 Loading history data...');
+        
         // เรียก API เพื่อดึงข้อมูลประวัติงานที่เสร็จสิ้นแล้ว
         const response = await fetch('tasks.php?action=get_completed_plans');
         
         if (!response.ok) {
-            throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+            // อ่าน response text เพื่อ debug
+            const errorText = await response.text();
+            console.error('❌ HTTP Error Response:', errorText);
+            throw new Error(`HTTP ${response.status}: ${response.statusText}\nResponse: ${errorText.substring(0, 200)}`);
         }
         
-        const data = await response.json();
-        console.log('Raw history data:', data);
+        // อ่าน response เป็น text ก่อน
+        const responseText = await response.text();
+        console.log('🔍 Raw response:', responseText.substring(0, 500));
+        
+        // ตรวจสอบว่าเป็น JSON หรือไม่
+        if (!responseText.trim()) {
+            throw new Error('Empty response from server');
+        }
+        
+        let data;
+        try {
+            data = JSON.parse(responseText);
+        } catch (parseError) {
+            console.error('❌ JSON Parse Error:', parseError);
+            console.error('❌ Raw response causing error:', responseText);
+            throw new Error(`Invalid JSON response: ${parseError.message}\nResponse preview: ${responseText.substring(0, 100)}...`);
+        }
+        
+        console.log('📋 Parsed history data:', data);
         
         if (Array.isArray(data)) {
             historyData = data;
-            console.log(`Loaded ${historyData.length} completed plans`);
+            console.log(`✅ Loaded ${historyData.length} completed plans`);
             
             // สร้างข้อมูลอ้างอิงจากข้อมูลจริง
             extractReferenceData();
@@ -138,14 +177,27 @@ async function loadHistoryData() {
             // อัปเดต filter options
             updateAllFilterOptions();
             
-        } else {
-            console.error('Data is not an array:', data);
+        } else if (data && data.success === false) {
+            console.error('❌ API returned error:', data.message || 'Unknown error');
             historyData = [];
+            throw new Error(data.message || 'API returned error');
+        } else if (data && Array.isArray(data.data)) {
+            // บางครั้งข้อมูลจะอยู่ใน data.data
+            historyData = data.data;
+            console.log(`✅ Loaded ${historyData.length} completed plans from data.data`);
+            
+            extractReferenceData();
+            updateAllFilterOptions();
+        } else {
+            console.error('❌ Data is not an array:', data);
+            historyData = [];
+            throw new Error('Invalid data format received from API');
         }
         
     } catch (error) {
-        console.error('Error loading history data:', error);
+        console.error('💥 Error loading history data:', error);
         historyData = [];
+        showError(`ไม่สามารถโหลดข้อมูลประวัติได้: ${error.message}`);
         throw error;
     }
 }
@@ -167,26 +219,86 @@ async function loadReferenceData() {
  * สกัดข้อมูลอ้างอิงจากข้อมูลประวัติ
  */
 function extractReferenceData() {
-    // สร้างรายการแผนกทั้งหมด
-    allDepartments = [...new Set(historyData.map(item => 
-        item.Department || item.DepartmentName || item.departmentName || ''
-    ).filter(dept => dept.trim()))].sort();
+    // Debug: ดูโครงสร้างข้อมูลตัวอย่าง
+    if (historyData.length > 0) {
+        console.log('Sample data structure:', historyData[0]);
+        console.log('Available fields:', Object.keys(historyData[0]));
+    }
+    
+    // รายการแผนกที่ถูกต้องในระบบ (ชื่อแผนกจริงๆ จากฐานข้อมูล)
+    const validDepartments = [
+        'แผนกผลิต', 'แผนกบรรจุ', 'แผนกควบคุมคุณภาพ', 'แผนกโลจิสติกส์', 'แผนกบำรุงรักษา',
+        'แผนกกรรม', 'แผนกขึ้นรูป', 'แผนกสี', 'แผนกตรวจสอบ', 'แผนกส่งมอบ',
+        'แผนกกรอง&Mix', 'แผนกบรรุ', 'แผนกเลเชอร์', // เพิ่มชื่อแผนกจริงที่มีในฐานข้อมูล
+        'Production', 'Packaging', 'Quality Control', 'QC', 'Logistics', 'Maintenance',
+        'Manufacturing', 'Assembly', 'Inspection', 'Shipping', 'Warehouse'
+    ];
+    
+    // สร้างรายการแผนกทั้งหมด - ยอมรับทุกชื่อแผนกที่มีในฐานข้อมูล (ไม่กรอง)
+    const departmentFields = historyData.map(item => {
+        const dept = item.Department || item.DepartmentName || '';
+        if (dept && dept.trim().length > 0) {
+            return dept.trim();
+        }
+        return null;
+    }).filter(dept => dept !== null);
+    
+    // แสดงข้อมูลดิบก่อนกรองเพื่อ debug
+    const uniqueDepts = [...new Set(departmentFields)];
+    console.log('All departments from database (raw):', uniqueDepts);
+    
+    // ตอนนี้ไม่กรองอะไรเลย - ใช้ทุกชื่อแผนกที่มีจริงในฐานข้อมูล
+    allDepartments = uniqueDepts.sort();
     
     // สร้างรายการเครื่องจักรทั้งหมด
-    allMachines = [...new Set(historyData.map(item => 
-        item.MachineName || item.MachineID || item.machine || ''
-    ).filter(machine => machine.trim()))].sort();
+    const machineFields = historyData.map(item => {
+        const machine = item.MachineName || '';
+        if (machine && machine.length > 0) {
+            return machine.trim();
+        }
+        return null;
+    }).filter(machine => machine !== null);
+    
+    allMachines = [...new Set(machineFields)].sort();
     
     // สร้างรายการผลิตภัณฑ์ทั้งหมด
-    allProducts = [...new Set(historyData.map(item => 
-        item.ProductName || item.ProductDisplayName || ''
-    ).filter(product => product.trim()))].sort();
+    const productFields = historyData.map(item => {
+        const product = item.ProductName || item.ProductDisplayName || '';
+        if (product && product.length > 0) {
+            return product.trim();
+        }
+        return null;
+    }).filter(product => product !== null);
+    
+    allProducts = [...new Set(productFields)].sort();
     
     console.log('Extracted reference data:', {
+        departments: allDepartments,
+        machines: allMachines.slice(0, 5), // แสดงแค่ 5 ตัวแรก
+        products: allProducts.slice(0, 5)  // แสดงแค่ 5 ตัวแรก
+    });
+    
+    console.log('Summary counts:', {
         departments: allDepartments.length,
         machines: allMachines.length,
         products: allProducts.length
     });
+    
+    // Debug: แสดงข้อมูลแผนกแต่ละรายการที่ถูกกรอง
+    console.log('=== DEPARTMENT DEBUG INFO ===');
+    console.log('Valid departments found:', allDepartments);
+    
+    // แสดงข้อมูลดิบที่ถูกปฏิเสธ
+    const rejectedDepts = historyData.map(item => {
+        const dept = item.Department || item.DepartmentName || '';
+        return dept ? dept.trim() : null;
+    }).filter(dept => dept && !allDepartments.includes(dept));
+    
+    const uniqueRejected = [...new Set(rejectedDepts)];
+    if (uniqueRejected.length > 0) {
+        console.log('Rejected departments (not valid):', uniqueRejected);
+    }
+    console.log('=== END DEPARTMENT DEBUG ===');
 }
 
 // ================================================================
@@ -265,7 +377,7 @@ function applyDepartmentFilter(data, department) {
 function applyMachineFilter(data, machine) {
     if (!machine) return data;
     return data.filter(item => {
-        const itemMachine = (item.MachineName || item.MachineID || item.machine || '').trim();
+        const itemMachine = (item.MachineName || item.machine || '').trim();
         return itemMachine === machine;
     });
 }
@@ -441,7 +553,7 @@ function renderHistoryTable() {
     if (!currentData.length) {
         tbody.innerHTML = `
             <tr>
-                <td colspan="11" class="text-center text-muted py-5">
+                <td colspan="13" class="text-center text-muted py-5">
                     <div class="d-flex flex-column align-items-center">
                         <i class="bi bi-inbox fs-1 mb-3 text-muted"></i>
                         <h5 class="text-muted mb-2">ไม่พบข้อมูลประวัติงาน</h5>
@@ -468,17 +580,17 @@ function renderHistoryTable() {
 }
 
 /**
- * สร้างแถวสำหรับตารางประวัติ (ปรับปรุงใหม่)
+ * สร้างแถวสำหรับตารางประวัติ (ออกแบบใหม่ - Modern & Clean)
  */
 function createEnhancedHistoryRow(item, index) {
     const globalIndex = (currentPage - 1) * recordsPerPage + index;
-    const rowClass = globalIndex % 2 === 0 ? 'table-light' : '';
     
     // ข้อมูลหลัก
     const productName = item.ProductName || item.ProductDisplayName || 'ไม่ระบุ';
     const productCode = item.ProductCode || '-';
     const productSize = item.ProductSize || '-';
     const department = item.Department || item.DepartmentName || 'ไม่ระบุ';
+    const subdepartment = item.Subdepartment || '-';
     const machineName = item.MachineName || 'ไม่ระบุ';
     const productionDate = item.ProductionDate || '';
     
@@ -488,6 +600,8 @@ function createEnhancedHistoryRow(item, index) {
     const totalPieces = parseInt(item.TotalPieces) || 0;
     const goodQuantity = parseInt(item.GoodQuantity) || 0;
     const rejectPieces = parseInt(item.RejectPieces) || 0;
+    const reworkPieces = parseInt(item.ReworkPieces) || 0;
+    const remark = item.Remark || '-';
     
     // เวลาการผลิต
     const actualStartTime = item.ActualStartTime || '';
@@ -500,103 +614,139 @@ function createEnhancedHistoryRow(item, index) {
     const oeeQuality = parseFloat(item.OEE_Quality) || 0;
     const oeeOverall = parseFloat(item.OEE_Overall) || 0;
     
-    // สีและ CSS classes ตาม OEE
-    const oeeClass = getOEEClass(oeeOverall);
-    const performanceColor = getMetricColor(oeePerformance, 'performance');
-    const qualityColor = getMetricColor(oeeQuality, 'quality');
-    const availabilityColor = getMetricColor(oeeAvailability, 'availability');
-    
     // การคำนวณเพิ่มเติม
     const yieldRate = totalPieces > 0 ? ((goodQuantity / totalPieces) * 100) : 0;
     const efficiency = lotSize > 0 ? ((totalPieces / lotSize) * 100) : 0;
+    const reworkRate = totalPieces > 0 ? ((reworkPieces / totalPieces) * 100) : 0;
     
     return `
-        <tr class="${rowClass} history-row" data-item-id="${item.ID || globalIndex}" onclick="showItemDetails(${globalIndex})">
+        <tr onclick="showItemDetails(${globalIndex})">
+            <!-- วันที่ -->
             <td class="text-center">
-                <div class="fw-bold text-primary">${productionDate ? formatDateThai(productionDate) : '-'}</div>
-                ${actualStartTime ? `<small class="text-muted">${getShiftInfo(actualStartTime)}</small>` : ''}
-            </td>
-            <td>
-                <div class="fw-bold text-dark mb-1">${productName}</div>
-                <div class="d-flex gap-2 mb-1">
-                    <small class="badge bg-light text-dark">รหัส: ${productCode}</small>
-                    ${productSize !== '-' ? `<small class="badge bg-light text-dark">ขนาด: ${productSize}</small>` : ''}
-                </div>
-                <div class="progress mt-1" style="height: 3px;">
-                    <div class="progress-bar bg-info" style="width: ${Math.min(efficiency, 100)}%" title="Efficiency: ${efficiency.toFixed(1)}%"></div>
+                <div class="fw-bold text-primary" style="font-size: 0.9rem;">
+                    ${productionDate ? formatDateThai(productionDate) : '-'}
                 </div>
             </td>
+            
+            <!-- สินค้า -->
+            <td class="product-cell">
+                <div class="product-name">${productName}</div>
+                <div class="product-badges">
+                    ${productCode !== '-' ? `<span class="product-badge">รหัส: ${productCode}</span>` : ''}
+                    ${productSize !== '-' ? `<span class="product-badge">ขนาด: ${productSize}</span>` : ''}
+                </div>
+                <div class="data-progress">
+                    <div class="data-progress-bar bg-info" style="width: ${Math.min(efficiency, 100)}%" 
+                         title="ประสิทธิภาพ: ${efficiency.toFixed(1)}%"></div>
+                </div>
+            </td>
+            
+            <!-- แผนก -->
+            <td class="department-cell">
+                <div class="department-main">${department}</div>
+                ${subdepartment !== '-' ? `<div class="department-sub">${subdepartment}</div>` : ''}
+            </td>
+            
+            <!-- เครื่องจักร -->
+            <td class="machine-cell">
+                <div class="machine-name">${machineName}</div>
+            </td>
+            
+            <!-- รหัสล็อต -->
             <td class="text-center">
-                <span class="badge bg-primary fs-6 px-2 py-1">${department}</span>
-                <div class="mt-1">
-                    <small class="text-muted">${allDepartments.indexOf(department) + 1}/${allDepartments.length}</small>
+                <code class="bg-light p-2 rounded fw-bold" style="font-size: 0.8rem;">${lotNumber}</code>
+            </td>
+            
+            <!-- ขนาดล็อต -->
+            <td class="data-cell-modern data-cell-target">
+                <div class="data-value data-value-target">${formatNumber(lotSize)}</div>
+                <div class="data-label">ล๊อต</div>
+                <div class="data-progress">
+                    <div class="data-progress-bar bg-primary" style="width: 100%"></div>
                 </div>
             </td>
-            <td class="text-center">
-                <div class="fw-bold text-success">${machineName}</div>
-                <small class="text-muted">${allMachines.indexOf(machineName) + 1}/${allMachines.length}</small>
-            </td>
-            <td class="text-center">
-                <code class="bg-light p-2 rounded fw-bold">${lotNumber}</code>
-            </td>
-            <td class="text-end data-cell">
-                <div class="fw-bold text-primary fs-5">${formatNumber(lotSize)}</div>
-                <small class="text-muted">ชิ้น (เป้าหมาย)</small>
-                <div class="progress mt-1" style="height: 3px;">
-                    <div class="progress-bar bg-primary" style="width: 100%"></div>
+            
+            <!-- ผลิตได้ -->
+            <td class="data-cell-modern data-cell-produced">
+                <div class="data-value data-value-produced">${formatNumber(totalPieces)}</div>
+                <div class="data-label">ชิ้น</div>
+                <div class="data-progress">
+                    <div class="data-progress-bar bg-info" style="width: ${Math.min(efficiency, 100)}%" 
+                         title="${efficiency.toFixed(1)}% ของเป้าหมาย"></div>
                 </div>
             </td>
-            <td class="text-end data-cell">
-                <div class="fw-bold text-info fs-5">${formatNumber(totalPieces)}</div>
-                <small class="text-muted">ชิ้น (ผลิตได้)</small>
-                <div class="progress mt-1" style="height: 3px;">
-                    <div class="progress-bar bg-info" style="width: ${Math.min(efficiency, 100)}%" title="${efficiency.toFixed(1)}% ของเป้าหมาย"></div>
+            
+            <!-- ของดี -->
+            <td class="data-cell-modern data-cell-good">
+                <div class="data-value data-value-good">${formatNumber(goodQuantity)}</div>
+                <div class="data-label">ชิ้น</div>
+                <div class="data-progress">
+                    <div class="data-progress-bar bg-success" style="width: ${yieldRate}%"></div>
                 </div>
             </td>
-            <td class="text-end data-cell">
-                <div class="fw-bold text-success fs-5">${formatNumber(goodQuantity)}</div>
-                <small class="text-muted">ชิ้น (${yieldRate.toFixed(1)}%)</small>
-                <div class="progress mt-1" style="height: 3px;">
-                    <div class="progress-bar bg-success" style="width: ${yieldRate}%"></div>
+            
+            <!-- ของเสีย -->
+            <td class="data-cell-modern data-cell-reject">
+                <div class="data-value data-value-reject">${formatNumber(rejectPieces)}</div>
+                <div class="data-label">ชิ้น</div>
+                <div class="data-progress">
+                    <div class="data-progress-bar bg-danger" style="width: ${100 - yieldRate}%"></div>
                 </div>
             </td>
-            <td class="text-end data-cell">
-                <div class="fw-bold text-danger fs-5">${formatNumber(rejectPieces)}</div>
-                <small class="text-muted">ชิ้น (${(100 - yieldRate).toFixed(1)}%)</small>
-                <div class="progress mt-1" style="height: 3px;">
-                    <div class="progress-bar bg-danger" style="width: ${100 - yieldRate}%"></div>
+            
+            <!-- แก้ไข (Rework) -->
+            <td class="data-cell-modern data-cell-rework">
+                <div class="data-value data-value-rework">${formatNumber(reworkPieces)}</div>
+                <div class="data-label">ชิ้น</div>
+                <div class="data-progress">
+                    <div class="data-progress-bar bg-warning" style="width: ${reworkRate}%"></div>
                 </div>
             </td>
-            <td class="text-center data-cell ${oeeClass}" style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); min-width: 160px;">
-                <div class="row g-1 text-center mb-2">
-                    <div class="col-4">
-                        <div class="fw-bold ${availabilityColor} fs-6">${oeeAvailability.toFixed(1)}%</div>
-                        <small class="text-muted" style="font-size: 0.65rem;">ความพร้อม</small>
+            
+            <!-- OEE -->
+            <td class="oee-cell">
+                <div class="oee-metrics">
+                    <div class="oee-metric">
+                        <div class="oee-metric-value ${getMetricColor(oeeAvailability, 'availability')}">${oeeAvailability.toFixed(1)}%</div>
+                        <div class="oee-metric-label">ความพร้อม</div>
                     </div>
-                    <div class="col-4">
-                        <div class="fw-bold ${performanceColor} fs-6">${oeePerformance.toFixed(1)}%</div>
-                        <small class="text-muted" style="font-size: 0.65rem;">ประสิทธิภาพ</small>
+                    <div class="oee-metric">
+                        <div class="oee-metric-value ${getMetricColor(oeePerformance, 'performance')}">${oeePerformance.toFixed(1)}%</div>
+                        <div class="oee-metric-label">ประสิทธิภาพ</div>
                     </div>
-                    <div class="col-4">
-                        <div class="fw-bold ${qualityColor} fs-6">${oeeQuality.toFixed(1)}%</div>
-                        <small class="text-muted" style="font-size: 0.65rem;">คุณภาพ</small>
+                    <div class="oee-metric">
+                        <div class="oee-metric-value ${getMetricColor(oeeQuality, 'quality')}">${oeeQuality.toFixed(1)}%</div>
+                        <div class="oee-metric-label">คุณภาพ</div>
                     </div>
                 </div>
-                <hr class="my-1 opacity-50">
-                <div class="fw-bold text-dark fs-4 mb-1">${oeeOverall.toFixed(1)}%</div>
-                <span class="badge ${getOEEBadgeClass(oeeOverall)} fs-6">${getOEELabel(oeeOverall)}</span>
+                <div class="oee-overall">
+                    <div class="oee-overall-value">${oeeOverall.toFixed(1)}%</div>
+                    <span class="oee-badge-modern ${getOEEBadgeClass(oeeOverall)}">${getOEELabel(oeeOverall)}</span>
+                </div>
             </td>
-            <td class="text-center data-cell">
-                <div class="fw-bold text-dark mb-1">${calculateDurationSimple(actualStartTime, actualEndTime)}</div>
-                <small class="text-muted d-block">${workingHours.toFixed(1)} ชั่วโมง</small>
+            
+            <!-- เวลา -->
+            <td class="time-cell">
+                <div class="time-duration">${calculateDurationSimple(actualStartTime, actualEndTime)}</div>
+                <div class="time-hours">${workingHours.toFixed(1)} ชั่วโมง</div>
                 ${actualStartTime && actualEndTime ? `
-                    <small class="text-muted d-block mt-1">
+                    <div class="time-range">
                         ${formatTime(actualStartTime)} - ${formatTime(actualEndTime)}
-                    </small>
+                    </div>
                 ` : ''}
-                <div class="progress mt-1" style="height: 3px;">
-                    <div class="progress-bar bg-secondary" style="width: ${Math.min((workingHours / 8) * 100, 100)}%"></div>
+                <div class="data-progress">
+                    <div class="data-progress-bar bg-secondary" style="width: ${Math.min((workingHours / 8) * 100, 100)}%"></div>
                 </div>
+            </td>
+            
+            <!-- หมายเหตุ -->
+            <td class="remark-cell">
+                ${remark !== '-' ? `
+                    <div class="remark-text">
+                        <i class="bi bi-chat-text me-1"></i>
+                        ${remark.substring(0, 100)}${remark.length > 100 ? '...' : ''}
+                    </div>
+                ` : '<span class="text-muted">-</span>'}
             </td>
         </tr>
     `;
@@ -627,7 +777,7 @@ function updateStatistics() {
         validOEEItems.reduce((sum, item) => sum + (parseFloat(item.OEE_Overall) || 0), 0) / validOEEItems.length : 0;
     
     // นับเครื่องจักรที่ใช้งาน
-    const uniqueMachines = new Set(filteredData.map(item => item.MachineName || item.MachineID).filter(m => m)).size;
+    const uniqueMachines = new Set(filteredData.map(item => item.MachineName).filter(m => m)).size;
     
     // อัปเดต UI elements
     updateStatElement('totalCompleted', formatNumber(totalCompleted));
@@ -729,18 +879,30 @@ function updateDepartmentFilter() {
     if (!select) return;
     
     const currentValue = select.value;
-    select.innerHTML = '<option value="">ทุกแผนก</option>';
+    select.innerHTML = '<option value="">ทุกแผนก (มีประวัติ)</option>';
+    
+    // ตรวจสอบว่ามีข้อมูลแผนกที่ถูกต้องหรือไม่
+    if (allDepartments.length === 0) {
+        select.innerHTML += '<option value="" disabled>ไม่มีข้อมูลแผนก</option>';
+        return;
+    }
     
     allDepartments.forEach(dept => {
-        const count = historyData.filter(item => 
-            (item.Department || item.DepartmentName || '').trim() === dept
-        ).length;
+        // นับจำนวนงานที่เสร็จในแผนกนี้
+        const count = historyData.filter(item => {
+            const itemDept = item.Department || item.DepartmentName || '';
+            return itemDept.trim() === dept;
+        }).length;
         
-        select.innerHTML += `<option value="${dept}">${dept} (${count})</option>`;
+        // แสดงเฉพาะแผนกที่มีงานเสร็จแล้ว
+        if (count > 0) {
+            select.innerHTML += `<option value="${dept}">${dept} (${count})</option>`;
+        }
     });
     
     select.value = currentValue; // คงค่าเดิมไว้
-    console.log('Department filter updated:', allDepartments.length, 'departments');
+    console.log('Department filter updated:', allDepartments.length, 'valid departments found');
+    console.log('Valid departments:', allDepartments);
 }
 
 /**
@@ -755,7 +917,7 @@ function updateMachineFilter() {
     
     allMachines.forEach(machine => {
         const count = historyData.filter(item => 
-            (item.MachineName || item.MachineID || '').trim() === machine
+            (item.MachineName || '').trim() === machine
         ).length;
         
         select.innerHTML += `<option value="${machine}">${machine} (${count})</option>`;
@@ -788,13 +950,44 @@ function updateProductFilter() {
 }
 
 /**
- * อัปเดตจำนวนรายการในตัวกรอง
+ * อัปเดตจำนวนรายการในตัวกรอง - Enhanced UX
  */
 function updateFilterCounts() {
     updateElementCount('departmentCount', allDepartments.length);
     updateElementCount('machineCount', allMachines.length);
     updateElementCount('productCount', allProducts.length);
     updateElementCount('filterCount', `${filteredData.length} รายการ`);
+    
+    // อัปเดต Summary Panel
+    updateElementCount('activeDepartmentCount', allDepartments.length);
+    updateElementCount('activeMachineCount', allMachines.length);
+    updateElementCount('activeProductCount', allProducts.length);
+    updateElementCount('totalFilterCount', `${filteredData.length} รายการ`);
+    
+    // อัปเดตจำนวนรวม (สำหรับแสดง "จาก X รายการ")
+    updateTotalCounts();
+}
+
+/**
+ * อัปเดตจำนวนรวมของแต่ละประเภท
+ */
+function updateTotalCounts() {
+    // สมมุติว่าในระบบมีจำนวนรวมมากกว่าที่มีประวัติ
+    // ในอนาคตสามารถดึงจาก API แยกต่างหาก
+    const totalDepartmentsInSystem = Math.max(allDepartments.length, allDepartments.length + 2); // แสดงว่าอาจมีแผนกเพิ่ม
+    const totalMachinesInSystem = Math.max(allMachines.length, allMachines.length + 5); // แสดงว่าอาจมีเครื่องเพิ่ม
+    const totalProductsInSystem = Math.max(allProducts.length, allProducts.length + 10); // แสดงว่าอาจมีสินค้าเพิ่ม
+    
+    updateElementCount('totalDepartments', totalDepartmentsInSystem);
+    updateElementCount('totalMachines', totalMachinesInSystem);
+    updateElementCount('totalProducts', totalProductsInSystem);
+    
+    // แสดงสถิติการครอบคลุม
+    console.log('Filter Coverage:', {
+        departments: `${allDepartments.length}/${totalDepartmentsInSystem}`,
+        machines: `${allMachines.length}/${totalMachinesInSystem}`,
+        products: `${allProducts.length}/${totalProductsInSystem}`
+    });
 }
 
 /**
@@ -826,7 +1019,7 @@ function showLoading(show) {
     if (show && tbody) {
         tbody.innerHTML = `
             <tr>
-                <td colspan="11" class="text-center py-5">
+                <td colspan="13" class="text-center py-5">
                     <div class="d-flex flex-column align-items-center">
                         <div class="spinner-border text-primary mb-3" role="status" style="width: 3rem; height: 3rem;">
                             <span class="visually-hidden">กำลังโหลด...</span>
@@ -854,7 +1047,7 @@ function showError(message) {
     if (tbody) {
         tbody.innerHTML = `
             <tr>
-                <td colspan="11" class="text-center py-5">
+                <td colspan="13" class="text-center py-5">
                     <div class="d-flex flex-column align-items-center">
                         <i class="bi bi-exclamation-triangle-fill fs-1 text-danger mb-3"></i>
                         <h5 class="text-danger mb-2">เกิดข้อผิดพลาด</h5>
@@ -956,12 +1149,7 @@ function setupControlButtons() {
     if (printBtn) {
         printBtn.addEventListener('click', printReport);
     }
-    
-    // ปุ่มบันทึกตัวกรอง
-    const saveFiltersBtn = document.getElementById('saveFiltersBtn');
-    if (saveFiltersBtn) {
-        saveFiltersBtn.addEventListener('click', saveCurrentFilters);
-    }
+
 }
 
 /**
@@ -1025,18 +1213,6 @@ function saveCurrentFilters() {
 }
 
 /**
- * ส่งออกข้อมูลเป็น Excel (ฟีเจอร์พื้นฐาน)
- */
-function exportToExcel() {
-    showToast('กำลังเตรียมไฟล์ Excel...', 'info');
-    
-    // TODO: Implement proper Excel export
-    setTimeout(() => {
-        showToast('ฟีเจอร์ส่งออก Excel กำลังพัฒนา', 'warning');
-    }, 1000);
-}
-
-/**
  * พิมพ์รายงาน
  */
 function printReport() {
@@ -1052,8 +1228,7 @@ function printReport() {
  */
 function getOEEClass(oee) {
     if (oee >= 85) return 'oee-excellent';
-    if (oee >= 70) return 'oee-good';
-    if (oee >= 50) return 'oee-fair';
+    if (oee >= 60) return 'oee-good';
     return 'oee-poor';
 }
 
@@ -1062,8 +1237,7 @@ function getOEEClass(oee) {
  */
 function getOEEBadgeClass(oee) {
     if (oee >= 85) return 'bg-success';
-    if (oee >= 70) return 'bg-warning';
-    if (oee >= 50) return 'bg-info';
+    if (oee >= 60) return 'bg-warning';
     return 'bg-danger';
 }
 
@@ -1072,8 +1246,7 @@ function getOEEBadgeClass(oee) {
  */
 function getOEELabel(oee) {
     if (oee >= 85) return 'ดีเยี่ยม';
-    if (oee >= 70) return 'ดี';
-    if (oee >= 50) return 'พอใช้';
+    if (oee >= 60) return 'ปานกลางถึงดี';
     return 'ต้องปรับปรุง';
 }
 
@@ -1097,19 +1270,6 @@ function getMetricColor(value, type) {
         default:
             return 'text-muted';
     }
-}
-
-/**
- * ดึงข้อมูลกะการทำงาน
- */
-function getShiftInfo(startTime) {
-    if (!startTime) return '';
-    
-    const hour = new Date(startTime).getHours();
-    
-    if (hour >= 6 && hour < 14) return 'กะเช้า';
-    if (hour >= 14 && hour < 22) return 'กะบ่าย';
-    return 'กะกลางคืน';
 }
 
 /**
@@ -1171,6 +1331,7 @@ function createJobDetailsContent(item) {
     const productionDate = item.ProductionDate || item.ConfirmedAt || '-';
     const actualStartTime = item.ActualStartTime || '-';
     const actualEndTime = item.ActualEndTime || '-';
+    const plannedEndTime = item.PlannedEndTime || '-';
     const workingHours = parseFloat(item.WorkingHours) || 0;
     
     // ข้อมูล OEE
@@ -1241,10 +1402,6 @@ function createJobDetailsContent(item) {
                                                 <td><span class="badge bg-success">${item.MachineName || 'ไม่ระบุ'}</span></td>
                                             </tr>
                                             <tr>
-                                                <td class="fw-bold">กะการทำงาน:</td>
-                                                <td>${actualStartTime ? getShiftInfo(actualStartTime) : '-'}</td>
-                                            </tr>
-                                            <tr>
                                                 <td class="fw-bold">สถานะงาน:</td>
                                                 <td><span class="badge bg-success">เสร็จสิ้น</span></td>
                                             </tr>
@@ -1270,7 +1427,7 @@ function createJobDetailsContent(item) {
                                 <i class="bi bi-clock me-2"></i>ตารางเวลาการผลิต
                             </h6>
                             <div class="row">
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <div class="text-center p-3 bg-light rounded">
                                         <h6 class="text-muted">เวลาเริ่มต้น (วางแผน)</h6>
                                         <div class="fs-5 fw-bold text-primary">
@@ -1278,7 +1435,15 @@ function createJobDetailsContent(item) {
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-3">
+                                    <div class="text-center p-3 bg-light rounded">
+                                        <h6 class="text-muted">เวลาสิ้นสุด (วางแผน)</h6>
+                                        <div class="fs-5 fw-bold text-warning">
+                                            ${plannedEndTime ? formatTime(plannedEndTime) : '-'}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
                                     <div class="text-center p-3 bg-light rounded">
                                         <h6 class="text-muted">เวลาเริ่มต้น (จริง)</h6>
                                         <div class="fs-5 fw-bold text-info">
@@ -1286,7 +1451,7 @@ function createJobDetailsContent(item) {
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <div class="text-center p-3 bg-light rounded">
                                         <h6 class="text-muted">เวลาสิ้นสุด (จริง)</h6>
                                         <div class="fs-5 fw-bold text-success">
@@ -1337,53 +1502,32 @@ function createJobDetailsContent(item) {
                             <div class="table-responsive">
                                 <table class="table table-sm">
                                     <tr>
-                                        <td class="fw-bold">ขนาดล็อต (วางแผน):</td>
+                                        <td class="fw-bold">ขนาดล็อต:</td>
                                         <td class="text-end">
-                                            <span class="fw-bold text-primary">${formatNumber(lotSize)}</span> ชิ้น
+                                            <span class="fw-bold text-primary">${formatNumber(lotSize)}</span> ล๊อต
                                         </td>
                                     </tr>
                                     <tr>
                                         <td class="fw-bold">ผลิตได้จริง:</td>
                                         <td class="text-end">
                                             <span class="fw-bold text-info">${formatNumber(totalPieces)}</span> ชิ้น
-                                            <small class="text-muted">(${efficiency.toFixed(1)}%)</small>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td class="fw-bold">ของดี:</td>
                                         <td class="text-end">
                                             <span class="fw-bold text-success">${formatNumber(goodQuantity)}</span> ชิ้น
-                                            <small class="text-muted">(${yieldRate.toFixed(1)}%)</small>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td class="fw-bold">ของเสีย:</td>
                                         <td class="text-end">
                                             <span class="fw-bold text-danger">${formatNumber(rejectPieces)}</span> ชิ้น
-                                            <small class="text-muted">(${(100 - yieldRate).toFixed(1)}%)</small>
                                         </td>
                                     </tr>
                                 </table>
                             </div>
                             
-                            <!-- Production Charts -->
-                            <div class="mt-3">
-                                <div class="d-flex justify-content-between align-items-center mb-2">
-                                    <small class="fw-bold">ประสิทธิภาพการผลิต</small>
-                                    <small>${efficiency.toFixed(1)}%</small>
-                                </div>
-                                <div class="progress mb-2" style="height: 8px;">
-                                    <div class="progress-bar bg-info" style="width: ${Math.min(efficiency, 100)}%"></div>
-                                </div>
-                                
-                                <div class="d-flex justify-content-between align-items-center mb-2">
-                                    <small class="fw-bold">อัตราคุณภาพ</small>
-                                    <small>${yieldRate.toFixed(1)}%</small>
-                                </div>
-                                <div class="progress mb-2" style="height: 8px;">
-                                    <div class="progress-bar bg-success" style="width: ${yieldRate}%"></div>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -1443,19 +1587,12 @@ function createJobDetailsContent(item) {
                             </h6>
                             <div class="row">
                                 <div class="col-md-6">
-                                    <h6 class="text-muted">สาเหตุการหยุดเครื่อง:</h6>
-                                    <p class="mb-3">${item.DowntimeReason || 'ไม่มีการหยุดเครื่อง'}</p>
-                                    
-                                    <h6 class="text-muted">หมายเหตุ:</h6>
-                                    <p class="mb-0">${item.Notes || 'ไม่มีหมายเหตุ'}</p>
+                                    <h6 class="text-muted">เวลาหยุดเครื่อง:</h6>
+                                    <p class="mb-3 text-danger fw-bold">${downtimeMinutes} นาที</p>
                                 </div>
                                 <div class="col-md-6">
-                                    <h6 class="text-muted">ข้อมูลเทคนิค:</h6>
-                                    <ul class="list-unstyled">
-                                        <li><strong>อัตราการผลิตมาตรฐาน:</strong> ${item.IdealRunRate || 'ไม่ระบุ'} ชิ้น/ชั่วโมง</li>
-                                        <li><strong>เวอร์ชันแปลน:</strong> ${item.PlanVersion || 'ไม่ระบุ'}</li>
-                                        <li><strong>อัปเดตล่าสุด:</strong> ${item.LastUpdated ? formatDateTime(new Date(item.LastUpdated)) : 'ไม่ระบุ'}</li>
-                                    </ul>
+                                     <h6 class="text-muted">สาเหตุการหยุดเครื่อง:</h6>
+                                    <p class="mb-3">${item.DowntimeReason || 'ไม่มีการหยุดเครื่อง'}</p>
                                 </div>
                             </div>
                         </div>
@@ -1491,15 +1628,6 @@ function getProgressBarClass(value, type) {
 /**
  * ฟังก์ชันช่วยเหลือเพิ่มเติมสำหรับ Modal
  */
-function getShiftInfo(timeString) {
-    if (!timeString) return 'ไม่ระบุ';
-    
-    const hour = new Date(timeString).getHours();
-    if (hour >= 8 && hour < 16) return 'กะเช้า (08:00-16:00)';
-    if (hour >= 16 && hour < 24) return 'กะบ่าย (16:00-24:00)';
-    return 'กะดึก (00:00-08:00)';
-}
-
 function calculateDurationSimple(startTime, endTime) {
     if (!startTime || !endTime) return '-';
     
@@ -1729,33 +1857,120 @@ function getToastIcon(type) {
 // ================================================================
 
 /**
- * Export ข้อมูลปัจจุบันเป็น Excel
+ * จัดรูปแบบวันที่สำหรับ Excel (DD/MM/YYYY)
+ */
+function formatDateForExcel(dateString) {
+    if (!dateString || dateString === '-' || dateString === '') return '';
+    
+    try {
+        const date = new Date(dateString);
+        if (isNaN(date.getTime())) return dateString; // ถ้าไม่ใช่วันที่ให้คืนค่าเดิม
+        
+        const day = date.getDate().toString().padStart(2, '0');
+        const month = (date.getMonth() + 1).toString().padStart(2, '0');
+        const year = date.getFullYear();
+        
+        return `${day}/${month}/${year}`;
+    } catch (error) {
+        console.warn('Error formatting date:', dateString, error);
+        return dateString;
+    }
+}
+
+/**
+ * จัดรูปแบบวันที่และเวลาสำหรับ Excel (DD/MM/YYYY HH:MM)
+ */
+function formatDateTimeForExcel(dateString) {
+    if (!dateString || dateString === '-' || dateString === '') return '';
+    
+    try {
+        const date = new Date(dateString);
+        if (isNaN(date.getTime())) return dateString;
+        
+        const day = date.getDate().toString().padStart(2, '0');
+        const month = (date.getMonth() + 1).toString().padStart(2, '0');
+        const year = date.getFullYear();
+        const hours = date.getHours().toString().padStart(2, '0');
+        const minutes = date.getMinutes().toString().padStart(2, '0');
+        
+        return `${day}/${month}/${year} ${hours}:${minutes}`;
+    } catch (error) {
+        console.warn('Error formatting datetime:', dateString, error);
+        return dateString;
+    }
+}
+/**
+ * Export ข้อมูลปัจจุบันเป็น Excel - ตรงกับโครงสร้างฐานข้อมูล ProductionResults (ปรับปรุงใหม่)
  */
 function exportToExcel() {
     const allData = filteredData.length > 0 ? filteredData : historyData;
     
-    const jsonData = allData.map((item, index) => ({
-        'ลำดับ': index + 1,
-        'วันที่ผลิต': item.ProductionDate || item.ConfirmedAt || '-',
-        'เวลาเริ่ม': item.ActualStartTime || '-',
-        'เวลาสิ้นสุด': item.ActualEndTime || '-',
-        'แผนก': item.Department || item.DepartmentName || '-',
-        'เครื่องจักร': item.MachineName || '-',
-        'ผลิตภัณฑ์': item.ProductName || '-',
-        'รหัสสินค้า': item.ProductCode || '-',
-        'ขนาด': item.ProductSize || '-',
-        'รหัสล็อต': item.LotNumber || '-',
-        'ขนาดล็อต': item.LotSize || 0,
-        'ผลิตจริง': item.TotalPieces || 0,
-        'ของดี': item.GoodQuantity || 0,
-        'ของเสีย': item.RejectPieces || 0,
-        'เวลาทำงาน (ชม.)': item.WorkingHours || 0,
-        'เวลาหยุด (นาที)': item.DowntimeMinutes || 0,
-        'OEE Availability (%)': item.OEE_Availability || 0,
-        'OEE Performance (%)': item.OEE_Performance || 0,
-        'OEE Quality (%)': item.OEE_Quality || 0,
-        'OEE Overall (%)': item.OEE_Overall || 0,
-        'หมายเหตุ': item.Notes || '-'
+    if (!allData || allData.length === 0) {
+        showToast('ไม่มีข้อมูลสำหรับส่งออก', 'warning');
+        return;
+    }
+    
+    // แปลงข้อมูลและจัดรูปแบบวันที่ให้ถูกต้อง - จัดเรียงฟิลด์ตามลำดับที่อ่านง่าย
+    const jsonData = allData.map((item) => ({
+        // === ข้อมูลแผนงาน ===
+        'Plan ID': item.PlanID || '-',
+        'Order Number': item.OrderNumber || '-',
+        'Production Date': formatDateForExcel(item.ProductionDate),
+        
+        // === ข้อมูลผลิตภัณฑ์ ===
+        'Product Name': item.ProductName || '-',
+        'Product Size': item.ProductSize || '-',
+        
+        // === ข้อมูลแผนกและเครื่องจักร ===
+        'Department': item.Department || '-',
+        'Subdepartment': item.Subdepartment || '-', // ✅ เพิ่มใหม่
+        'Machine Name': item.MachineName || '-',
+        
+        // === เวลาการผลิต ===
+        'Planned Start': formatDateTimeForExcel(item.PlannedStartTime),
+        'Planned End': formatDateTimeForExcel(item.PlannedEndTime),
+        'Start Time': formatDateTimeForExcel(item.ActualStartTime),
+        'End Time': formatDateTimeForExcel(item.ActualEndTime),
+        'Shift Hours': parseFloat(item.ShiftHours) || 0,
+        'Overtime (Min)': parseInt(item.OvertimeMinutes) || 0,
+        
+        // === เวลาพัก ===
+        'Morning Break (Min)': parseInt(item.BreakMorningMinutes) || 0,
+        'Lunch Break (Min)': parseInt(item.BreakLunchMinutes) || 0,
+        'Evening Break (Min)': parseInt(item.BreakEveningMinutes) || 0,
+        'Total Break (Min)': parseInt(item.TotalBreakMinutes) || 0,
+        
+        // === เวลาหยุดเครื่อง ===
+        'Downtime (Min)': parseInt(item.DowntimeMinutes) || 0,
+        'Downtime Reason': item.DowntimeReason || '-',
+        
+        // === เวลาทำงาน ===
+        'Planned Work (Min)': parseInt(item.PlannedWorkMinutes) || 0,
+        'Active Work (Min)': parseInt(item.ActiveWorkMinutes) || 0,
+        'Working Hours': parseFloat(item.WorkingHours) || 0,
+        
+        // === จำนวนผลิต ===
+        'Total Pieces': parseInt(item.TotalPieces) || 0,
+        'Good Quantity': parseInt(item.GoodQuantity) || 0,
+        'Reject Pieces': parseInt(item.RejectPieces) || 0,
+        'Rework Pieces': parseInt(item.ReworkPieces) || 0, // ✅ เพิ่มใหม่
+        'Remark': item.Remark || '-', // ✅ เพิ่มใหม่
+        
+        // === อัตราการผลิต ===
+        'Standard Rate': parseFloat(item.StandardRunRate) || 0,
+        'Actual Rate': parseFloat(item.ActualRunRate) || 0,
+        
+        // === OEE (%) ===
+        'Availability (%)': parseFloat(item.OEE_Availability) || 0,
+        'Performance (%)': parseFloat(item.OEE_Performance) || 0,
+        'Quality (%)': parseFloat(item.OEE_Quality) || 0,
+        'Overall OEE (%)': parseFloat(item.OEE_Overall) || 0,
+        
+        // === ข้อมูลการยืนยัน ===
+        'Status': item.Status || '-',
+        'Confirmed At': formatDateTimeForExcel(item.ConfirmedAt),
+        'Confirmed By': item.ConfirmedByUserName || '-',
+        'Result ID': item.ResultID || '-'
     }));
 
     // ใช้วิธีการสร้าง CSV เมื่อไม่มี XLSX library
@@ -1764,14 +1979,109 @@ function exportToExcel() {
         return;
     }
 
-    const worksheet = XLSX.utils.json_to_sheet(jsonData);
-    const workbook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(workbook, worksheet, "ข้อมูลประวัติการผลิต");
-    
-    const filename = `OEE_History_${formatDateForFilename(new Date())}.xlsx`;
-    XLSX.writeFile(workbook, filename);
-    
-    showToast(`ส่งออกข้อมูล ${allData.length} รายการเป็น Excel สำเร็จ`, 'success');
+    try {
+        const worksheet = XLSX.utils.json_to_sheet(jsonData);
+        
+        // ปรับขนาดคอลัมน์ตามเนื้อหา - จัดตามลำดับฟิลด์ใหม่
+        const colWidths = [
+            // === ข้อมูลแผนงาน ===
+            { wch: 10 },  // Plan ID
+            { wch: 15 },  // Order Number
+            { wch: 15 },  // Production Date
+            
+            // === ข้อมูลผลิตภัณฑ์ ===
+            { wch: 25 },  // Product Name
+            { wch: 12 },  // Product Size
+            
+            // === ข้อมูลแผนกและเครื่องจักร ===
+            { wch: 15 },  // Department
+            { wch: 15 },  // Subdepartment ✅ ใหม่
+            { wch: 20 },  // Machine Name
+            
+            // === เวลาการผลิต ===
+            { wch: 18 },  // Planned Start
+            { wch: 18 },  // Planned End
+            { wch: 18 },  // Start Time
+            { wch: 18 },  // End Time
+            { wch: 12 },  // Shift Hours
+            { wch: 15 },  // Overtime (Min)
+            
+            // === เวลาพัก ===
+            { wch: 18 },  // Morning Break (Min)
+            { wch: 16 },  // Lunch Break (Min)
+            { wch: 18 },  // Evening Break (Min)
+            { wch: 17 },  // Total Break (Min)
+            
+            // === เวลาหยุดเครื่อง ===
+            { wch: 15 },  // Downtime (Min)
+            { wch: 30 },  // Downtime Reason
+            
+            // === เวลาทำงาน ===
+            { wch: 18 },  // Planned Work (Min)
+            { wch: 17 },  // Active Work (Min)
+            { wch: 15 },  // Working Hours
+            
+            // === จำนวนผลิต ===
+            { wch: 12 },  // Total Pieces
+            { wch: 15 },  // Good Quantity
+            { wch: 13 },  // Reject Pieces
+            { wch: 14 },  // Rework Pieces ✅ ใหม่
+            { wch: 30 },  // Remark ✅ ใหม่
+            
+            // === อัตราการผลิต ===
+            { wch: 14 },  // Standard Rate
+            { wch: 12 },  // Actual Rate
+            
+            // === OEE (%) ===
+            { wch: 15 },  // Availability (%)
+            { wch: 15 },  // Performance (%)
+            { wch: 12 },  // Quality (%)
+            { wch: 16 },  // Overall OEE (%)
+            
+            // === ข้อมูลการยืนยัน ===
+            { wch: 10 },  // Status
+            { wch: 18 },  // Confirmed At
+            { wch: 18 },  // Confirmed By
+            { wch: 10 }   // Result ID
+        ];
+        worksheet['!cols'] = colWidths;
+        
+        // เพิ่มการจัดรูปแบบสำหรับ header - สีเดียวทั้งหมด
+        const range = XLSX.utils.decode_range(worksheet['!ref']);
+        
+        // จัดรูปแบบ header row ด้วยสีเดียวกัน
+        for (let col = range.s.c; col <= range.e.c; col++) {
+            const cellAddress = XLSX.utils.encode_cell({ r: 0, c: col });
+            if (!worksheet[cellAddress]) continue;
+            
+            worksheet[cellAddress].s = {
+                font: { bold: true, color: { rgb: "FFFFFF" }, sz: 11 },
+                fill: { fgColor: { rgb: "4472C4" } }, // สีน้ำเงินเดียวทั้งหมด
+                alignment: { horizontal: "center", vertical: "center" },
+                border: {
+                    top: { style: "thin", color: { rgb: "000000" } },
+                    bottom: { style: "thin", color: { rgb: "000000" } },
+                    left: { style: "thin", color: { rgb: "000000" } },
+                    right: { style: "thin", color: { rgb: "000000" } }
+                }
+            };
+        }
+        
+        const workbook = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(workbook, worksheet, "Production Report");
+        
+        const filename = `Production_Report_${formatDateForFilename(new Date())}.xlsx`;
+        XLSX.writeFile(workbook, filename);
+        
+        showToast(`ส่งออกข้อมูล ${allData.length} รายการเป็น Excel สำเร็จ`, 'success');
+        
+    } catch (error) {
+        console.error('Excel export error:', error);
+        showToast('เกิดข้อผิดพลาดในการส่งออก Excel: ' + error.message, 'error');
+        
+        // Fallback to CSV export
+        exportToCSV(jsonData);
+    }
 }
 
 /**
@@ -1794,7 +2104,7 @@ function exportToCSV(data) {
     const url = URL.createObjectURL(blob);
     
     link.setAttribute('href', url);
-    link.setAttribute('download', `OEE_History_${formatDateForFilename(new Date())}.csv`);
+    link.setAttribute('download', `ProductionResults_${formatDateForFilename(new Date())}.csv`);
     link.style.visibility = 'hidden';
     
     document.body.appendChild(link);

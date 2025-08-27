@@ -1,0 +1,955 @@
+[25-Aug-2025 07:52:53 UTC] Received save_partial_confirmation data: Array
+(
+    [PlanID] => 123
+    [SessionQuantity] => 1000
+    [SessionRejectQuantity] => 0
+    [SessionReworkQuantity] => 0
+    [QualityRemark] => 
+    [ActualStartTime] => 2025-08-25 00:52:00
+    [ActualEndTime] => 2025-08-25 11:23:00
+    [BreakMorningMinutes] => 0
+    [BreakLunchMinutes] => 60
+    [BreakEveningMinutes] => 15
+    [DowntimeMinutes] => 10
+    [DowntimeReason] => aa
+    [Notes] => asd
+    [CreatedBy] => User
+)
+
+[25-Aug-2025 07:52:53 UTC] Processing save_partial_confirmation for PlanID: 123
+[25-Aug-2025 07:52:53 UTC] Error in createFinalProductionResult: Undefined array key "TotalWorkingMinutes"
+[25-Aug-2025 07:53:31 UTC] Received save_partial_confirmation data: Array
+(
+    [PlanID] => 122
+    [SessionQuantity] => 2000
+    [SessionRejectQuantity] => 0
+    [SessionReworkQuantity] => 0
+    [QualityRemark] => 
+    [ActualStartTime] => 2025-08-25 06:00:00
+    [ActualEndTime] => 2025-08-25 21:00:00
+    [BreakMorningMinutes] => 0
+    [BreakLunchMinutes] => 60
+    [BreakEveningMinutes] => 0
+    [DowntimeMinutes] => 15
+    [DowntimeReason] => taaaaaaa
+    [Notes] => asdad
+    [CreatedBy] => User
+)
+
+[25-Aug-2025 07:53:31 UTC] Processing save_partial_confirmation for PlanID: 122
+[25-Aug-2025 08:53:40 UTC] Received save_partial_confirmation data: Array
+(
+    [PlanID] => 124
+    [SessionQuantity] => 4000
+    [SessionRejectQuantity] => 0
+    [SessionReworkQuantity] => 1000
+    [QualityRemark] => asd
+    [ActualStartTime] => 2025-08-24 08:00:00
+    [ActualEndTime] => 2025-08-24 20:00:00
+    [BreakMorningMinutes] => 0
+    [BreakLunchMinutes] => 60
+    [BreakEveningMinutes] => 15
+    [DowntimeMinutes] => 10
+    [DowntimeReason] => test
+    [Notes] => asda
+    [CreatedBy] => User
+)
+
+[25-Aug-2025 08:53:40 UTC] Processing save_partial_confirmation for PlanID: 124
+[25-Aug-2025 08:57:17 UTC] Debug Machine data from JOIN: MachineNames=เครื่องบรรจุ 2 หัว,เครื่องคลิ้มหัวสเปรย์,เครื่องบรรจุซองอัตโนมัติ, PrimaryMachineName=เครื่องบรรจุ 2 หัว
+[25-Aug-2025 08:57:17 UTC] Final MachineName result: เครื่องบรรจุ 2 หัว,เครื่องคลิ้มหัวสเปรย์,เครื่องบรรจุซองอัตโนมัติ
+[25-Aug-2025 08:57:17 UTC] Plan Detail Debug - PlanID: 124
+[25-Aug-2025 08:57:17 UTC] Setup/Break Data: {"SetupMinutes":0,"SetupNote":"test","BreakMorningMinutes":15,"BreakLunchMinutes":60,"BreakEveningMinutes":0,"PlannedMinutes":2565}
+[25-Aug-2025 08:58:25 UTC] Debug Machine data from JOIN: MachineNames=เครื่องบรรจุ 2 หัว,เครื่องคลิ้มหัวสเปรย์,เครื่องบรรจุซองอัตโนมัติ, PrimaryMachineName=เครื่องบรรจุ 2 หัว
+[25-Aug-2025 08:58:25 UTC] Final MachineName result: เครื่องบรรจุ 2 หัว,เครื่องคลิ้มหัวสเปรย์,เครื่องบรรจุซองอัตโนมัติ
+[25-Aug-2025 08:58:25 UTC] Plan Detail Debug - PlanID: 124
+[25-Aug-2025 08:58:25 UTC] Setup/Break Data: {"SetupMinutes":0,"SetupNote":"test","BreakMorningMinutes":15,"BreakLunchMinutes":60,"BreakEveningMinutes":0,"PlannedMinutes":2565}
+[25-Aug-2025 08:58:37 UTC] Debug Machine data from JOIN: MachineNames=เครื่องบรรจุ 2 หัว,เครื่องคลิ้มหัวสเปรย์,เครื่องบรรจุซองอัตโนมัติ, PrimaryMachineName=เครื่องบรรจุ 2 หัว
+[25-Aug-2025 08:58:37 UTC] Final MachineName result: เครื่องบรรจุ 2 หัว,เครื่องคลิ้มหัวสเปรย์,เครื่องบรรจุซองอัตโนมัติ
+[25-Aug-2025 08:58:37 UTC] Plan Detail Debug - PlanID: 124
+[25-Aug-2025 08:58:37 UTC] Setup/Break Data: {"SetupMinutes":0,"SetupNote":"test","BreakMorningMinutes":15,"BreakLunchMinutes":60,"BreakEveningMinutes":0,"PlannedMinutes":2565}
+[25-Aug-2025 08:59:59 UTC] Debug Machine data from JOIN: MachineNames=เครื่องบรรจุ 2 หัว,เครื่องคลิ้มหัวสเปรย์,เครื่องบรรจุซองอัตโนมัติ, PrimaryMachineName=เครื่องบรรจุ 2 หัว
+[25-Aug-2025 08:59:59 UTC] Final MachineName result: เครื่องบรรจุ 2 หัว,เครื่องคลิ้มหัวสเปรย์,เครื่องบรรจุซองอัตโนมัติ
+[25-Aug-2025 08:59:59 UTC] Plan Detail Debug - PlanID: 124
+[25-Aug-2025 08:59:59 UTC] Setup/Break Data: {"SetupMinutes":0,"SetupNote":"test","BreakMorningMinutes":15,"BreakLunchMinutes":60,"BreakEveningMinutes":0,"PlannedMinutes":2565}
+[25-Aug-2025 09:01:20 UTC] Debug Machine data from JOIN: MachineNames=เครื่องบรรจุ 2 หัว,เครื่องคลิ้มหัวสเปรย์,เครื่องบรรจุซองอัตโนมัติ, PrimaryMachineName=เครื่องบรรจุ 2 หัว
+[25-Aug-2025 09:01:20 UTC] Final MachineName result: เครื่องบรรจุ 2 หัว,เครื่องคลิ้มหัวสเปรย์,เครื่องบรรจุซองอัตโนมัติ
+[25-Aug-2025 09:01:20 UTC] Plan Detail Debug - PlanID: 124
+[25-Aug-2025 09:01:20 UTC] Setup/Break Data: {"SetupMinutes":0,"SetupNote":"test","BreakMorningMinutes":15,"BreakLunchMinutes":60,"BreakEveningMinutes":0,"PlannedMinutes":2565}
+[25-Aug-2025 09:01:22 UTC] Debug Machine data from JOIN: MachineNames=เครื่องบรรจุ 2 หัว,เครื่องคลิ้มหัวสเปรย์,เครื่องบรรจุซองอัตโนมัติ, PrimaryMachineName=เครื่องบรรจุ 2 หัว
+[25-Aug-2025 09:01:22 UTC] Final MachineName result: เครื่องบรรจุ 2 หัว,เครื่องคลิ้มหัวสเปรย์,เครื่องบรรจุซองอัตโนมัติ
+[25-Aug-2025 09:01:22 UTC] Plan Detail Debug - PlanID: 124
+[25-Aug-2025 09:01:22 UTC] Setup/Break Data: {"SetupMinutes":0,"SetupNote":"test","BreakMorningMinutes":15,"BreakLunchMinutes":60,"BreakEveningMinutes":0,"PlannedMinutes":2565}
+[25-Aug-2025 09:01:29 UTC] Debug Machine data from JOIN: MachineNames=เครื่องบรรจุ 2 หัว,เครื่องคลิ้มหัวสเปรย์,เครื่องบรรจุซองอัตโนมัติ, PrimaryMachineName=เครื่องบรรจุ 2 หัว
+[25-Aug-2025 09:01:29 UTC] Final MachineName result: เครื่องบรรจุ 2 หัว,เครื่องคลิ้มหัวสเปรย์,เครื่องบรรจุซองอัตโนมัติ
+[25-Aug-2025 09:01:29 UTC] Plan Detail Debug - PlanID: 124
+[25-Aug-2025 09:01:29 UTC] Setup/Break Data: {"SetupMinutes":0,"SetupNote":"test","BreakMorningMinutes":15,"BreakLunchMinutes":60,"BreakEveningMinutes":0,"PlannedMinutes":2565}
+[25-Aug-2025 09:01:52 UTC] Debug Machine data from JOIN: MachineNames=เครื่องบรรจุ 2 หัว,เครื่องคลิ้มหัวสเปรย์,เครื่องบรรจุซองอัตโนมัติ, PrimaryMachineName=เครื่องบรรจุ 2 หัว
+[25-Aug-2025 09:01:52 UTC] Final MachineName result: เครื่องบรรจุ 2 หัว,เครื่องคลิ้มหัวสเปรย์,เครื่องบรรจุซองอัตโนมัติ
+[25-Aug-2025 09:01:52 UTC] Plan Detail Debug - PlanID: 124
+[25-Aug-2025 09:01:52 UTC] Setup/Break Data: {"SetupMinutes":0,"SetupNote":"test","BreakMorningMinutes":15,"BreakLunchMinutes":60,"BreakEveningMinutes":0,"PlannedMinutes":2565}
+[25-Aug-2025 09:01:55 UTC] Debug Machine data from JOIN: MachineNames=เครื่องบรรจุ 2 หัว,เครื่องคลิ้มหัวสเปรย์,เครื่องบรรจุซองอัตโนมัติ, PrimaryMachineName=เครื่องบรรจุ 2 หัว
+[25-Aug-2025 09:01:55 UTC] Final MachineName result: เครื่องบรรจุ 2 หัว,เครื่องคลิ้มหัวสเปรย์,เครื่องบรรจุซองอัตโนมัติ
+[25-Aug-2025 09:01:55 UTC] Plan Detail Debug - PlanID: 124
+[25-Aug-2025 09:01:55 UTC] Setup/Break Data: {"SetupMinutes":0,"SetupNote":"test","BreakMorningMinutes":15,"BreakLunchMinutes":60,"BreakEveningMinutes":0,"PlannedMinutes":2565}
+[25-Aug-2025 09:02:07 UTC] Debug Machine data from JOIN: MachineNames=เครื่องบรรจุ 2 หัว,เครื่องคลิ้มหัวสเปรย์,เครื่องบรรจุซองอัตโนมัติ, PrimaryMachineName=เครื่องบรรจุ 2 หัว
+[25-Aug-2025 09:02:07 UTC] Final MachineName result: เครื่องบรรจุ 2 หัว,เครื่องคลิ้มหัวสเปรย์,เครื่องบรรจุซองอัตโนมัติ
+[25-Aug-2025 09:02:07 UTC] Plan Detail Debug - PlanID: 124
+[25-Aug-2025 09:02:07 UTC] Setup/Break Data: {"SetupMinutes":0,"SetupNote":"test","BreakMorningMinutes":15,"BreakLunchMinutes":60,"BreakEveningMinutes":0,"PlannedMinutes":2565}
+[25-Aug-2025 09:02:08 UTC] Debug Machine data from JOIN: MachineNames=เครื่องบรรจุ 2 หัว,เครื่องคลิ้มหัวสเปรย์,เครื่องบรรจุซองอัตโนมัติ, PrimaryMachineName=เครื่องบรรจุ 2 หัว
+[25-Aug-2025 09:02:08 UTC] Final MachineName result: เครื่องบรรจุ 2 หัว,เครื่องคลิ้มหัวสเปรย์,เครื่องบรรจุซองอัตโนมัติ
+[25-Aug-2025 09:02:08 UTC] Plan Detail Debug - PlanID: 124
+[25-Aug-2025 09:02:08 UTC] Setup/Break Data: {"SetupMinutes":0,"SetupNote":"test","BreakMorningMinutes":15,"BreakLunchMinutes":60,"BreakEveningMinutes":0,"PlannedMinutes":2565}
+[25-Aug-2025 09:02:08 UTC] Debug Machine data from JOIN: MachineNames=เครื่องบรรจุ 2 หัว,เครื่องคลิ้มหัวสเปรย์,เครื่องบรรจุซองอัตโนมัติ, PrimaryMachineName=เครื่องบรรจุ 2 หัว
+[25-Aug-2025 09:02:08 UTC] Final MachineName result: เครื่องบรรจุ 2 หัว,เครื่องคลิ้มหัวสเปรย์,เครื่องบรรจุซองอัตโนมัติ
+[25-Aug-2025 09:02:08 UTC] Plan Detail Debug - PlanID: 124
+[25-Aug-2025 09:02:08 UTC] Setup/Break Data: {"SetupMinutes":0,"SetupNote":"test","BreakMorningMinutes":15,"BreakLunchMinutes":60,"BreakEveningMinutes":0,"PlannedMinutes":2565}
+[25-Aug-2025 09:03:20 UTC] Received save_partial_confirmation data: Array
+(
+    [PlanID] => 125
+    [SessionQuantity] => 2500
+    [SessionRejectQuantity] => 0
+    [SessionReworkQuantity] => 0
+    [QualityRemark] => asd
+    [ActualStartTime] => 2025-08-24 10:00:00
+    [ActualEndTime] => 2025-08-24 22:00:00
+    [BreakMorningMinutes] => 0
+    [BreakLunchMinutes] => 60
+    [BreakEveningMinutes] => 15
+    [DowntimeMinutes] => 10
+    [DowntimeReason] => test
+    [Notes] => ad
+    [CreatedBy] => User
+)
+
+[25-Aug-2025 09:03:20 UTC] Processing save_partial_confirmation for PlanID: 125
+[25-Aug-2025 09:03:24 UTC] Debug Machine data from JOIN: MachineNames=เครื่องบรรจุ 2 หัว,เครื่องคลิ้มหัวสเปรย์,เครื่องตอกคอลล่า, PrimaryMachineName=เครื่องบรรจุ 2 หัว
+[25-Aug-2025 09:03:24 UTC] Final MachineName result: เครื่องบรรจุ 2 หัว,เครื่องคลิ้มหัวสเปรย์,เครื่องตอกคอลล่า
+[25-Aug-2025 09:03:24 UTC] Plan Detail Debug - PlanID: 125
+[25-Aug-2025 09:03:24 UTC] Setup/Break Data: {"SetupMinutes":0,"SetupNote":"test","BreakMorningMinutes":0,"BreakLunchMinutes":60,"BreakEveningMinutes":15,"PlannedMinutes":2505}
+[25-Aug-2025 09:10:10 UTC] Debug Machine data from JOIN: MachineNames=เครื่องบรรจุ 2 หัว,เครื่องคลิ้มหัวสเปรย์,เครื่องตอกคอลล่า, PrimaryMachineName=เครื่องบรรจุ 2 หัว
+[25-Aug-2025 09:10:10 UTC] Final MachineName result: เครื่องบรรจุ 2 หัว,เครื่องคลิ้มหัวสเปรย์,เครื่องตอกคอลล่า
+[25-Aug-2025 09:10:10 UTC] Plan Detail Debug - PlanID: 125
+[25-Aug-2025 09:10:10 UTC] Setup/Break Data: {"SetupMinutes":0,"SetupNote":"test","BreakMorningMinutes":0,"BreakLunchMinutes":60,"BreakEveningMinutes":15,"PlannedMinutes":2505}
+[25-Aug-2025 09:10:23 UTC] Debug Machine data from JOIN: MachineNames=เครื่องบรรจุ 2 หัว,เครื่องคลิ้มหัวสเปรย์,เครื่องตอกคอลล่า, PrimaryMachineName=เครื่องบรรจุ 2 หัว
+[25-Aug-2025 09:10:23 UTC] Final MachineName result: เครื่องบรรจุ 2 หัว,เครื่องคลิ้มหัวสเปรย์,เครื่องตอกคอลล่า
+[25-Aug-2025 09:10:23 UTC] Plan Detail Debug - PlanID: 125
+[25-Aug-2025 09:10:23 UTC] Setup/Break Data: {"SetupMinutes":0,"SetupNote":"test","BreakMorningMinutes":0,"BreakLunchMinutes":60,"BreakEveningMinutes":15,"PlannedMinutes":2505}
+[25-Aug-2025 09:10:36 UTC] Debug Machine data from JOIN: MachineNames=เครื่องบรรจุ 2 หัว,เครื่องคลิ้มหัวสเปรย์,เครื่องตอกคอลล่า, PrimaryMachineName=เครื่องบรรจุ 2 หัว
+[25-Aug-2025 09:10:36 UTC] Final MachineName result: เครื่องบรรจุ 2 หัว,เครื่องคลิ้มหัวสเปรย์,เครื่องตอกคอลล่า
+[25-Aug-2025 09:10:36 UTC] Plan Detail Debug - PlanID: 125
+[25-Aug-2025 09:10:36 UTC] Setup/Break Data: {"SetupMinutes":0,"SetupNote":"test","BreakMorningMinutes":0,"BreakLunchMinutes":60,"BreakEveningMinutes":15,"PlannedMinutes":2505}
+[25-Aug-2025 09:11:19 UTC] Debug Machine data from JOIN: MachineNames=เครื่องบรรจุ 2 หัว,เครื่องคลิ้มหัวสเปรย์,เครื่องตอกคอลล่า, PrimaryMachineName=เครื่องบรรจุ 2 หัว
+[25-Aug-2025 09:11:19 UTC] Final MachineName result: เครื่องบรรจุ 2 หัว,เครื่องคลิ้มหัวสเปรย์,เครื่องตอกคอลล่า
+[25-Aug-2025 09:11:19 UTC] Plan Detail Debug - PlanID: 125
+[25-Aug-2025 09:11:19 UTC] Setup/Break Data: {"SetupMinutes":0,"SetupNote":"test","BreakMorningMinutes":0,"BreakLunchMinutes":60,"BreakEveningMinutes":15,"PlannedMinutes":2505}
+[25-Aug-2025 09:13:24 UTC] Debug Machine data from JOIN: MachineNames=เครื่องบรรจุ 2 หัว,เครื่องคลิ้มหัวสเปรย์,เครื่องตอกคอลล่า, PrimaryMachineName=เครื่องบรรจุ 2 หัว
+[25-Aug-2025 09:13:24 UTC] Final MachineName result: เครื่องบรรจุ 2 หัว,เครื่องคลิ้มหัวสเปรย์,เครื่องตอกคอลล่า
+[25-Aug-2025 09:13:24 UTC] Plan Detail Debug - PlanID: 125
+[25-Aug-2025 09:13:24 UTC] Setup/Break Data: {"SetupMinutes":0,"SetupNote":"test","BreakMorningMinutes":0,"BreakLunchMinutes":60,"BreakEveningMinutes":15,"PlannedMinutes":2505}
+[25-Aug-2025 09:13:49 UTC] Debug Machine data from JOIN: MachineNames=เครื่องบรรจุ 2 หัว,เครื่องคลิ้มหัวสเปรย์,เครื่องตอกคอลล่า, PrimaryMachineName=เครื่องบรรจุ 2 หัว
+[25-Aug-2025 09:13:49 UTC] Final MachineName result: เครื่องบรรจุ 2 หัว,เครื่องคลิ้มหัวสเปรย์,เครื่องตอกคอลล่า
+[25-Aug-2025 09:13:49 UTC] Plan Detail Debug - PlanID: 125
+[25-Aug-2025 09:13:49 UTC] Setup/Break Data: {"SetupMinutes":0,"SetupNote":"test","BreakMorningMinutes":0,"BreakLunchMinutes":60,"BreakEveningMinutes":15,"PlannedMinutes":2505}
+[25-Aug-2025 09:13:53 UTC] Debug Machine data from JOIN: MachineNames=เครื่องบรรจุ 2 หัว,เครื่องคลิ้มหัวสเปรย์,เครื่องตอกคอลล่า, PrimaryMachineName=เครื่องบรรจุ 2 หัว
+[25-Aug-2025 09:13:53 UTC] Final MachineName result: เครื่องบรรจุ 2 หัว,เครื่องคลิ้มหัวสเปรย์,เครื่องตอกคอลล่า
+[25-Aug-2025 09:13:53 UTC] Plan Detail Debug - PlanID: 125
+[25-Aug-2025 09:13:53 UTC] Setup/Break Data: {"SetupMinutes":0,"SetupNote":"test","BreakMorningMinutes":0,"BreakLunchMinutes":60,"BreakEveningMinutes":15,"PlannedMinutes":2505}
+[25-Aug-2025 09:14:34 UTC] Debug Machine data from JOIN: MachineNames=เครื่องบรรจุ 2 หัว,เครื่องคลิ้มหัวสเปรย์,เครื่องตอกคอลล่า, PrimaryMachineName=เครื่องบรรจุ 2 หัว
+[25-Aug-2025 09:14:34 UTC] Final MachineName result: เครื่องบรรจุ 2 หัว,เครื่องคลิ้มหัวสเปรย์,เครื่องตอกคอลล่า
+[25-Aug-2025 09:14:34 UTC] Plan Detail Debug - PlanID: 125
+[25-Aug-2025 09:14:34 UTC] Setup/Break Data: {"SetupMinutes":0,"SetupNote":"test","BreakMorningMinutes":0,"BreakLunchMinutes":60,"BreakEveningMinutes":15,"PlannedMinutes":2505}
+[25-Aug-2025 09:14:35 UTC] Debug Machine data from JOIN: MachineNames=เครื่องบรรจุ 2 หัว,เครื่องคลิ้มหัวสเปรย์,เครื่องตอกคอลล่า, PrimaryMachineName=เครื่องบรรจุ 2 หัว
+[25-Aug-2025 09:14:35 UTC] Final MachineName result: เครื่องบรรจุ 2 หัว,เครื่องคลิ้มหัวสเปรย์,เครื่องตอกคอลล่า
+[25-Aug-2025 09:14:35 UTC] Plan Detail Debug - PlanID: 125
+[25-Aug-2025 09:14:36 UTC] Setup/Break Data: {"SetupMinutes":0,"SetupNote":"test","BreakMorningMinutes":0,"BreakLunchMinutes":60,"BreakEveningMinutes":15,"PlannedMinutes":2505}
+[25-Aug-2025 09:15:24 UTC] Debug Machine data from JOIN: MachineNames=เครื่องบรรจุ 2 หัว,เครื่องคลิ้มหัวสเปรย์,เครื่องตอกคอลล่า, PrimaryMachineName=เครื่องบรรจุ 2 หัว
+[25-Aug-2025 09:15:24 UTC] Final MachineName result: เครื่องบรรจุ 2 หัว,เครื่องคลิ้มหัวสเปรย์,เครื่องตอกคอลล่า
+[25-Aug-2025 09:15:24 UTC] Plan Detail Debug - PlanID: 125
+[25-Aug-2025 09:15:24 UTC] Setup/Break Data: {"SetupMinutes":0,"SetupNote":"test","BreakMorningMinutes":0,"BreakLunchMinutes":60,"BreakEveningMinutes":15,"PlannedMinutes":2505}
+[25-Aug-2025 09:16:57 UTC] Debug Machine data from JOIN: MachineNames=เครื่องบรรจุ 2 หัว,เครื่องคลิ้มหัวสเปรย์,เครื่องตอกคอลล่า, PrimaryMachineName=เครื่องบรรจุ 2 หัว
+[25-Aug-2025 09:16:57 UTC] Final MachineName result: เครื่องบรรจุ 2 หัว,เครื่องคลิ้มหัวสเปรย์,เครื่องตอกคอลล่า
+[25-Aug-2025 09:16:57 UTC] Plan Detail Debug - PlanID: 125
+[25-Aug-2025 09:16:57 UTC] Setup/Break Data: {"SetupMinutes":0,"SetupNote":"test","BreakMorningMinutes":0,"BreakLunchMinutes":60,"BreakEveningMinutes":15,"PlannedMinutes":2505}
+[25-Aug-2025 09:17:39 UTC] Debug Machine data from JOIN: MachineNames=เครื่องบรรจุ 2 หัว,เครื่องคลิ้มหัวสเปรย์,เครื่องตอกคอลล่า, PrimaryMachineName=เครื่องบรรจุ 2 หัว
+[25-Aug-2025 09:17:39 UTC] Final MachineName result: เครื่องบรรจุ 2 หัว,เครื่องคลิ้มหัวสเปรย์,เครื่องตอกคอลล่า
+[25-Aug-2025 09:17:39 UTC] Plan Detail Debug - PlanID: 125
+[25-Aug-2025 09:17:39 UTC] Setup/Break Data: {"SetupMinutes":0,"SetupNote":"test","BreakMorningMinutes":0,"BreakLunchMinutes":60,"BreakEveningMinutes":15,"PlannedMinutes":2505}
+[25-Aug-2025 09:17:47 UTC] Debug Machine data from JOIN: MachineNames=เครื่องบรรจุ 2 หัว,เครื่องคลิ้มหัวสเปรย์,เครื่องตอกคอลล่า, PrimaryMachineName=เครื่องบรรจุ 2 หัว
+[25-Aug-2025 09:17:47 UTC] Final MachineName result: เครื่องบรรจุ 2 หัว,เครื่องคลิ้มหัวสเปรย์,เครื่องตอกคอลล่า
+[25-Aug-2025 09:17:47 UTC] Plan Detail Debug - PlanID: 125
+[25-Aug-2025 09:17:47 UTC] Setup/Break Data: {"SetupMinutes":0,"SetupNote":"test","BreakMorningMinutes":0,"BreakLunchMinutes":60,"BreakEveningMinutes":15,"PlannedMinutes":2505}
+[25-Aug-2025 09:17:49 UTC] Debug Machine data from JOIN: MachineNames=เครื่องบรรจุ 2 หัว,เครื่องคลิ้มหัวสเปรย์,เครื่องตอกคอลล่า, PrimaryMachineName=เครื่องบรรจุ 2 หัว
+[25-Aug-2025 09:17:49 UTC] Final MachineName result: เครื่องบรรจุ 2 หัว,เครื่องคลิ้มหัวสเปรย์,เครื่องตอกคอลล่า
+[25-Aug-2025 09:17:49 UTC] Plan Detail Debug - PlanID: 125
+[25-Aug-2025 09:17:49 UTC] Setup/Break Data: {"SetupMinutes":0,"SetupNote":"test","BreakMorningMinutes":0,"BreakLunchMinutes":60,"BreakEveningMinutes":15,"PlannedMinutes":2505}
+[25-Aug-2025 09:17:57 UTC] Debug Machine data from JOIN: MachineNames=เครื่องบรรจุ 2 หัว,เครื่องคลิ้มหัวสเปรย์,เครื่องตอกคอลล่า, PrimaryMachineName=เครื่องบรรจุ 2 หัว
+[25-Aug-2025 09:17:57 UTC] Final MachineName result: เครื่องบรรจุ 2 หัว,เครื่องคลิ้มหัวสเปรย์,เครื่องตอกคอลล่า
+[25-Aug-2025 09:17:57 UTC] Plan Detail Debug - PlanID: 125
+[25-Aug-2025 09:17:57 UTC] Setup/Break Data: {"SetupMinutes":0,"SetupNote":"test","BreakMorningMinutes":0,"BreakLunchMinutes":60,"BreakEveningMinutes":15,"PlannedMinutes":2505}
+[25-Aug-2025 09:18:37 UTC] Debug Machine data from JOIN: MachineNames=เครื่องบรรจุ 2 หัว,เครื่องคลิ้มหัวสเปรย์,เครื่องตอกคอลล่า, PrimaryMachineName=เครื่องบรรจุ 2 หัว
+[25-Aug-2025 09:18:37 UTC] Final MachineName result: เครื่องบรรจุ 2 หัว,เครื่องคลิ้มหัวสเปรย์,เครื่องตอกคอลล่า
+[25-Aug-2025 09:18:37 UTC] Plan Detail Debug - PlanID: 125
+[25-Aug-2025 09:18:37 UTC] Setup/Break Data: {"SetupMinutes":0,"SetupNote":"test","BreakMorningMinutes":0,"BreakLunchMinutes":60,"BreakEveningMinutes":15,"PlannedMinutes":2505}
+[25-Aug-2025 09:18:40 UTC] Debug Machine data from JOIN: MachineNames=เครื่องบรรจุ 2 หัว,เครื่องคลิ้มหัวสเปรย์,เครื่องตอกคอลล่า, PrimaryMachineName=เครื่องบรรจุ 2 หัว
+[25-Aug-2025 09:18:40 UTC] Final MachineName result: เครื่องบรรจุ 2 หัว,เครื่องคลิ้มหัวสเปรย์,เครื่องตอกคอลล่า
+[25-Aug-2025 09:18:40 UTC] Plan Detail Debug - PlanID: 125
+[25-Aug-2025 09:18:40 UTC] Setup/Break Data: {"SetupMinutes":0,"SetupNote":"test","BreakMorningMinutes":0,"BreakLunchMinutes":60,"BreakEveningMinutes":15,"PlannedMinutes":2505}
+[25-Aug-2025 09:18:53 UTC] Debug Machine data from JOIN: MachineNames=เครื่องบรรจุ 2 หัว,เครื่องคลิ้มหัวสเปรย์,เครื่องตอกคอลล่า, PrimaryMachineName=เครื่องบรรจุ 2 หัว
+[25-Aug-2025 09:18:53 UTC] Final MachineName result: เครื่องบรรจุ 2 หัว,เครื่องคลิ้มหัวสเปรย์,เครื่องตอกคอลล่า
+[25-Aug-2025 09:18:53 UTC] Plan Detail Debug - PlanID: 125
+[25-Aug-2025 09:18:53 UTC] Setup/Break Data: {"SetupMinutes":0,"SetupNote":"test","BreakMorningMinutes":0,"BreakLunchMinutes":60,"BreakEveningMinutes":15,"PlannedMinutes":2505}
+[25-Aug-2025 09:19:04 UTC] Debug Machine data from JOIN: MachineNames=เครื่องบรรจุ 2 หัว,เครื่องคลิ้มหัวสเปรย์,เครื่องตอกคอลล่า, PrimaryMachineName=เครื่องบรรจุ 2 หัว
+[25-Aug-2025 09:19:04 UTC] Final MachineName result: เครื่องบรรจุ 2 หัว,เครื่องคลิ้มหัวสเปรย์,เครื่องตอกคอลล่า
+[25-Aug-2025 09:19:04 UTC] Plan Detail Debug - PlanID: 125
+[25-Aug-2025 09:19:04 UTC] Setup/Break Data: {"SetupMinutes":0,"SetupNote":"test","BreakMorningMinutes":0,"BreakLunchMinutes":60,"BreakEveningMinutes":15,"PlannedMinutes":2505}
+[25-Aug-2025 09:34:05 UTC] Debug Machine data from JOIN: MachineNames=เครื่องบรรจุ 2 หัว,เครื่องคลิ้มหัวสเปรย์,เครื่องตอกคอลล่า, PrimaryMachineName=เครื่องบรรจุ 2 หัว
+[25-Aug-2025 09:34:05 UTC] Final MachineName result: เครื่องบรรจุ 2 หัว,เครื่องคลิ้มหัวสเปรย์,เครื่องตอกคอลล่า
+[25-Aug-2025 09:34:05 UTC] Plan Detail Debug - PlanID: 125
+[25-Aug-2025 09:34:05 UTC] Setup/Break Data: {"SetupMinutes":0,"SetupNote":"test","BreakMorningMinutes":0,"BreakLunchMinutes":60,"BreakEveningMinutes":15,"PlannedMinutes":2505}
+[25-Aug-2025 12:02:22 Europe/Berlin] Debug Machine data from JOIN: MachineNames=เครื่องกรอง,เครื่องผสม, PrimaryMachineName=เครื่องกรอง
+[25-Aug-2025 12:02:22 Europe/Berlin] Final MachineName result: เครื่องกรอง,เครื่องผสม
+[25-Aug-2025 12:02:22 Europe/Berlin] Plan Detail Debug - PlanID: 117
+[25-Aug-2025 12:02:22 Europe/Berlin] Setup/Break Data: {"SetupMinutes":0,"SetupNote":"test","BreakMorningMinutes":15,"BreakLunchMinutes":60,"BreakEveningMinutes":15,"PlannedMinutes":2370}
+[25-Aug-2025 12:02:51 Europe/Berlin] Debug Machine data from JOIN: MachineNames=เครื่องกรอง,เครื่องผสม, PrimaryMachineName=เครื่องกรอง
+[25-Aug-2025 12:02:51 Europe/Berlin] Final MachineName result: เครื่องกรอง,เครื่องผสม
+[25-Aug-2025 12:02:51 Europe/Berlin] Plan Detail Debug - PlanID: 117
+[25-Aug-2025 12:02:51 Europe/Berlin] Setup/Break Data: {"SetupMinutes":0,"SetupNote":"test","BreakMorningMinutes":15,"BreakLunchMinutes":60,"BreakEveningMinutes":15,"PlannedMinutes":2370}
+[26-Aug-2025 09:04:33 Europe/Berlin] Received save_partial_confirmation data: Array
+(
+    [PlanID] => 123
+    [SessionQuantity] => 10000
+    [SessionRejectQuantity] => 0
+    [SessionReworkQuantity] => 0
+    [QualityRemark] => 
+    [ActualStartTime] => 2025-08-24 09:00:00
+    [ActualEndTime] => 2025-08-24 22:00:00
+    [BreakMorningMinutes] => 0
+    [BreakLunchMinutes] => 60
+    [BreakEveningMinutes] => 0
+    [DowntimeMinutes] => 10
+    [DowntimeReason] => Maintenance
+    [CreatedBy] => User
+)
+
+[26-Aug-2025 09:04:33 Europe/Berlin] Processing save_partial_confirmation for PlanID: 123
+[26-Aug-2025 09:05:53 Europe/Berlin] Received save_partial_confirmation data: Array
+(
+    [PlanID] => 123
+    [SessionQuantity] => 10000
+    [SessionRejectQuantity] => 0
+    [SessionReworkQuantity] => 0
+    [QualityRemark] => 
+    [ActualStartTime] => 2025-08-24 10:00:00
+    [ActualEndTime] => 2025-08-24 22:00:00
+    [BreakMorningMinutes] => 0
+    [BreakLunchMinutes] => 60
+    [BreakEveningMinutes] => 0
+    [DowntimeMinutes] => 10
+    [DowntimeReason] => Maintenance
+    [CreatedBy] => User
+)
+
+[26-Aug-2025 09:05:53 Europe/Berlin] Processing save_partial_confirmation for PlanID: 123
+[26-Aug-2025 09:08:34 Europe/Berlin] Received save_partial_confirmation data: Array
+(
+    [PlanID] => 123
+    [SessionQuantity] => 10000
+    [SessionRejectQuantity] => 0
+    [SessionReworkQuantity] => 0
+    [QualityRemark] => 
+    [ActualStartTime] => 2025-08-24 10:00:00
+    [ActualEndTime] => 2025-08-24 22:00:00
+    [BreakMorningMinutes] => 0
+    [BreakLunchMinutes] => 60
+    [BreakEveningMinutes] => 0
+    [DowntimeMinutes] => 10
+    [DowntimeReason] => Maintenance
+    [CreatedBy] => User
+)
+
+[26-Aug-2025 09:08:34 Europe/Berlin] Processing save_partial_confirmation for PlanID: 123
+[26-Aug-2025 09:14:02 Europe/Berlin] Received save_partial_confirmation data: Array
+(
+    [PlanID] => 123
+    [SessionQuantity] => 10000
+    [SessionRejectQuantity] => 0
+    [SessionReworkQuantity] => 0
+    [QualityRemark] => 
+    [ActualStartTime] => 2025-08-24 10:00:00
+    [ActualEndTime] => 2025-08-24 22:00:00
+    [BreakMorningMinutes] => 0
+    [BreakLunchMinutes] => 60
+    [BreakEveningMinutes] => 0
+    [DowntimeMinutes] => 10
+    [DowntimeReason] => Maintenance
+    [CreatedBy] => User
+)
+
+[26-Aug-2025 09:14:02 Europe/Berlin] Processing save_partial_confirmation for PlanID: 123
+[26-Aug-2025 09:21:07 Europe/Berlin] Received save_partial_confirmation data: Array
+(
+    [PlanID] => 1
+    [SessionQuantity] => 10000
+    [SessionRejectQuantity] => 0
+    [SessionReworkQuantity] => 300
+    [Remark] => Detection
+    [ActualStartTime] => 2025-08-24 06:00:00
+    [ActualEndTime] => 2025-08-24 22:00:00
+    [BreakMorningMinutes] => 0
+    [BreakLunchMinutes] => 60
+    [BreakEveningMinutes] => 0
+    [DowntimeMinutes] => 10
+    [DowntimeReason] => Maintenance
+    [CreatedBy] => User
+)
+
+[26-Aug-2025 09:21:07 Europe/Berlin] Processing save_partial_confirmation for PlanID: 1
+[26-Aug-2025 09:22:31 Europe/Berlin] Received save_partial_confirmation data: Array
+(
+    [PlanID] => 1
+    [SessionQuantity] => 10000
+    [SessionRejectQuantity] => 0
+    [SessionReworkQuantity] => 150
+    [Remark] => Detection
+    [ActualStartTime] => 2025-08-25 08:00:00
+    [ActualEndTime] => 2025-08-25 20:00:00
+    [BreakMorningMinutes] => 0
+    [BreakLunchMinutes] => 60
+    [BreakEveningMinutes] => 0
+    [DowntimeMinutes] => 15
+    [DowntimeReason] => Maintenance
+    [CreatedBy] => User
+)
+
+[26-Aug-2025 09:22:31 Europe/Berlin] Processing save_partial_confirmation for PlanID: 1
+[26-Aug-2025 09:22:46 Europe/Berlin] Debug Machine data from JOIN: MachineNames=เครื่องบรรจุ 2 หัว,เครื่องหมุนฝา 1,เครื่องคลิ้มหัวสเปรย์,เครื่องตอกคอลล่า,เครื่องบรรจุซองอัตโนมัติ, PrimaryMachineName=เครื่องบรรจุ 2 หัว
+[26-Aug-2025 09:22:46 Europe/Berlin] Final MachineName result: เครื่องบรรจุ 2 หัว,เครื่องหมุนฝา 1,เครื่องคลิ้มหัวสเปรย์,เครื่องตอกคอลล่า,เครื่องบรรจุซองอัตโนมัติ
+[26-Aug-2025 09:22:46 Europe/Berlin] Plan Detail Debug - PlanID: 1
+[26-Aug-2025 09:22:46 Europe/Berlin] Setup/Break Data: {"SetupMinutes":30,"SetupNote":"Setup30Min.","BreakMorningMinutes":15,"BreakLunchMinutes":60,"BreakEveningMinutes":0,"PlannedMinutes":3795}
+[26-Aug-2025 09:22:57 Europe/Berlin] Debug Machine data from JOIN: MachineNames=เครื่องบรรจุ 2 หัว,เครื่องหมุนฝา 1,เครื่องคลิ้มหัวสเปรย์,เครื่องตอกคอลล่า,เครื่องบรรจุซองอัตโนมัติ, PrimaryMachineName=เครื่องบรรจุ 2 หัว
+[26-Aug-2025 09:22:58 Europe/Berlin] Final MachineName result: เครื่องบรรจุ 2 หัว,เครื่องหมุนฝา 1,เครื่องคลิ้มหัวสเปรย์,เครื่องตอกคอลล่า,เครื่องบรรจุซองอัตโนมัติ
+[26-Aug-2025 09:22:58 Europe/Berlin] Plan Detail Debug - PlanID: 1
+[26-Aug-2025 09:22:58 Europe/Berlin] Setup/Break Data: {"SetupMinutes":30,"SetupNote":"Setup30Min.","BreakMorningMinutes":15,"BreakLunchMinutes":60,"BreakEveningMinutes":0,"PlannedMinutes":3795}
+[26-Aug-2025 09:26:49 Europe/Berlin] Using MachineName from ProductionPlanMachines: เครื่องบรรจุ 2 หัว,เครื่องหมุนฝา 1,เครื่องคลิ้มหัวสเปรย์,เครื่องตอกคอลล่า,เครื่องบรรจุซองอัตโนมัติ
+[26-Aug-2025 09:26:49 Europe/Berlin] WorkingMinutes เริ่มต้น: 0 นาที
+[26-Aug-2025 09:26:49 Europe/Berlin] จะบันทึก WorkingMinutes รวม: 0 นาที
+[26-Aug-2025 09:26:51 Europe/Berlin] Debug Machine data from JOIN: MachineNames=เครื่องบรรจุ 2 หัว,เครื่องหมุนฝา 1,เครื่องคลิ้มหัวสเปรย์,เครื่องตอกคอลล่า,เครื่องบรรจุซองอัตโนมัติ, PrimaryMachineName=เครื่องบรรจุ 2 หัว
+[26-Aug-2025 09:26:51 Europe/Berlin] Final MachineName result: เครื่องบรรจุ 2 หัว,เครื่องหมุนฝา 1,เครื่องคลิ้มหัวสเปรย์,เครื่องตอกคอลล่า,เครื่องบรรจุซองอัตโนมัติ
+[26-Aug-2025 09:26:51 Europe/Berlin] Plan Detail Debug - PlanID: 1
+[26-Aug-2025 09:26:51 Europe/Berlin] Setup/Break Data: {"SetupMinutes":30,"SetupNote":"Setup30Min.","BreakMorningMinutes":15,"BreakLunchMinutes":60,"BreakEveningMinutes":0,"PlannedMinutes":3795}
+[26-Aug-2025 09:35:07 Europe/Berlin] Received save_partial_confirmation data: Array
+(
+    [PlanID] => 2
+    [SessionQuantity] => 10000
+    [SessionRejectQuantity] => 0
+    [SessionReworkQuantity] => 200
+    [Remark] => Verification
+    [ActualStartTime] => 2025-08-24 08:00:00
+    [ActualEndTime] => 2025-08-24 21:00:00
+    [BreakMorningMinutes] => 0
+    [BreakLunchMinutes] => 60
+    [BreakEveningMinutes] => 0
+    [DowntimeMinutes] => 10
+    [DowntimeReason] => Maintenance
+    [CreatedBy] => User
+)
+
+[26-Aug-2025 09:35:07 Europe/Berlin] Processing save_partial_confirmation for PlanID: 2
+[26-Aug-2025 09:36:59 Europe/Berlin] Received save_partial_confirmation data: Array
+(
+    [PlanID] => 2
+    [SessionQuantity] => 10000
+    [SessionRejectQuantity] => 0
+    [SessionReworkQuantity] => 0
+    [Remark] => Verification
+    [ActualStartTime] => 2025-08-25 07:00:00
+    [ActualEndTime] => 2025-08-25 21:00:00
+    [BreakMorningMinutes] => 0
+    [BreakLunchMinutes] => 60
+    [BreakEveningMinutes] => 0
+    [DowntimeMinutes] => 15
+    [DowntimeReason] => Maintenance
+    [CreatedBy] => User
+)
+
+[26-Aug-2025 09:36:59 Europe/Berlin] Processing save_partial_confirmation for PlanID: 2
+[26-Aug-2025 09:37:03 Europe/Berlin] Debug Machine data from JOIN: MachineNames=เครื่องบรรจุอัตโนมัติ,เครื่องบรรจุ 4 หัว,เครื่องบรรจุ 2 หัว,เครื่องคลิ้มหัวสเปรย์,เครื่องตอกคอลล่า,เครื่องบรรจุซองอัตโนมัติ, PrimaryMachineName=เครื่องบรรจุอัตโนมัติ
+[26-Aug-2025 09:37:03 Europe/Berlin] Final MachineName result: เครื่องบรรจุอัตโนมัติ,เครื่องบรรจุ 4 หัว,เครื่องบรรจุ 2 หัว,เครื่องคลิ้มหัวสเปรย์,เครื่องตอกคอลล่า,เครื่องบรรจุซองอัตโนมัติ
+[26-Aug-2025 09:37:03 Europe/Berlin] Plan Detail Debug - PlanID: 2
+[26-Aug-2025 09:37:03 Europe/Berlin] Setup/Break Data: {"SetupMinutes":30,"SetupNote":"test","BreakMorningMinutes":15,"BreakLunchMinutes":60,"BreakEveningMinutes":15,"PlannedMinutes":3600}
+[26-Aug-2025 09:43:03 Europe/Berlin] Using MachineName from ProductionPlanMachines: เครื่องบรรจุอัตโนมัติ,เครื่องบรรจุ 4 หัว,เครื่องบรรจุ 2 หัว,เครื่องคลิ้มหัวสเปรย์,เครื่องตอกคอลล่า,เครื่องบรรจุซองอัตโนมัติ
+[26-Aug-2025 09:43:03 Europe/Berlin] WorkingMinutes เริ่มต้น: 0 นาที
+[26-Aug-2025 09:43:03 Europe/Berlin] จะบันทึก WorkingMinutes รวม: 0 นาที
+[26-Aug-2025 09:43:06 Europe/Berlin] Debug Machine data from JOIN: MachineNames=เครื่องบรรจุอัตโนมัติ,เครื่องบรรจุ 4 หัว,เครื่องบรรจุ 2 หัว,เครื่องคลิ้มหัวสเปรย์,เครื่องตอกคอลล่า,เครื่องบรรจุซองอัตโนมัติ, PrimaryMachineName=เครื่องบรรจุอัตโนมัติ
+[26-Aug-2025 09:43:06 Europe/Berlin] Final MachineName result: เครื่องบรรจุอัตโนมัติ,เครื่องบรรจุ 4 หัว,เครื่องบรรจุ 2 หัว,เครื่องคลิ้มหัวสเปรย์,เครื่องตอกคอลล่า,เครื่องบรรจุซองอัตโนมัติ
+[26-Aug-2025 09:43:06 Europe/Berlin] Plan Detail Debug - PlanID: 2
+[26-Aug-2025 09:43:06 Europe/Berlin] Setup/Break Data: {"SetupMinutes":30,"SetupNote":"test","BreakMorningMinutes":15,"BreakLunchMinutes":60,"BreakEveningMinutes":15,"PlannedMinutes":3600}
+[26-Aug-2025 09:45:31 Europe/Berlin] Debug Machine data from JOIN: MachineNames=เครื่องบรรจุอัตโนมัติ,เครื่องบรรจุ 4 หัว,เครื่องบรรจุ 2 หัว,เครื่องคลิ้มหัวสเปรย์,เครื่องตอกคอลล่า,เครื่องบรรจุซองอัตโนมัติ, PrimaryMachineName=เครื่องบรรจุอัตโนมัติ
+[26-Aug-2025 09:45:31 Europe/Berlin] Final MachineName result: เครื่องบรรจุอัตโนมัติ,เครื่องบรรจุ 4 หัว,เครื่องบรรจุ 2 หัว,เครื่องคลิ้มหัวสเปรย์,เครื่องตอกคอลล่า,เครื่องบรรจุซองอัตโนมัติ
+[26-Aug-2025 09:45:31 Europe/Berlin] Plan Detail Debug - PlanID: 2
+[26-Aug-2025 09:45:31 Europe/Berlin] Setup/Break Data: {"SetupMinutes":30,"SetupNote":"test","BreakMorningMinutes":15,"BreakLunchMinutes":60,"BreakEveningMinutes":15,"PlannedMinutes":3600}
+[26-Aug-2025 09:59:32 Europe/Berlin] Received save_partial_confirmation data: Array
+(
+    [PlanID] => 3
+    [SessionQuantity] => 10000
+    [SessionRejectQuantity] => 0
+    [SessionReworkQuantity] => 300
+    [Remark] => Quantity
+    [ActualStartTime] => 2025-08-24 09:00:00
+    [ActualEndTime] => 2025-08-24 21:00:00
+    [BreakMorningMinutes] => 15
+    [BreakLunchMinutes] => 60
+    [BreakEveningMinutes] => 0
+    [DowntimeMinutes] => 10
+    [DowntimeReason] => test
+    [CreatedBy] => User
+)
+
+[26-Aug-2025 09:59:32 Europe/Berlin] Processing save_partial_confirmation for PlanID: 3
+[26-Aug-2025 10:00:52 Europe/Berlin] Received save_partial_confirmation data: Array
+(
+    [PlanID] => 3
+    [SessionQuantity] => 10000
+    [SessionRejectQuantity] => 0
+    [SessionReworkQuantity] => 200
+    [Remark] => Quantity
+    [ActualStartTime] => 2025-08-25 08:00:00
+    [ActualEndTime] => 2025-08-25 22:00:00
+    [BreakMorningMinutes] => 0
+    [BreakLunchMinutes] => 60
+    [BreakEveningMinutes] => 15
+    [DowntimeMinutes] => 15
+    [DowntimeReason] => Maintenance
+    [CreatedBy] => User
+)
+
+[26-Aug-2025 10:00:52 Europe/Berlin] Processing save_partial_confirmation for PlanID: 3
+[26-Aug-2025 10:00:56 Europe/Berlin] Debug Machine data from JOIN: MachineNames=เครื่องบรรจุอัตโนมัติ,เครื่องบรรจุ 4 หัว,เครื่องบรรจุ 2 หัว,เครื่องคลิ้มหัวสเปรย์,เครื่องตอกคอลล่า,เครื่องบรรจุซองอัตโนมัติ, PrimaryMachineName=เครื่องบรรจุอัตโนมัติ
+[26-Aug-2025 10:00:56 Europe/Berlin] Final MachineName result: เครื่องบรรจุอัตโนมัติ,เครื่องบรรจุ 4 หัว,เครื่องบรรจุ 2 หัว,เครื่องคลิ้มหัวสเปรย์,เครื่องตอกคอลล่า,เครื่องบรรจุซองอัตโนมัติ
+[26-Aug-2025 10:00:56 Europe/Berlin] Plan Detail Debug - PlanID: 3
+[26-Aug-2025 10:00:56 Europe/Berlin] Setup/Break Data: {"SetupMinutes":30,"SetupNote":"Setup30Min","BreakMorningMinutes":0,"BreakLunchMinutes":60,"BreakEveningMinutes":15,"PlannedMinutes":3735}
+[26-Aug-2025 10:02:47 Europe/Berlin] Using MachineName from ProductionPlanMachines: เครื่องบรรจุอัตโนมัติ,เครื่องบรรจุ 4 หัว,เครื่องบรรจุ 2 หัว,เครื่องคลิ้มหัวสเปรย์,เครื่องตอกคอลล่า,เครื่องบรรจุซองอัตโนมัติ
+[26-Aug-2025 10:02:47 Europe/Berlin] WorkingMinutes เริ่มต้น: 3605 นาที
+[26-Aug-2025 10:02:47 Europe/Berlin] จะบันทึก WorkingMinutes รวม: 3605 นาที
+[26-Aug-2025 10:04:27 Europe/Berlin] Using MachineName from ProductionPlanMachines: เครื่องบรรจุอัตโนมัติ,เครื่องบรรจุ 4 หัว,เครื่องบรรจุ 2 หัว,เครื่องคลิ้มหัวสเปรย์,เครื่องตอกคอลล่า,เครื่องบรรจุซองอัตโนมัติ
+[26-Aug-2025 10:04:27 Europe/Berlin] WorkingMinutes เริ่มต้น: 3605 นาที
+[26-Aug-2025 10:04:27 Europe/Berlin] จะบันทึก WorkingMinutes รวม: 3605 นาที
+[26-Aug-2025 10:04:29 Europe/Berlin] Debug Machine data from JOIN: MachineNames=เครื่องบรรจุอัตโนมัติ,เครื่องบรรจุ 4 หัว,เครื่องบรรจุ 2 หัว,เครื่องคลิ้มหัวสเปรย์,เครื่องตอกคอลล่า,เครื่องบรรจุซองอัตโนมัติ, PrimaryMachineName=เครื่องบรรจุอัตโนมัติ
+[26-Aug-2025 10:04:29 Europe/Berlin] Final MachineName result: เครื่องบรรจุอัตโนมัติ,เครื่องบรรจุ 4 หัว,เครื่องบรรจุ 2 หัว,เครื่องคลิ้มหัวสเปรย์,เครื่องตอกคอลล่า,เครื่องบรรจุซองอัตโนมัติ
+[26-Aug-2025 10:04:29 Europe/Berlin] Plan Detail Debug - PlanID: 3
+[26-Aug-2025 10:04:29 Europe/Berlin] Setup/Break Data: {"SetupMinutes":30,"SetupNote":"Setup30Min","BreakMorningMinutes":0,"BreakLunchMinutes":60,"BreakEveningMinutes":15,"PlannedMinutes":3735}
+[26-Aug-2025 10:19:35 Europe/Berlin] Debug Machine data from JOIN: MachineNames=เครื่องบรรจุอัตโนมัติ,เครื่องบรรจุ 4 หัว,เครื่องบรรจุ 2 หัว,เครื่องคลิ้มหัวสเปรย์,เครื่องตอกคอลล่า,เครื่องบรรจุซองอัตโนมัติ, PrimaryMachineName=เครื่องบรรจุอัตโนมัติ
+[26-Aug-2025 10:19:35 Europe/Berlin] Final MachineName result: เครื่องบรรจุอัตโนมัติ,เครื่องบรรจุ 4 หัว,เครื่องบรรจุ 2 หัว,เครื่องคลิ้มหัวสเปรย์,เครื่องตอกคอลล่า,เครื่องบรรจุซองอัตโนมัติ
+[26-Aug-2025 10:19:35 Europe/Berlin] Plan Detail Debug - PlanID: 3
+[26-Aug-2025 10:19:35 Europe/Berlin] Setup/Break Data: {"SetupMinutes":30,"SetupNote":"Setup30Min","BreakMorningMinutes":0,"BreakLunchMinutes":60,"BreakEveningMinutes":15,"PlannedMinutes":3735}
+[26-Aug-2025 10:22:51 Europe/Berlin] Received save_partial_confirmation data: Array
+(
+    [PlanID] => 4
+    [SessionQuantity] => 10000
+    [SessionRejectQuantity] => 0
+    [SessionReworkQuantity] => 100
+    [Remark] => H22651225
+    [ActualStartTime] => 2025-08-24 09:00:00
+    [ActualEndTime] => 2025-08-24 22:00:00
+    [BreakMorningMinutes] => 15
+    [BreakLunchMinutes] => 60
+    [BreakEveningMinutes] => 0
+    [DowntimeMinutes] => 10
+    [DowntimeReason] => Maintenance
+    [CreatedBy] => User
+)
+
+[26-Aug-2025 10:22:51 Europe/Berlin] Processing save_partial_confirmation for PlanID: 4
+[26-Aug-2025 10:23:57 Europe/Berlin] Received save_partial_confirmation data: Array
+(
+    [PlanID] => 4
+    [SessionQuantity] => 10000
+    [SessionRejectQuantity] => 0
+    [SessionReworkQuantity] => 0
+    [Remark] => test
+    [ActualStartTime] => 2025-08-25 08:00:00
+    [ActualEndTime] => 2025-08-25 22:00:00
+    [BreakMorningMinutes] => 0
+    [BreakLunchMinutes] => 60
+    [BreakEveningMinutes] => 15
+    [DowntimeMinutes] => 15
+    [DowntimeReason] => test
+    [CreatedBy] => User
+)
+
+[26-Aug-2025 10:23:57 Europe/Berlin] Processing save_partial_confirmation for PlanID: 4
+[26-Aug-2025 10:24:01 Europe/Berlin] Debug Machine data from JOIN: MachineNames=เครื่องบรรจุ 4 หัว,เครื่องบรรจุ 2 หัว,เครื่องคลิ้มหัวสเปรย์,เครื่องตอกคอลล่า, PrimaryMachineName=เครื่องบรรจุ 4 หัว
+[26-Aug-2025 10:24:01 Europe/Berlin] Final MachineName result: เครื่องบรรจุ 4 หัว,เครื่องบรรจุ 2 หัว,เครื่องคลิ้มหัวสเปรย์,เครื่องตอกคอลล่า
+[26-Aug-2025 10:24:01 Europe/Berlin] Plan Detail Debug - PlanID: 4
+[26-Aug-2025 10:24:01 Europe/Berlin] Setup/Break Data: {"SetupMinutes":30,"SetupNote":"test","BreakMorningMinutes":15,"BreakLunchMinutes":60,"BreakEveningMinutes":15,"PlannedMinutes":3720}
+[26-Aug-2025 10:26:26 Europe/Berlin] Using MachineName from ProductionPlanMachines: เครื่องบรรจุ 4 หัว,เครื่องบรรจุ 2 หัว,เครื่องคลิ้มหัวสเปรย์,เครื่องตอกคอลล่า
+[26-Aug-2025 10:26:26 Europe/Berlin] WorkingMinutes เริ่มต้น: 3665 นาที
+[26-Aug-2025 10:26:26 Europe/Berlin] จะบันทึก WorkingMinutes รวม: 3665 นาที
+[26-Aug-2025 10:26:28 Europe/Berlin] Debug Machine data from JOIN: MachineNames=เครื่องบรรจุ 4 หัว,เครื่องบรรจุ 2 หัว,เครื่องคลิ้มหัวสเปรย์,เครื่องตอกคอลล่า, PrimaryMachineName=เครื่องบรรจุ 4 หัว
+[26-Aug-2025 10:26:28 Europe/Berlin] Final MachineName result: เครื่องบรรจุ 4 หัว,เครื่องบรรจุ 2 หัว,เครื่องคลิ้มหัวสเปรย์,เครื่องตอกคอลล่า
+[26-Aug-2025 10:26:28 Europe/Berlin] Plan Detail Debug - PlanID: 4
+[26-Aug-2025 10:26:28 Europe/Berlin] Setup/Break Data: {"SetupMinutes":30,"SetupNote":"test","BreakMorningMinutes":15,"BreakLunchMinutes":60,"BreakEveningMinutes":15,"PlannedMinutes":3720}
+[26-Aug-2025 10:34:27 Europe/Berlin] Received save_partial_confirmation data: Array
+(
+    [PlanID] => 5
+    [SessionQuantity] => 15000
+    [SessionRejectQuantity] => 0
+    [SessionReworkQuantity] => 0
+    [Remark] => test
+    [ActualStartTime] => 2025-08-24 09:00:00
+    [ActualEndTime] => 2025-08-24 22:00:00
+    [BreakMorningMinutes] => 0
+    [BreakLunchMinutes] => 60
+    [BreakEveningMinutes] => 0
+    [DowntimeMinutes] => 10
+    [DowntimeReason] => test
+    [CreatedBy] => User
+)
+
+[26-Aug-2025 10:34:27 Europe/Berlin] Processing save_partial_confirmation for PlanID: 5
+[26-Aug-2025 10:34:30 Europe/Berlin] Debug Machine data from JOIN: MachineNames=เครื่อง Inkjet,เครื่องเลเซอร์ CO2, PrimaryMachineName=เครื่อง Inkjet
+[26-Aug-2025 10:34:30 Europe/Berlin] Final MachineName result: เครื่อง Inkjet,เครื่องเลเซอร์ CO2
+[26-Aug-2025 10:34:30 Europe/Berlin] Plan Detail Debug - PlanID: 5
+[26-Aug-2025 10:34:30 Europe/Berlin] Setup/Break Data: {"SetupMinutes":30,"SetupNote":"Setup30Min","BreakMorningMinutes":15,"BreakLunchMinutes":60,"BreakEveningMinutes":15,"PlannedMinutes":3600}
+[26-Aug-2025 10:35:29 Europe/Berlin] Using MachineName from ProductionPlanMachines: เครื่อง Inkjet,เครื่องเลเซอร์ CO2
+[26-Aug-2025 10:35:29 Europe/Berlin] WorkingMinutes เริ่มต้น: 1490 นาที
+[26-Aug-2025 10:35:29 Europe/Berlin] จะบันทึก WorkingMinutes รวม: 1490 นาที
+[26-Aug-2025 10:35:32 Europe/Berlin] Debug Machine data from JOIN: MachineNames=เครื่อง Inkjet,เครื่องเลเซอร์ CO2, PrimaryMachineName=เครื่อง Inkjet
+[26-Aug-2025 10:35:32 Europe/Berlin] Final MachineName result: เครื่อง Inkjet,เครื่องเลเซอร์ CO2
+[26-Aug-2025 10:35:32 Europe/Berlin] Plan Detail Debug - PlanID: 5
+[26-Aug-2025 10:35:32 Europe/Berlin] Setup/Break Data: {"SetupMinutes":30,"SetupNote":"Setup30Min","BreakMorningMinutes":15,"BreakLunchMinutes":60,"BreakEveningMinutes":15,"PlannedMinutes":3600}
+[26-Aug-2025 10:53:34 Europe/Berlin] Received save_partial_confirmation data: Array
+(
+    [PlanID] => 6
+    [SessionQuantity] => 12500
+    [SessionRejectQuantity] => 0
+    [SessionReworkQuantity] => 200
+    [Remark] => test
+    [ActualStartTime] => 2025-08-24 07:00:00
+    [ActualEndTime] => 2025-08-24 21:00:00
+    [BreakMorningMinutes] => 0
+    [BreakLunchMinutes] => 60
+    [BreakEveningMinutes] => 0
+    [DowntimeMinutes] => 10
+    [DowntimeReason] => test
+    [CreatedBy] => User
+)
+
+[26-Aug-2025 10:53:34 Europe/Berlin] Processing save_partial_confirmation for PlanID: 6
+[26-Aug-2025 10:53:39 Europe/Berlin] Debug Machine data from JOIN: MachineNames=เครื่อง Inkjet,เครื่องเลเซอร์ CO2, PrimaryMachineName=เครื่อง Inkjet
+[26-Aug-2025 10:53:39 Europe/Berlin] Final MachineName result: เครื่อง Inkjet,เครื่องเลเซอร์ CO2
+[26-Aug-2025 10:53:39 Europe/Berlin] Plan Detail Debug - PlanID: 6
+[26-Aug-2025 10:53:39 Europe/Berlin] Setup/Break Data: {"SetupMinutes":30,"SetupNote":"Setup-H22651225","BreakMorningMinutes":0,"BreakLunchMinutes":60,"BreakEveningMinutes":15,"PlannedMinutes":3675}
+[26-Aug-2025 10:54:55 Europe/Berlin] Using MachineName from ProductionPlanMachines: เครื่อง Inkjet,เครื่องเลเซอร์ CO2
+[26-Aug-2025 10:54:55 Europe/Berlin] WorkingMinutes เริ่มต้น: 1610 นาที
+[26-Aug-2025 10:54:55 Europe/Berlin] จะบันทึก WorkingMinutes รวม: 1610 นาที
+[26-Aug-2025 10:54:57 Europe/Berlin] Debug Machine data from JOIN: MachineNames=เครื่อง Inkjet,เครื่องเลเซอร์ CO2, PrimaryMachineName=เครื่อง Inkjet
+[26-Aug-2025 10:54:57 Europe/Berlin] Final MachineName result: เครื่อง Inkjet,เครื่องเลเซอร์ CO2
+[26-Aug-2025 10:54:57 Europe/Berlin] Plan Detail Debug - PlanID: 6
+[26-Aug-2025 10:54:57 Europe/Berlin] Setup/Break Data: {"SetupMinutes":30,"SetupNote":"Setup-H22651225","BreakMorningMinutes":0,"BreakLunchMinutes":60,"BreakEveningMinutes":15,"PlannedMinutes":3675}
+[26-Aug-2025 11:25:19 Europe/Berlin] Received save_partial_confirmation data: Array
+(
+    [PlanID] => 7
+    [SessionQuantity] => 20000
+    [SessionRejectQuantity] => 0
+    [SessionReworkQuantity] => 200
+    [WorkingMinutes] => 650
+    [Remark] => test
+    [ActualStartTime] => 2025-08-24 09:00:00
+    [ActualEndTime] => 2025-08-24 21:00:00
+    [BreakMorningMinutes] => 0
+    [BreakLunchMinutes] => 60
+    [BreakEveningMinutes] => 0
+    [DowntimeMinutes] => 10
+    [DowntimeReason] => test
+    [CreatedBy] => User
+)
+
+[26-Aug-2025 11:25:19 Europe/Berlin] Processing save_partial_confirmation for PlanID: 7
+[26-Aug-2025 11:25:50 Europe/Berlin] Debug Machine data from JOIN: MachineNames=เครื่องบรรจุ 2 หัว,เครื่องคลิ้มหัวสเปรย์,เครื่องตอกคอลล่า, PrimaryMachineName=เครื่องบรรจุ 2 หัว
+[26-Aug-2025 11:25:50 Europe/Berlin] Final MachineName result: เครื่องบรรจุ 2 หัว,เครื่องคลิ้มหัวสเปรย์,เครื่องตอกคอลล่า
+[26-Aug-2025 11:25:50 Europe/Berlin] Plan Detail Debug - PlanID: 7
+[26-Aug-2025 11:25:50 Europe/Berlin] Setup/Break Data: {"SetupMinutes":20,"SetupNote":"test","BreakMorningMinutes":15,"BreakLunchMinutes":60,"BreakEveningMinutes":15,"PlannedMinutes":3850}
+[26-Aug-2025 11:26:28 Europe/Berlin] Using MachineName from ProductionPlanMachines: เครื่องบรรจุ 2 หัว,เครื่องคลิ้มหัวสเปรย์,เครื่องตอกคอลล่า
+[26-Aug-2025 11:26:28 Europe/Berlin] WorkingMinutes เริ่มต้น: 1270 นาที
+[26-Aug-2025 11:26:28 Europe/Berlin] รวม WorkingMinutes จาก partial sessions: 650 นาที
+[26-Aug-2025 11:26:28 Europe/Berlin] จะบันทึก WorkingMinutes รวม: 650 นาที
+[26-Aug-2025 11:26:30 Europe/Berlin] Debug Machine data from JOIN: MachineNames=เครื่องบรรจุ 2 หัว,เครื่องคลิ้มหัวสเปรย์,เครื่องตอกคอลล่า, PrimaryMachineName=เครื่องบรรจุ 2 หัว
+[26-Aug-2025 11:26:30 Europe/Berlin] Final MachineName result: เครื่องบรรจุ 2 หัว,เครื่องคลิ้มหัวสเปรย์,เครื่องตอกคอลล่า
+[26-Aug-2025 11:26:30 Europe/Berlin] Plan Detail Debug - PlanID: 7
+[26-Aug-2025 11:26:30 Europe/Berlin] Setup/Break Data: {"SetupMinutes":20,"SetupNote":"test","BreakMorningMinutes":15,"BreakLunchMinutes":60,"BreakEveningMinutes":15,"PlannedMinutes":3850}
+[26-Aug-2025 11:41:40 Europe/Berlin] Received save_partial_confirmation data: Array
+(
+    [PlanID] => 8
+    [SessionQuantity] => 10000
+    [SessionRejectQuantity] => 0
+    [SessionReworkQuantity] => 200
+    [WorkingMinutes] => 770
+    [Remark] => test
+    [ActualStartTime] => 2025-08-24 08:00:00
+    [ActualEndTime] => 2025-08-24 22:00:00
+    [BreakMorningMinutes] => 0
+    [BreakLunchMinutes] => 60
+    [BreakEveningMinutes] => 0
+    [DowntimeMinutes] => 10
+    [DowntimeReason] => test
+    [CreatedBy] => User
+)
+
+[26-Aug-2025 11:41:40 Europe/Berlin] Processing save_partial_confirmation for PlanID: 8
+[26-Aug-2025 11:44:02 Europe/Berlin] Received save_partial_confirmation data: Array
+(
+    [PlanID] => 8
+    [SessionQuantity] => 10000
+    [SessionRejectQuantity] => 0
+    [SessionReworkQuantity] => 200
+    [WorkingMinutes] => 770
+    [Remark] => test
+    [ActualStartTime] => 2025-08-24 08:00:00
+    [ActualEndTime] => 2025-08-24 22:00:00
+    [BreakMorningMinutes] => 0
+    [BreakLunchMinutes] => 60
+    [BreakEveningMinutes] => 0
+    [DowntimeMinutes] => 10
+    [DowntimeReason] => test
+    [CreatedBy] => User
+)
+
+[26-Aug-2025 11:44:02 Europe/Berlin] Processing save_partial_confirmation for PlanID: 8
+[26-Aug-2025 11:44:04 Europe/Berlin] Received save_partial_confirmation data: Array
+(
+    [PlanID] => 8
+    [SessionQuantity] => 10000
+    [SessionRejectQuantity] => 0
+    [SessionReworkQuantity] => 200
+    [WorkingMinutes] => 770
+    [Remark] => test
+    [ActualStartTime] => 2025-08-24 08:00:00
+    [ActualEndTime] => 2025-08-24 22:00:00
+    [BreakMorningMinutes] => 0
+    [BreakLunchMinutes] => 60
+    [BreakEveningMinutes] => 0
+    [DowntimeMinutes] => 10
+    [DowntimeReason] => test
+    [CreatedBy] => User
+)
+
+[26-Aug-2025 11:44:04 Europe/Berlin] Processing save_partial_confirmation for PlanID: 8
+[26-Aug-2025 11:44:05 Europe/Berlin] Received save_partial_confirmation data: Array
+(
+    [PlanID] => 8
+    [SessionQuantity] => 10000
+    [SessionRejectQuantity] => 0
+    [SessionReworkQuantity] => 200
+    [WorkingMinutes] => 770
+    [Remark] => test
+    [ActualStartTime] => 2025-08-24 08:00:00
+    [ActualEndTime] => 2025-08-24 22:00:00
+    [BreakMorningMinutes] => 0
+    [BreakLunchMinutes] => 60
+    [BreakEveningMinutes] => 0
+    [DowntimeMinutes] => 10
+    [DowntimeReason] => test
+    [CreatedBy] => User
+)
+
+[26-Aug-2025 11:44:05 Europe/Berlin] Processing save_partial_confirmation for PlanID: 8
+[26-Aug-2025 11:44:10 Europe/Berlin] Received save_partial_confirmation data: Array
+(
+    [PlanID] => 8
+    [SessionQuantity] => 10000
+    [SessionRejectQuantity] => 0
+    [SessionReworkQuantity] => 200
+    [WorkingMinutes] => 770
+    [Remark] => test
+    [ActualStartTime] => 2025-08-24 08:00:00
+    [ActualEndTime] => 2025-08-24 22:00:00
+    [BreakMorningMinutes] => 0
+    [BreakLunchMinutes] => 60
+    [BreakEveningMinutes] => 0
+    [DowntimeMinutes] => 10
+    [DowntimeReason] => test
+    [CreatedBy] => User
+)
+
+[26-Aug-2025 11:44:10 Europe/Berlin] Processing save_partial_confirmation for PlanID: 8
+[26-Aug-2025 11:44:11 Europe/Berlin] Received save_partial_confirmation data: Array
+(
+    [PlanID] => 8
+    [SessionQuantity] => 10000
+    [SessionRejectQuantity] => 0
+    [SessionReworkQuantity] => 200
+    [WorkingMinutes] => 770
+    [Remark] => test
+    [ActualStartTime] => 2025-08-24 08:00:00
+    [ActualEndTime] => 2025-08-24 22:00:00
+    [BreakMorningMinutes] => 0
+    [BreakLunchMinutes] => 60
+    [BreakEveningMinutes] => 0
+    [DowntimeMinutes] => 10
+    [DowntimeReason] => test
+    [CreatedBy] => User
+)
+
+[26-Aug-2025 11:44:11 Europe/Berlin] Processing save_partial_confirmation for PlanID: 8
+[26-Aug-2025 11:44:11 Europe/Berlin] Received save_partial_confirmation data: Array
+(
+    [PlanID] => 8
+    [SessionQuantity] => 10000
+    [SessionRejectQuantity] => 0
+    [SessionReworkQuantity] => 200
+    [WorkingMinutes] => 770
+    [Remark] => test
+    [ActualStartTime] => 2025-08-24 08:00:00
+    [ActualEndTime] => 2025-08-24 22:00:00
+    [BreakMorningMinutes] => 0
+    [BreakLunchMinutes] => 60
+    [BreakEveningMinutes] => 0
+    [DowntimeMinutes] => 10
+    [DowntimeReason] => test
+    [CreatedBy] => User
+)
+
+[26-Aug-2025 11:44:11 Europe/Berlin] Processing save_partial_confirmation for PlanID: 8
+[26-Aug-2025 11:44:11 Europe/Berlin] Received save_partial_confirmation data: Array
+(
+    [PlanID] => 8
+    [SessionQuantity] => 10000
+    [SessionRejectQuantity] => 0
+    [SessionReworkQuantity] => 200
+    [WorkingMinutes] => 770
+    [Remark] => test
+    [ActualStartTime] => 2025-08-24 08:00:00
+    [ActualEndTime] => 2025-08-24 22:00:00
+    [BreakMorningMinutes] => 0
+    [BreakLunchMinutes] => 60
+    [BreakEveningMinutes] => 0
+    [DowntimeMinutes] => 10
+    [DowntimeReason] => test
+    [CreatedBy] => User
+)
+
+[26-Aug-2025 11:44:11 Europe/Berlin] Processing save_partial_confirmation for PlanID: 8
+[26-Aug-2025 11:44:49 Europe/Berlin] Received save_partial_confirmation data: Array
+(
+    [PlanID] => 8
+    [SessionQuantity] => 10000
+    [SessionRejectQuantity] => 0
+    [SessionReworkQuantity] => 200
+    [WorkingMinutes] => 710
+    [Remark] => test
+    [ActualStartTime] => 2025-08-24 09:00:00
+    [ActualEndTime] => 2025-08-24 22:00:00
+    [BreakMorningMinutes] => 0
+    [BreakLunchMinutes] => 60
+    [BreakEveningMinutes] => 0
+    [DowntimeMinutes] => 10
+    [DowntimeReason] => test
+    [CreatedBy] => User
+)
+
+[26-Aug-2025 11:44:49 Europe/Berlin] Processing save_partial_confirmation for PlanID: 8
+[26-Aug-2025 11:48:17 Europe/Berlin] Received save_partial_confirmation data: Array
+(
+    [PlanID] => 8
+    [SessionQuantity] => 10000
+    [SessionRejectQuantity] => 0
+    [SessionReworkQuantity] => 200
+    [WorkingMinutes] => 710
+    [Remark] => test
+    [ActualStartTime] => 2025-08-24 09:00:00
+    [ActualEndTime] => 2025-08-24 22:00:00
+    [BreakMorningMinutes] => 0
+    [BreakLunchMinutes] => 60
+    [BreakEveningMinutes] => 0
+    [DowntimeMinutes] => 10
+    [DowntimeReason] => test
+    [CreatedBy] => User
+)
+
+[26-Aug-2025 11:48:17 Europe/Berlin] Processing save_partial_confirmation for PlanID: 8
+[26-Aug-2025 11:48:55 Europe/Berlin] Received save_partial_confirmation data: Array
+(
+    [PlanID] => 8
+    [SessionQuantity] => 10000
+    [SessionRejectQuantity] => 0
+    [SessionReworkQuantity] => 200
+    [WorkingMinutes] => 710
+    [Remark] => test
+    [ActualStartTime] => 2025-08-24 09:00:00
+    [ActualEndTime] => 2025-08-24 22:00:00
+    [BreakMorningMinutes] => 0
+    [BreakLunchMinutes] => 60
+    [BreakEveningMinutes] => 0
+    [DowntimeMinutes] => 10
+    [DowntimeReason] => test
+    [CreatedBy] => User
+)
+
+[26-Aug-2025 11:48:55 Europe/Berlin] Processing save_partial_confirmation for PlanID: 8
+[26-Aug-2025 11:49:18 Europe/Berlin] Received save_partial_confirmation data: Array
+(
+    [PlanID] => 8
+    [SessionQuantity] => 10000
+    [SessionRejectQuantity] => 0
+    [SessionReworkQuantity] => 200
+    [WorkingMinutes] => 710
+    [Remark] => test
+    [ActualStartTime] => 2025-08-24 09:00:00
+    [ActualEndTime] => 2025-08-24 22:00:00
+    [BreakMorningMinutes] => 0
+    [BreakLunchMinutes] => 60
+    [BreakEveningMinutes] => 0
+    [DowntimeMinutes] => 10
+    [DowntimeReason] => test
+    [CreatedBy] => User
+)
+
+[26-Aug-2025 11:49:18 Europe/Berlin] Processing save_partial_confirmation for PlanID: 8
+[26-Aug-2025 11:49:47 Europe/Berlin] Received save_partial_confirmation data: Array
+(
+    [PlanID] => 8
+    [SessionQuantity] => 10000
+    [SessionRejectQuantity] => 0
+    [SessionReworkQuantity] => 0
+    [WorkingMinutes] => 830
+    [Remark] => test
+    [ActualStartTime] => 2025-08-24 06:00:00
+    [ActualEndTime] => 2025-08-24 21:00:00
+    [BreakMorningMinutes] => 0
+    [BreakLunchMinutes] => 60
+    [BreakEveningMinutes] => 0
+    [DowntimeMinutes] => 10
+    [DowntimeReason] => test
+    [CreatedBy] => User
+)
+
+[26-Aug-2025 11:49:47 Europe/Berlin] Processing save_partial_confirmation for PlanID: 8
+[26-Aug-2025 11:50:55 Europe/Berlin] Received save_partial_confirmation data: Array
+(
+    [PlanID] => 8
+    [SessionQuantity] => 10000
+    [SessionRejectQuantity] => 0
+    [SessionReworkQuantity] => 0
+    [WorkingMinutes] => 830
+    [Remark] => test
+    [ActualStartTime] => 2025-08-24 06:00:00
+    [ActualEndTime] => 2025-08-24 21:00:00
+    [BreakMorningMinutes] => 0
+    [BreakLunchMinutes] => 60
+    [BreakEveningMinutes] => 0
+    [DowntimeMinutes] => 10
+    [DowntimeReason] => test
+    [CreatedBy] => User
+)
+
+[26-Aug-2025 11:50:55 Europe/Berlin] Processing save_partial_confirmation for PlanID: 8
+[26-Aug-2025 11:54:00 Europe/Berlin] Received save_partial_confirmation data: Array
+(
+    [PlanID] => 8
+    [SessionQuantity] => 10000
+    [SessionRejectQuantity] => 0
+    [SessionReworkQuantity] => 0
+    [WorkingMinutes] => 830
+    [Remark] => test
+    [ActualStartTime] => 2025-08-24 06:00:00
+    [ActualEndTime] => 2025-08-24 21:00:00
+    [BreakMorningMinutes] => 0
+    [BreakLunchMinutes] => 60
+    [BreakEveningMinutes] => 0
+    [DowntimeMinutes] => 10
+    [DowntimeReason] => test
+    [CreatedBy] => User
+)
+
+[26-Aug-2025 11:54:00 Europe/Berlin] Processing save_partial_confirmation for PlanID: 8
+[26-Aug-2025 12:00:13 Europe/Berlin] Received save_partial_confirmation data: Array
+(
+    [PlanID] => 8
+    [SessionQuantity] => 10000
+    [SessionRejectQuantity] => 0
+    [SessionReworkQuantity] => 100
+    [WorkingMinutes] => 770
+    [Remark] => test
+    [ActualStartTime] => 2025-08-24 08:00:00
+    [ActualEndTime] => 2025-08-24 22:00:00
+    [BreakMorningMinutes] => 0
+    [BreakLunchMinutes] => 60
+    [BreakEveningMinutes] => 0
+    [DowntimeMinutes] => 10
+    [DowntimeReason] => test
+    [CreatedBy] => User
+)
+
+[26-Aug-2025 12:00:13 Europe/Berlin] Processing save_partial_confirmation for PlanID: 8
+[26-Aug-2025 12:03:20 Europe/Berlin] Received save_partial_confirmation data: Array
+(
+    [PlanID] => 8
+    [SessionQuantity] => 10000
+    [SessionRejectQuantity] => 0
+    [SessionReworkQuantity] => 100
+    [WorkingMinutes] => 770
+    [Remark] => test
+    [ActualStartTime] => 2025-08-24 08:00:00
+    [ActualEndTime] => 2025-08-24 22:00:00
+    [BreakMorningMinutes] => 0
+    [BreakLunchMinutes] => 60
+    [BreakEveningMinutes] => 0
+    [DowntimeMinutes] => 10
+    [DowntimeReason] => test
+    [CreatedBy] => User
+)
+
+[26-Aug-2025 12:03:20 Europe/Berlin] Processing save_partial_confirmation for PlanID: 8
+[26-Aug-2025 12:04:43 Europe/Berlin] Debug Machine data from JOIN: MachineNames=เครื่องห่อฟิล์ม 1,เครื่องห่อฟิล์ม 2,เครื่องห่อฟิล์ม 3,เครื่องห่อฟิล์ม 4, PrimaryMachineName=เครื่องห่อฟิล์ม 1
+[26-Aug-2025 12:04:43 Europe/Berlin] Final MachineName result: เครื่องห่อฟิล์ม 1,เครื่องห่อฟิล์ม 2,เครื่องห่อฟิล์ม 3,เครื่องห่อฟิล์ม 4
+[26-Aug-2025 12:04:43 Europe/Berlin] Plan Detail Debug - PlanID: 8
+[26-Aug-2025 12:04:43 Europe/Berlin] Setup/Break Data: {"SetupMinutes":30,"SetupNote":"test","BreakMorningMinutes":15,"BreakLunchMinutes":60,"BreakEveningMinutes":15,"PlannedMinutes":3720}
+[26-Aug-2025 12:05:41 Europe/Berlin] Using MachineName from ProductionPlanMachines: เครื่องห่อฟิล์ม 1,เครื่องห่อฟิล์ม 2,เครื่องห่อฟิล์ม 3,เครื่องห่อฟิล์ม 4
+[26-Aug-2025 12:05:41 Europe/Berlin] ActiveWorkMinutes เริ่มต้น: 1540 นาที
+[26-Aug-2025 12:05:41 Europe/Berlin] ActiveWorkMinutes จาก frontend (รวม sessions แล้ว): 1540 นาที
+[26-Aug-2025 12:05:41 Europe/Berlin] จะบันทึก ActiveWorkMinutes รวม: 1540 นาที
+[26-Aug-2025 12:05:43 Europe/Berlin] Debug Machine data from JOIN: MachineNames=เครื่องห่อฟิล์ม 1,เครื่องห่อฟิล์ม 2,เครื่องห่อฟิล์ม 3,เครื่องห่อฟิล์ม 4, PrimaryMachineName=เครื่องห่อฟิล์ม 1
+[26-Aug-2025 12:05:43 Europe/Berlin] Final MachineName result: เครื่องห่อฟิล์ม 1,เครื่องห่อฟิล์ม 2,เครื่องห่อฟิล์ม 3,เครื่องห่อฟิล์ม 4
+[26-Aug-2025 12:05:43 Europe/Berlin] Plan Detail Debug - PlanID: 8
+[26-Aug-2025 12:05:43 Europe/Berlin] Setup/Break Data: {"SetupMinutes":30,"SetupNote":"test","BreakMorningMinutes":15,"BreakLunchMinutes":60,"BreakEveningMinutes":15,"PlannedMinutes":3720}
+[27-Aug-2025 04:49:20 Europe/Berlin] Received save_partial_confirmation data: Array
+(
+    [PlanID] => 9
+    [SessionQuantity] => 4000
+    [SessionRejectQuantity] => 0
+    [SessionReworkQuantity] => 200
+    [WorkingMinutes] => 710
+    [Remark] => test
+    [ActualStartTime] => 2025-08-24 08:00:00
+    [ActualEndTime] => 2025-08-24 21:00:00
+    [BreakMorningMinutes] => 0
+    [BreakLunchMinutes] => 60
+    [BreakEveningMinutes] => 0
+    [DowntimeMinutes] => 10
+    [DowntimeReason] => test1
+    [CreatedBy] => User
+)
+
+[27-Aug-2025 04:49:20 Europe/Berlin] Processing save_partial_confirmation for PlanID: 9
+[27-Aug-2025 04:49:25 Europe/Berlin] Debug Machine data from JOIN: MachineNames=เครื่องห่อฟิล์ม 1,เครื่องห่อฟิล์ม 2, PrimaryMachineName=เครื่องห่อฟิล์ม 1
+[27-Aug-2025 04:49:25 Europe/Berlin] Final MachineName result: เครื่องห่อฟิล์ม 1,เครื่องห่อฟิล์ม 2
+[27-Aug-2025 04:49:25 Europe/Berlin] Plan Detail Debug - PlanID: 9
+[27-Aug-2025 04:49:25 Europe/Berlin] Setup/Break Data: {"SetupMinutes":30,"SetupNote":"test","BreakMorningMinutes":15,"BreakLunchMinutes":60,"BreakEveningMinutes":15,"PlannedMinutes":3720}
+[27-Aug-2025 05:05:06 Europe/Berlin] Debug Machine data from JOIN: MachineNames=เครื่องห่อฟิล์ม 1,เครื่องห่อฟิล์ม 2, PrimaryMachineName=เครื่องห่อฟิล์ม 1
+[27-Aug-2025 05:05:06 Europe/Berlin] Final MachineName result: เครื่องห่อฟิล์ม 1,เครื่องห่อฟิล์ม 2
+[27-Aug-2025 05:05:06 Europe/Berlin] Plan Detail Debug - PlanID: 9
+[27-Aug-2025 05:05:06 Europe/Berlin] Setup/Break Data: {"SetupMinutes":30,"SetupNote":"test","BreakMorningMinutes":15,"BreakLunchMinutes":60,"BreakEveningMinutes":15,"PlannedMinutes":3720}
+[27-Aug-2025 05:05:42 Europe/Berlin] Debug Machine data from JOIN: MachineNames=เครื่องห่อฟิล์ม 1,เครื่องห่อฟิล์ม 2, PrimaryMachineName=เครื่องห่อฟิล์ม 1
+[27-Aug-2025 05:05:42 Europe/Berlin] Final MachineName result: เครื่องห่อฟิล์ม 1,เครื่องห่อฟิล์ม 2
+[27-Aug-2025 05:05:42 Europe/Berlin] Plan Detail Debug - PlanID: 9
+[27-Aug-2025 05:05:42 Europe/Berlin] Setup/Break Data: {"SetupMinutes":30,"SetupNote":"test","BreakMorningMinutes":15,"BreakLunchMinutes":60,"BreakEveningMinutes":15,"PlannedMinutes":3720}
+[27-Aug-2025 05:07:47 Europe/Berlin] Using MachineName from ProductionPlanMachines: เครื่องห่อฟิล์ม 1,เครื่องห่อฟิล์ม 2
+[27-Aug-2025 05:07:47 Europe/Berlin] ActiveWorkMinutes เริ่มต้น: 1420 นาที
+[27-Aug-2025 05:07:47 Europe/Berlin] ActiveWorkMinutes จาก frontend (รวม sessions แล้ว): 1420 นาที
+[27-Aug-2025 05:07:47 Europe/Berlin] จะบันทึก ActiveWorkMinutes รวม: 1420 นาที
+[27-Aug-2025 05:07:50 Europe/Berlin] Debug Machine data from JOIN: MachineNames=เครื่องห่อฟิล์ม 1,เครื่องห่อฟิล์ม 2, PrimaryMachineName=เครื่องห่อฟิล์ม 1
+[27-Aug-2025 05:07:50 Europe/Berlin] Final MachineName result: เครื่องห่อฟิล์ม 1,เครื่องห่อฟิล์ม 2
+[27-Aug-2025 05:07:50 Europe/Berlin] Plan Detail Debug - PlanID: 9
+[27-Aug-2025 05:07:50 Europe/Berlin] Setup/Break Data: {"SetupMinutes":30,"SetupNote":"test","BreakMorningMinutes":15,"BreakLunchMinutes":60,"BreakEveningMinutes":15,"PlannedMinutes":3720}

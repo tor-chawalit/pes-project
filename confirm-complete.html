@@ -2,40 +2,170 @@
 <html lang="th">
 
 <head>
-    <meta charset="UTF-8" />
+    <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- Force 24-hour time format -->
     <meta http-equiv="Content-Language" content="en-US" />
-    <script>
-        // Force browser locale to use 24-hour format
-        if (typeof Intl !== 'undefined' && Intl.DateTimeFormat) {
-            Object.defineProperty(navigator, 'language', {
-                get: function() { return 'en-US'; }
-            });
-            Object.defineProperty(navigator, 'languages', {
-                get: function() { return ['en-US', 'en']; }
-            });
-        }
-    </script>
     <title>ConfirmProduction</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet" />
     <!-- Google Fonts - Prompt -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Prompt:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Prompt:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="css/navigation.css" />
     <style>
         * {
             font-family: 'Prompt', sans-serif !important;
         }
+
+        /* Custom Tooltip Styles */
+        .tooltip-help {
+            position: relative;
+            display: inline-block;
+            margin-left: 8px;
+            cursor: help;
+        }
+
+        /* Ensure tooltip container doesn't get clipped */
+        .card {
+            overflow: visible !important;
+        }
+
+        /* Ensure tooltips show above everything */
+        body {
+            overflow-x: visible;
+        }
+        
+        .card-body {
+            overflow: visible !important;
+        }
+
+        .tooltip-help .tooltip-icon {
+            width: 20px;
+            height: 20px;
+            background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 12px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .tooltip-help:hover .tooltip-icon {
+            transform: scale(1.1);
+            box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
+        }
+
+        .tooltip-help .tooltip-content {
+            visibility: hidden;
+            opacity: 0;
+            position: absolute;
+            z-index: 9999;
+            top: -100px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #343a40;
+            color: white;
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-size: 13px;
+            line-height: 1.4;
+            width: 280px;
+            text-align: left;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+            transition: all 0.3s ease;
+            pointer-events: none;
+        }
+
+        .tooltip-help .tooltip-content::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 6px solid transparent;
+            border-top-color: #343a40;
+        }
+
+        .tooltip-help:hover .tooltip-content {
+            visibility: visible;
+            opacity: 1;
+            top: -110px;
+        }
+
+        .tooltip-formula {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 6px 8px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace !important;
+            font-weight: bold;
+            color: #ffc107;
+            margin: 4px 0;
+            display: block;
+        }
+
+        .tooltip-example {
+            color: #28a745;
+            font-style: italic;
+            margin-top: 4px;
+        }
+
+        /* Special override for OEE Summary card tooltips */
+        #oeeSummaryCard .tooltip-help .tooltip-content {
+            position: fixed !important;
+            z-index: 999999 !important;
+            top: auto !important;
+            bottom: 100% !important;
+            margin-bottom: 20px !important;
+        }
+        
+        #oeeSummaryCard .tooltip-help:hover .tooltip-content {
+            top: auto !important;
+            bottom: 100% !important;
+        }
+
+        /* Partial Sessions Styles */
+        #partialHistorySection .card {
+            transition: all 0.3s ease;
+        }
+
+        #partialHistorySection .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+        }
+
+        .session-card {
+            transition: all 0.2s ease;
+        }
+
+        .session-card:hover {
+            transform: scale(1.02);
+        }
+
+        #partialSessionsList .card {
+            border: 1px solid #dee2e6;
+        }
+
+        #partialSessionsList .card:hover {
+            border-color: #007bff;
+            box-shadow: 0 2px 8px rgba(0, 123, 255, 0.2);
+        }
+
+        #partialSessionsTableBody tr:hover {
+            background-color: #f8f9fa;
+        }
     </style>
 </head>
 
 <body>
     <!-- Navigation will be loaded by navigation.js -->
-    
+
     <div class="container py-4">
         <!-- Progress Indicator -->
         <div class="row justify-content-center mb-4">
@@ -43,11 +173,12 @@
                 <div class="card border-0 shadow-sm bg-light">
                     <div class="card-body py-3">
                         <div class="progress" style="height: 8px;">
-                            <div class="progress-bar bg-gradient" role="progressbar" style="width: 100%" 
-                                 aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                            <div class="progress-bar bg-gradient" role="progressbar" style="width: 100%"
+                                aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
                         <div class="d-flex justify-content-between mt-2">
-                            <small class="text-muted"><i class="bi bi-check-circle-fill text-success"></i> เริ่มงาน</small>
+                            <small class="text-muted"><i class="bi bi-check-circle-fill text-success"></i>
+                                เริ่มงาน</small>
                             <small class="text-muted"><i class="bi bi-check-circle-fill text-success"></i> ทำงาน</small>
                             <small class="fw-bold"><i class="bi bi-circle-fill"></i> ยืนยันจบงาน</small>
                         </div>
@@ -60,7 +191,8 @@
         <div class="row justify-content-center">
             <div class="col-lg-8 col-md-10">
                 <div class="card shadow-lg border-0">
-                    <div class="card-header bg-gradient" style="background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);">
+                    <div class="card-header bg-gradient"
+                        style="background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);">
                         <div class="d-flex align-items-center justify-content-between">
                             <h4 class="mb-0 text-shadow">
                                 <i class="bi bi-check2-circle me-2"></i><span class="fw-bold">ยืนยันจบงาน</span>
@@ -94,7 +226,88 @@
                                     </div>
                                 </div>
                             </div>
-                            <!-- Shift Settings Section -->
+
+                            <!-- Partial Sessions History Section -->
+                            <div id="partialHistorySection" class="bg-light border-bottom" style="display: none;">
+                                <div class="container-fluid py-4">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="card border-0 shadow-sm">
+                                                <div class="card-header bg-info">
+                                                    <h5 class="mb-0">
+                                                        <i class="bi bi-clock-history me-2"></i>ประวัติ Partial Confirmations
+                                                        <span id="partialSummaryBadge" class="badge bg-white text-info ms-2">0 sessions</span>
+                                                    </h5>
+                                                </div>
+                                                <div class="card-body p-3">
+                                                    <!-- Summary Cards -->
+                                                    <div class="row g-2 mb-3" id="partialSummaryCards">
+                                                        <div class="col-6 col-md-3">
+                                                            <div class="text-center p-2 bg-success bg-opacity-10 rounded">
+                                                                <div class="fs-6 fw-bold text-success" id="summaryProduced">0</div>
+                                                                <small class="text-muted">ผลิตดี (ชิ้น)</small>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-6 col-md-3">
+                                                            <div class="text-center p-2 bg-primary bg-opacity-10 rounded">
+                                                                <div class="fs-6 fw-bold text-primary" id="summaryRuntime">0</div>
+                                                                <small class="text-muted">เวลาทำงาน (นาที)</small>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-6 col-md-3">
+                                                            <div class="text-center p-2 bg-danger bg-opacity-10 rounded">
+                                                                <div class="fs-6 fw-bold text-danger" id="summaryRejects">0</div>
+                                                                <small class="text-muted">ของเสีย (ชิ้น)</small>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-6 col-md-3">
+                                                            <div class="text-center p-2 bg-warning bg-opacity-10 rounded">
+                                                                <div class="fs-6 fw-bold text-warning" id="summaryRework">0</div>
+                                                                <small class="text-muted">Rework (ชิ้น)</small>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <!-- Sessions List -->
+                                                    <div class="row g-2" id="partialSessionsList">
+                                                        <!-- Sessions will be populated by JavaScript -->
+                                                    </div>
+
+                                                    <!-- Collapse/Expand Button -->
+                                                    <div class="text-center mt-3">
+                                                        <button type="button" class="btn btn-sm btn-outline-secondary" 
+                                                                data-bs-toggle="collapse" data-bs-target="#partialSessionsDetails">
+                                                            <i class="bi bi-chevron-down"></i> ดูรายละเอียดทั้งหมด
+                                                        </button>
+                                                    </div>
+                                                    
+                                                    <!-- Detailed Sessions (Collapsible) -->
+                                                    <div class="collapse mt-3" id="partialSessionsDetails">
+                                                        <div class="table-responsive">
+                                                            <table class="table table-sm table-hover">
+                                                                <thead class="table-light">
+                                                                    <tr>
+                                                                        <th>Session</th>
+                                                                        <th>เวลา</th>
+                                                                        <th>ผลิต</th>
+                                                                        <th>ของเสีย</th>
+                                                                        <th>Rework</th>
+                                                                        <th>เวลาทำงาน</th>
+                                                                        <th>หมายเหตุ</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody id="partialSessionsTableBody">
+                                                                    <!-- Table content will be populated by JavaScript -->
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>                            <!-- Shift Settings Section -->
                             <div class="bg-light border-bottom">
                                 <div class="container-fluid py-4">
                                     <div class="row g-3">
@@ -107,16 +320,20 @@
                                             <div class="card border-0 shadow-sm h-100">
                                                 <div class="card-body">
                                                     <div class="form-check mb-3">
-                                                        <input class="form-check-input" type="checkbox" id="shiftLength8h"
-                                                            name="shiftLength8h" checked />
+                                                        <input class="form-check-input" type="checkbox"
+                                                            id="shiftLength8h" name="shiftLength8h" checked />
                                                         <label class="form-check-label fw-semibold" for="shiftLength8h">
                                                             <i class="bi bi-clock-history me-1 text-primary"></i>
                                                             Shift Length 10 ชั่วโมง
-                                                            <small class="text-muted d-block">08:00-18:00 (600 นาที)</small>
+                                                            <small class="text-muted d-block">08:00-18:00 (600
+                                                                นาที)</small>
                                                         </label>
                                                     </div>
-                                                    <div class="alert alert-info py-2 px-3 small mb-0" id="shiftAvailableTimeDisplay" style="display:none">
-                                                        <i class="bi bi-info-circle me-1"></i>เวลาว่างจากกะ: <span id="shiftAvailableTimeText" class="fw-bold">-</span>
+                                                    <div class="input-group">
+                                                        <input type="number" class="form-control bg-light"
+                                                            id="shiftMinutes" name="shiftMinutes" value="600"
+                                                            readonly />
+                                                        <span class="input-group-text">นาที</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -125,16 +342,18 @@
                                             <div class="card border-0 shadow-sm h-100">
                                                 <div class="card-body">
                                                     <div class="form-check mb-3">
-                                                        <input class="form-check-input" type="checkbox" id="overtimeEnable"
-                                                            name="overtimeEnable" />
-                                                        <label class="form-check-label fw-semibold" for="overtimeEnable">
+                                                        <input class="form-check-input" type="checkbox"
+                                                            id="overtimeEnable" name="overtimeEnable" />
+                                                        <label class="form-check-label fw-semibold"
+                                                            for="overtimeEnable">
                                                             <i class="bi bi-clock-plus me-1 text-success"></i>
                                                             Overtime
                                                         </label>
                                                     </div>
                                                     <div class="input-group">
-                                                        <input type="number" class="form-control" id="overtime" name="overtime" 
-                                                               min="0" placeholder="ระบุเวลาโอที" disabled />
+                                                        <input type="number" class="form-control" id="overtime"
+                                                            name="overtime" min="0" placeholder="ระบุเวลาโอที"
+                                                            disabled />
                                                         <span class="input-group-text">นาที</span>
                                                     </div>
                                                 </div>
@@ -149,12 +368,18 @@
                                 <div class="row">
                                     <div class="col-12">
                                         <div class="d-flex align-items-center mb-4">
-                                            <div class="bg-primary rounded-circle d-flex align-items-center justify-content-center me-3" 
-                                                 style="width: 40px; height: 40px;">
+                                            <div class="bg-primary rounded-circle d-flex align-items-center justify-content-center me-3"
+                                                style="width: 40px; height: 40px;">
                                                 <i class="bi bi-clock-history text-white"></i>
                                             </div>
                                             <div>
-                                                <h5 class="mb-0 fw-bold text-primary">Availability</h5>
+                                                <h5 class="mb-0 fw-bold text-primary">
+                                                    Availability
+                                                    <span class="tooltip-help"
+                                                        data-tooltip="<span class='tooltip-formula'>A = (Actual Run Time ÷ Planned Production Time) × 100</span>">
+                                                        <i class="bi bi-info-circle text-primary"></i>
+                                                    </span>
+                                                </h5>
                                                 <small class="text-muted">อัตราการเดินเครื่องจักร</small>
                                             </div>
                                         </div>
@@ -167,11 +392,17 @@
                                     <div class="col-lg-6">
                                         <div class="card border-0 shadow-sm h-100">
                                             <div class="card-body">
-                                                <label for="actualStartDate" class="form-label fw-bold text-success mb-2">
+                                                <label for="actualStartDate"
+                                                    class="form-label fw-bold text-success mb-2">
                                                     <i class="bi bi-calendar-date me-1"></i>วันที่เริ่มงานจริง
                                                 </label>
-                                                <input type="date" class="form-control form-control-lg" 
-                                                       id="actualStartDate" name="actualStartDate" required />
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control form-control-lg" id="actualStartDate" placeholder="วัน/เดือน/ปี" readonly />
+                                                    <input type="date" class="form-control form-control-lg" id="actualStartDateHidden" name="actualStartDate" required style="position: absolute; opacity: 0; pointer-events: none;" />
+                                                    <button class="btn btn-outline-secondary" type="button" id="actualStartDateBtn">
+                                                        <i class="bi bi-calendar3"></i>
+                                                    </button>
+                                                </div>
                                                 <div class="invalid-feedback">กรุณาระบุวันที่เริ่มงาน</div>
                                             </div>
                                         </div>
@@ -179,15 +410,18 @@
                                     <div class="col-lg-6">
                                         <div class="card border-0 shadow-sm h-100">
                                             <div class="card-body">
-                                                <label for="actualStartTime" class="form-label fw-bold text-success mb-2">
+                                                <label for="actualStartTime"
+                                                    class="form-label fw-bold text-success mb-2">
                                                     <i class="bi bi-play-circle me-1"></i>เวลาเริ่มงานจริง
                                                 </label>
                                                 <div class="d-flex align-items-center">
-                                                    <select class="form-select form-select-lg" id="actualStartHour" style="width: 80px;" required>
+                                                    <select class="form-select form-select-lg" id="actualStartHour"
+                                                        style="width: 80px;" required>
                                                         <option value="">ชม.</option>
                                                     </select>
                                                     <span class="mx-2 fw-bold">:</span>
-                                                    <select class="form-select form-select-lg" id="actualStartMinute" style="width: 80px;" required>
+                                                    <select class="form-select form-select-lg" id="actualStartMinute"
+                                                        style="width: 80px;" required>
                                                         <option value="">นที.</option>
                                                     </select>
                                                     <span class="ms-2">น.</span>
@@ -206,8 +440,13 @@
                                                 <label for="actualEndDate" class="form-label fw-bold text-danger mb-2">
                                                     <i class="bi bi-calendar-date me-1"></i>วันที่สิ้นสุดงานจริง
                                                 </label>
-                                                <input type="date" class="form-control form-control-lg" 
-                                                       id="actualEndDate" name="actualEndDate" required />
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control form-control-lg" id="actualEndDate" placeholder="วัน/เดือน/ปี" readonly />
+                                                    <input type="date" class="form-control form-control-lg" id="actualEndDateHidden" name="actualEndDate" required style="position: absolute; opacity: 0; pointer-events: none;" />
+                                                    <button class="btn btn-outline-secondary" type="button" id="actualEndDateBtn">
+                                                        <i class="bi bi-calendar3"></i>
+                                                    </button>
+                                                </div>
                                                 <div class="invalid-feedback">กรุณาระบุวันที่สิ้นสุดงาน</div>
                                             </div>
                                         </div>
@@ -219,11 +458,13 @@
                                                     <i class="bi bi-stop-circle me-1"></i>เวลาสิ้นสุดงานจริง
                                                 </label>
                                                 <div class="d-flex align-items-center">
-                                                    <select class="form-select form-select-lg" id="actualEndHour" style="width: 80px;" required>
+                                                    <select class="form-select form-select-lg" id="actualEndHour"
+                                                        style="width: 80px;" required>
                                                         <option value="">ชม.</option>
                                                     </select>
                                                     <span class="mx-2 fw-bold">:</span>
-                                                    <select class="form-select form-select-lg" id="actualEndMinute" style="width: 80px;" required>
+                                                    <select class="form-select form-select-lg" id="actualEndMinute"
+                                                        style="width: 80px;" required>
                                                         <option value="">นที.</option>
                                                     </select>
                                                     <span class="ms-2">น.</span>
@@ -239,6 +480,10 @@
                                     <div class="card-header bg-light border-0">
                                         <h6 class="mb-0 fw-bold">
                                             <i class="bi bi-pause-circle text-warning me-2"></i>Break Time
+                                            <span class="tooltip-help"
+                                                data-tooltip="<span class='tooltip-formula'>Break Time = รวมเวลาพักทั้งหมด</span>">
+                                                <i class="bi bi-info-circle text-primary"></i>
+                                            </span>
                                         </h6>
                                     </div>
                                     <div class="card-body">
@@ -274,7 +519,8 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="alert alert-info mt-3 py-2" id="breakTotalDisplay" style="display:none">
+                                        <div class="alert alert-info mt-3 py-2" id="breakTotalDisplay"
+                                            style="display:none">
                                             <i class="bi bi-clock-history me-1"></i>
                                             รวมเวลาพัก: <span id="breakTotalMinutes" class="fw-bold">0</span> นาที
                                         </div>
@@ -286,11 +532,15 @@
                                     <div class="col-md-6">
                                         <div class="card border-primary border-2">
                                             <div class="card-body text-center">
-                                                <label for="plannedProductionTime" class="form-label fw-bold text-primary">
+                                                <label for="plannedProductionTime"
+                                                    class="form-label fw-bold text-primary">
                                                     <i class="bi bi-calendar-check me-1"></i>Planned Production Time
+                                                    <span class="tooltip-help"
+                                                        data-tooltip="<span class='tooltip-formula'>Planned Production Time = แผนสิ้นสุด - แผนเริ่มต้น (นาที)</span>">
                                                 </label>
                                                 <p class="small text-muted mb-2">เวลาผลิตที่วางแผน</p>
-                                                <input type="text" class="form-control form-control-lg text-center fw-bold bg-light"
+                                                <input type="text"
+                                                    class="form-control form-control-lg text-center fw-bold bg-light"
                                                     id="plannedProductionTime" name="plannedProductionTime" readonly />
                                             </div>
                                         </div>
@@ -299,10 +549,15 @@
                                         <div class="card border-success border-2">
                                             <div class="card-body text-center">
                                                 <label for="operatingTime" class="form-label fw-bold text-success">
-                                                    <i class="bi bi-play-circle me-1"></i>Run Time
+                                                    <i class="bi bi-play-circle me-1"></i>Runtime
+                                                    <span class="tooltip-help"
+                                                        data-tooltip="<span class='tooltip-formula'>Runtime = เวลาที่ผลิตจริง</span>">
+                                                        <i class="bi bi-info-circle text-primary"></i>
+                                                    </span>
                                                 </label>
-                                                <p class="small text-muted mb-2">เวลาทำงานจริง</p>
-                                                <input type="text" class="form-control form-control-lg text-center fw-bold bg-light"
+                                                <p class="small text-muted mb-2">เวลาทำงานจริง (คำนวณอัตโนมัติ)</p>
+                                                <input type="text"
+                                                    class="form-control form-control-lg text-center fw-bold bg-light"
                                                     id="operatingTime" name="operatingTime" readonly />
                                             </div>
                                         </div>
@@ -316,10 +571,14 @@
                                             <div class="card-body">
                                                 <label for="downtime" class="form-label fw-bold text-danger">
                                                     <i class="bi bi-exclamation-triangle me-1"></i>เวลาหยุดเครื่อง
+                                                    <span class="tooltip-help"x
+                                                        data-tooltip="<span class='tooltip-formula'>Downtime = ผลรวมเวลาหยุดทั้งหมด</span>">
+                                                        <i class="bi bi-info-circle text-primary"></i>
+                                                    </span>
                                                 </label>
                                                 <div class="input-group">
-                                                    <input type="number" min="0" class="form-control form-control-lg" 
-                                                           id="downtime" name="downtime" placeholder="0" />
+                                                    <input type="number" min="0" class="form-control form-control-lg"
+                                                        id="downtime" name="downtime" placeholder="0" />
                                                     <span class="input-group-text">นาที</span>
                                                 </div>
                                             </div>
@@ -337,14 +596,109 @@
                                         </div>
                                     </div>
                                 </div>
+
+                                <!-- Time Comparison Section -->
+                                <div class="card border-0 shadow-sm mb-4">
+                                    <div class="card-header bg-light border-0">
+                                        <h6 class="mb-0 fw-bold">
+                                            <i class="bi bi-clock-history text-primary me-2"></i>การเปรียบเทียบเวลา
+                                        </h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="row g-3" id="scheduleComparison">
+                                            <div class="col-md-4">
+                                                <div class="card border-primary">
+                                                    <div class="card-body text-center py-3">
+                                                        <h6 class="card-title text-primary mb-2">
+                                                            <i class="bi bi-calendar-check me-1"></i>เวลาตามแผน
+                                                        </h6>
+                                                        <h4 class="text-primary mb-0" id="plannedTotalTime">-</h4>
+                                                        <small class="text-muted">นาที</small>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="card border-info">
+                                                    <div class="card-body text-center py-3">
+                                                        <h6 class="card-title text-info mb-2">
+                                                            <i class="bi bi-clock me-1"></i>เวลาทำงานจริง
+                                                        </h6>
+                                                        <h4 class="text-info mb-0" id="actualTotalTime">-</h4>
+                                                        <small class="text-muted">นาที (หักพัก/หยุด)</small>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="card border-secondary" id="timeDifferenceCard">
+                                                    <div class="card-body text-center py-3">
+                                                        <h6 class="card-title text-secondary mb-2">
+                                                            <i class="bi bi-graph-up-arrow me-1"></i>ผลต่าง
+                                                        </h6>
+                                                        <h4 class="text-secondary mb-0" id="timeDifferenceValue">-</h4>
+                                                        <small class="text-muted">นาที</small>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="text-center mt-3">
+                                            <div id="timeDifferenceStatus">
+                                                <span class="badge bg-secondary fs-6 px-3 py-2">
+                                                    <i class="bi bi-question-circle me-1"></i>รอข้อมูล
+                                                </span>
+                                            </div>
+                                        </div>
+
+                                        <!-- เวลาที่ปฏิบัติงานได้ vs เวลาที่ปฏิบัติงานจริง -->
+                                        <hr class="my-4">
+                                        <h6 class="fw-bold text-info mb-3">
+                                            <i
+                                                class="bi bi-bar-chart text-info me-2"></i>การเปรียบเทียบเวลาที่ปฏิบัติงานได้
+                                            vs เวลาที่ปฏิบัติงานจริง
+                                        </h6>
+                                        <div class="row g-3" id="shiftRuntimeComparison">
+                                            <div class="col-md-6">
+                                                <div class="card border-warning">
+                                                    <div class="card-body text-center py-2">
+                                                        <h6 class="text-warning mb-1">เวลาที่ปฏิบัติงานได้</h6>
+                                                        <p class="mb-0 fw-bold fs-5" id="totalAvailableDisplay">600 นาที
+                                                        </p>
+                                                        <small class="text-muted">Shift + Overtime</small>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="card border-info">
+                                                    <div class="card-body text-center py-2">
+                                                        <h6 class="text-info mb-1">เวลาที่ปฏิบัติงานจริง</h6>
+                                                        <p class="mb-0 fw-bold fs-5" id="runtimeUsedDisplay">- นาที</p>
+                                                        <small class="text-muted">เวลาที่ใช้จริง</small>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Time Difference Result -->
+                                        <div class="text-center mt-3">
+                                            <div id="shiftTimeDifferenceStatus">
+                                                <span class="badge bg-secondary fs-6 px-3 py-2">
+                                                    <i class="bi bi-clock me-1"></i>กรุณากรอกข้อมูลเวลา
+                                                </span>
+                                            </div>
+                                            <div class="mt-2">
+                                                <small class="text-muted">เวลาว่าง = เวลาที่ปฏิบัติงานได้ -
+                                                    เวลาที่ปฏิบัติงานจริง</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
 
                             <!-- Section Divider -->
                             <div class="bg-light py-3">
                                 <div class="container-fluid">
                                     <div class="text-center">
-                                        <div class="bg-info rounded-circle d-inline-flex align-items-center justify-content-center mx-auto" 
-                                             style="width: 50px; height: 50px;">
+                                        <div class="bg-info rounded-circle d-inline-flex align-items-center justify-content-center mx-auto"
+                                            style="width: 50px; height: 50px;">
                                             <i class="bi bi-lightning-charge-fill text-white fs-4"></i>
                                         </div>
                                     </div>
@@ -356,12 +710,17 @@
                                 <div class="row">
                                     <div class="col-12">
                                         <div class="d-flex align-items-center mb-4">
-                                            <div class="bg-info rounded-circle d-flex align-items-center justify-content-center me-3" 
-                                                 style="width: 40px; height: 40px;">
+                                            <div class="bg-info rounded-circle d-flex align-items-center justify-content-center me-3"
+                                                style="width: 40px; height: 40px;">
                                                 <i class="bi bi-lightning-charge text-white"></i>
                                             </div>
                                             <div>
-                                                <h5 class="mb-0 fw-bold text-info">Performance Efficiency</h5>
+                                                <h5 class="mb-0 fw-bold text-info">Performance
+                                                    <span class="tooltip-help"
+                                                        data-tooltip="<span class='tooltip-formula'>Performance = (Ideal Cycle Time × Total Count) ÷ Run Time × 100</span>">
+                                                        <i class="bi bi-info-circle text-primary"></i>
+                                                    </span>
+                                                </h5>
                                                 <small class="text-muted">ประสิทธิภาพของเครื่องจักร</small>
                                             </div>
                                         </div>
@@ -374,11 +733,16 @@
                                             <div class="card-body">
                                                 <label for="idealRunRate" class="form-label fw-bold text-info">
                                                     <i class="bi bi-speedometer2 me-1"></i>Ideal Run Rate
+                                                    <span class="tooltip-help"
+                                                        data-tooltip="<span class='tooltip-formula'>Ideal Run Rate = Maximum Rate (ชิ้น/นาที)</span>">
+                                                        <i class="bi bi-info-circle text-primary"></i>
+                                                    </span>
                                                 </label>
                                                 <p class="small text-muted mb-2">อัตราผลิตมาตรฐาน</p>
                                                 <div class="input-group">
-                                                    <input type="number" class="form-control form-control-lg" id="idealRunRate" 
-                                                           name="idealRunRate" min="1" placeholder="เช่น 10" required />
+                                                    <input type="number" class="form-control form-control-lg"
+                                                        id="idealRunRate" name="idealRunRate" min="1"
+                                                        placeholder="เช่น 10" required />
                                                     <span class="input-group-text">ชิ้น/นาที</span>
                                                 </div>
                                                 <div class="invalid-feedback">กรุณาระบุอัตราการผลิตมาตรฐาน</div>
@@ -389,11 +753,15 @@
                                         <div class="card border-info border-2">
                                             <div class="card-body">
                                                 <label for="actualRunRate" class="form-label fw-bold text-info">
-                                                    <i class="bi bi-tachometer-alt me-1"></i>Actual Run Rate
+                                                    <i class="bi bi-tachometer-alt me-1"></i>Actual Cycle Time
+                                                    <span class="tooltip-help" data-tooltip="<span class='tooltip-formula'>Actual Cycle Time = 1 ÷ Ideal Run Rate (นาที/ชิ้น)</span>">
+                                                        <i class="bi bi-info-circle text-primary"></i>
+                                                    </span>
                                                 </label>
-                                                <p class="small text-muted mb-2">อัตราผลิตจริง (คำนวณอัตโนมัติ)</p>
-                                                <input type="text" class="form-control form-control-lg bg-light fw-bold text-center" 
-                                                       id="actualRunRate" name="actualRunRate" readonly />
+                                                <p class="small text-muted mb-2">เวลาต่อรอบการผลิต (คำนวณอัตโนมัติ)</p>
+                                                <input type="text"
+                                                    class="form-control form-control-lg bg-light fw-bold text-center"
+                                                    id="actualRunRate" name="actualRunRate" readonly />
                                             </div>
                                         </div>
                                     </div>
@@ -401,38 +769,83 @@
 
                                 <div class="row g-3 mb-4">
                                     <div class="col-md-6">
-                                        <div class="card border-primary border-2">
+                                        <div class="card border-info border-2">
                                             <div class="card-body">
-                                                <label for="totalPieces" class="form-label fw-bold text-primary">
-                                                    <i class="bi bi-123 me-1"></i>Total Pieces
+                                                <label for="targetOutput" class="form-label fw-bold text-info">
+                                                    <i class="bi bi-bullseye me-1"></i>Planned Output
                                                 </label>
-                                                <p class="small text-muted mb-2">จำนวนผลิตรวม</p>
+                                                <p class="small text-muted mb-2">ผลผลิตที่วางแผน</p>
                                                 <div class="input-group">
-                                                    <input type="number" class="form-control form-control-lg" id="totalPieces" 
-                                                           name="totalPieces" min="0" placeholder="เช่น 100" required />
+                                                    <input type="number" class="form-control form-control-lg bg-light"
+                                                        id="targetOutput" name="targetOutput" readonly />
                                                     <span class="input-group-text">ชิ้น</span>
                                                 </div>
-                                                <div class="invalid-feedback">กรุณาระบุจำนวนผลิตรวม</div>
                                             </div>
                                         </div>
                                     </div>
+                                    
+                                    <!-- Session Info Display -->
+                                    <div class="col-12 mb-3" id="sessionInfoContainer" style="display: none;">
+                                        <div class="card border-warning border-2">
+                                            <div class="card-body">
+                                                <h6 class="card-title text-warning">
+                                                    <i class="bi bi-clock-history me-2"></i>Session Information
+                                                </h6>
+                                                <div id="sessionInfo">
+                                                    <!-- ข้อมูล session จะแสดงที่นี่ -->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
                                     <div class="col-md-6">
+                                        <div class="card border-primary border-2">
+                                            <div class="card-body">
+                                                <label for="totalPieces" class="form-label fw-bold text-primary">
+                                                    <i class="bi bi-123 me-1"></i>Total Pieces (This Session)
+                                                </label>
+                                                <p class="small text-muted mb-2">จำนวนผลิตครั้งนี้</p>
+                                                <div class="input-group">
+                                                    <input type="number" class="form-control form-control-lg"
+                                                        id="totalPieces" name="totalPieces" min="0"
+                                                        placeholder="เช่น 100" required />
+                                                    <span class="input-group-text">ชิ้น</span>
+                                                </div>
+                                                <div class="invalid-feedback">กรุณาระบุจำนวนผลิตครั้งนี้</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Remaining Quantity Display -->
+                                    <div class="col-12">
+                                        <div class="alert alert-info d-flex align-items-center" id="remainingDisplay" style="display: block;">
+                                            <i class="bi bi-info-circle-fill me-2"></i>
+                                            <div class="flex-grow-1">
+                                                <strong>คงเหลือที่ต้องผลิต:</strong>
+                                                <span id="remainingQuantity" class="badge bg-primary fs-5 fw-bold ms-2">กำลังโหลด...</span>
+                                                <div class="mt-2">
+                                                    <small class="text-muted">
+                                                        <i class="bi bi-target me-1"></i>เป้าหมาย: <span id="remainingTargetDisplay" class="fw-bold">-</span> ชิ้น | 
+                                                        <i class="bi bi-check-circle me-1"></i>ผลิตแล้ว: <span id="remainingProducedDisplay" class="fw-bold">-</span> ชิ้น
+                                                    </small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-md-6" style="display: none">
                                         <div class="card border-success border-2">
                                             <div class="card-body">
                                                 <label for="netRunTime" class="form-label fw-bold text-success">
                                                     <i class="bi bi-stopwatch me-1"></i>Net Run Time
                                                 </label>
                                                 <p class="small text-muted mb-2">เวลาทำงานสุทธิ</p>
-                                                <input type="text" class="form-control form-control-lg bg-light fw-bold text-center" 
-                                                       id="netRunTime" name="netRunTime" readonly />
+                                                <input type="text"
+                                                    class="form-control form-control-lg bg-light fw-bold text-center"
+                                                    id="netRunTime" name="netRunTime" readonly />
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-
-                                <div class="alert alert-info" id="actualDurationDisplay" style="display: none">
-                                    <i class="bi bi-hourglass-split me-2"></i>
-                                    ใช้เวลาทำงานจริง: <span id="actualDurationText" class="fw-bold"></span>
                                 </div>
                             </div>
 
@@ -440,8 +853,8 @@
                             <div class="bg-light py-3">
                                 <div class="container-fluid">
                                     <div class="text-center">
-                                        <div class="bg-success rounded-circle d-inline-flex align-items-center justify-content-center mx-auto" 
-                                             style="width: 50px; height: 50px;">
+                                        <div class="bg-success rounded-circle d-inline-flex align-items-center justify-content-center mx-auto"
+                                            style="width: 50px; height: 50px;">
                                             <i class="bi bi-emoji-smile-fill text-white fs-4"></i>
                                         </div>
                                     </div>
@@ -453,43 +866,95 @@
                                 <div class="row">
                                     <div class="col-12">
                                         <div class="d-flex align-items-center mb-4">
-                                            <div class="bg-success rounded-circle d-flex align-items-center justify-content-center me-3" 
-                                                 style="width: 40px; height: 40px;">
+                                            <div class="bg-success rounded-circle d-flex align-items-center justify-content-center me-3"
+                                                style="width: 40px; height: 40px;">
                                                 <i class="bi bi-emoji-smile text-white"></i>
                                             </div>
                                             <div>
-                                                <h5 class="mb-0 fw-bold text-success">Quality Rate</h5>
+                                                <h5 class="mb-0 fw-bold text-success">Quality Rate
+                                                    <span class="tooltip-help"
+                                                        data-tooltip="<span class='tooltip-formula'>Quality = (Good Pieces ÷ Total Pieces) × 100</span>">
+                                                        <i class="bi bi-info-circle text-primary"></i>
+                                                    </span>
+                                                </h5>
                                                 <small class="text-muted">อัตราคุณภาพ</small>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
 
-                                <div class="row g-3">
+                                <div class="row g-3 mb-3">
                                     <div class="col-md-6">
                                         <div class="card border-danger border-2">
                                             <div class="card-body">
                                                 <label for="rejectPieces" class="form-label fw-bold text-danger">
                                                     <i class="bi bi-x-octagon me-1"></i>Reject Pieces
+                                                    <span class="tooltip-help"
+                                                        data-tooltip="<span class='tooltip-formula'>จำนวน Reject Pieces">
+                                                        <i class="bi bi-info-circle text-primary"></i>
+                                                    </span>
                                                 </label>
                                                 <p class="small text-muted mb-2">จำนวนของเสีย</p>
                                                 <div class="input-group">
-                                                    <input type="number" class="form-control form-control-lg" id="rejectPieces" 
-                                                           name="rejectPieces" min="0" placeholder="0" />
+                                                    <input type="number" class="form-control form-control-lg"
+                                                        id="rejectPieces" name="rejectPieces" min="0" placeholder="0" />
                                                     <span class="input-group-text">ชิ้น</span>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
+                                        <div class="card border-info border-2">
+                                            <div class="card-body">
+                                                <label for="reworkPieces" class="form-label fw-bold text-info">
+                                                    <i class="bi bi-arrow-repeat me-1"></i>Rework Pieces
+                                                    <span class="tooltip-help"
+                                                        data-tooltip="<span class='tooltip-formula'>จำนวนสินค้าที่ต้องแก้ไข/ทำใหม่</span>">
+                                                        <i class="bi bi-info-circle text-primary"></i>
+                                                    </span>
+                                                </label>
+                                                <p class="small text-muted mb-2">จำนวนที่ต้อง Rework</p>
+                                                <div class="input-group">
+                                                    <input type="number" class="form-control form-control-lg"
+                                                        id="reworkPieces" name="reworkPieces" min="0" placeholder="0" />
+                                                    <span class="input-group-text">ชิ้น</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="row g-3">
+                                    <div class="col-md-6">
                                         <div class="card border-success border-2">
                                             <div class="card-body">
                                                 <label for="goodPieces" class="form-label fw-bold text-success">
                                                     <i class="bi bi-check-circle me-1"></i>Good Pieces
+                                                    <span class="tooltip-help"
+                                                        data-tooltip="<span class='tooltip-formula'>Good Pieces = Total Pieces - Reject Pieces</span>">
+                                                        <i class="bi bi-info-circle text-primary"></i>
+                                                    </span>
                                                 </label>
                                                 <p class="small text-muted mb-2">จำนวนของดี</p>
-                                                <input type="number" class="form-control form-control-lg bg-light fw-bold text-center" 
-                                                       id="goodPieces" name="goodPieces" readonly />
+                                                <input type="number"
+                                                    class="form-control form-control-lg bg-light fw-bold text-center"
+                                                    id="goodPieces" name="goodPieces" readonly />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="card border-secondary border-2">
+                                            <div class="card-body">
+                                                <label for="Remark" class="form-label fw-bold text-secondary">
+                                                    <i class="bi bi-chat-square-text me-1"></i>Remark
+                                                    <span class="tooltip-help"
+                                                        data-tooltip="<span class='tooltip-formula'>หมายเหตุเกี่ยวกับคุณภาพ, ปัญหา, หรือข้อสังเกต</span>">
+                                                        <i class="bi bi-info-circle text-primary"></i>
+                                                    </span>
+                                                </label>
+                                                <p class="small text-muted mb-2">หมายเหตุเพิ่มเติม</p>
+                                                <textarea class="form-control" id="Remark" name="Remark" 
+                                                    rows="3" placeholder="หมายเหตุเกี่ยวกับคุณภาพ, ปัญหา, หรือข้อสังเกต..."></textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -506,24 +971,38 @@
                                                     class="btn btn-success btn-lg px-5 py-3 fw-bold shadow-sm">
                                                     <i class="bi bi-check-circle me-2"></i>บันทึกและยืนยันงาน
                                                 </button>
-                                                <button type="reset" class="btn btn-outline-secondary btn-lg px-5 py-3 fw-bold">
+                                                <button type="reset"
+                                                    class="btn btn-outline-secondary btn-lg px-5 py-3 fw-bold">
                                                     <i class="bi bi-arrow-clockwise me-2"></i>ล้างค่า
                                                 </button>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>                            <!-- OEE Summary Card -->
-                            <div class="container-fluid py-4 bg-light border-top">
+                            </div> <!-- End of Production Input Section -->
+                            
+                            <!-- OEE Summary Card - แสดงเฉพาะเมื่อ remaining = 0 -->
+                            <div class="container-fluid py-4 bg-light border-top" id="oeeSection" style="display: none;">
+                                <div class="alert alert-success mb-3">
+                                    <i class="bi bi-check-circle-fill me-2"></i>
+                                    <strong>งานเสร็จสิ้นครบถ้วน!</strong> สามารถดู OEE และผลลัพธ์การผลิตได้แล้ว
+                                </div>
+                                
                                 <div class="card shadow-lg border-0" id="oeeSummaryCard">
-                                    <div class="card-header text-white py-3" style="background: linear-gradient(135deg, #343a40 0%, #495057 100%);">
+                                    <div class="card-header text-white py-3"
+                                        style="background: linear-gradient(135deg, #343a40 0%, #495057 100%);">
                                         <div class="d-flex align-items-center">
-                                            <div class="bg-white rounded-circle d-flex align-items-center justify-content-center me-3" 
-                                                 style="width: 40px; height: 40px;">
+                                            <div class="bg-white rounded-circle d-flex align-items-center justify-content-center me-3"
+                                                style="width: 40px; height: 40px;">
                                                 <i class="bi bi-bar-chart-line-fill text-dark"></i>
                                             </div>
                                             <div>
-                                                <h5 class="mb-0 fw-bold">OEE Calculation</h5>
+                                                <h5 class="mb-0 fw-bold">OEE Calculation
+                                                    <span class="tooltip-help"
+                                                        data-tooltip="<span class='tooltip-formula'>OEE = Availability × Performance × Quality</span>">
+                                                        <i class="bi bi-info-circle text-primary"></i>
+                                                    </span>
+                                                </h5>
                                                 <small class="opacity-75">Overall Equipment Effectiveness</small>
                                             </div>
                                         </div>
@@ -534,10 +1013,17 @@
                                                 <div class="card border-0 shadow-sm h-100">
                                                     <div class="card-body py-4">
                                                         <div class="fw-bold text-dark mb-3">
-                                                            <i class="bi bi-clock-history text-primary fs-4 d-block mb-2"></i>
+                                                            <i
+                                                                class="bi bi-clock-history text-primary fs-4 d-block mb-2"></i>
                                                             Availability
+                                                            <span class="tooltip-help"
+                                                                data-tooltip="<span class='tooltip-formula'>Availability = (Actual Run Time ÷ Planned Production Time) × 100</span>">
+                                                                <i class="bi bi-info-circle text-primary"></i>
+                                                            </span>
                                                         </div>
-                                                        <span class="badge bg-primary fs-4 px-4 py-3 rounded-pill shadow" id="oeeAvailability">-</span>
+                                                        <span
+                                                            class="badge bg-primary fs-4 px-4 py-3 rounded-pill shadow"
+                                                            id="oeeAvailability">-</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -545,10 +1031,16 @@
                                                 <div class="card border-0 shadow-sm h-100">
                                                     <div class="card-body py-4">
                                                         <div class="fw-bold text-dark mb-3">
-                                                            <i class="bi bi-lightning-charge text-info fs-4 d-block mb-2"></i>
+                                                            <i
+                                                                class="bi bi-lightning-charge text-info fs-4 d-block mb-2"></i>
                                                             Performance
+                                                            <span class="tooltip-help"
+                                                                data-tooltip="<span class='tooltip-formula'> Performance = (Ideal Cycle Time × Total Count) ÷ Run Time × 100</span>">
+                                                                <i class="bi bi-info-circle text-primary"></i>
+                                                            </span>
                                                         </div>
-                                                        <span class="badge bg-info fs-4 px-4 py-3 rounded-pill shadow" id="oeePerformance">-</span>
+                                                        <span class="badge bg-info fs-4 px-4 py-3 rounded-pill shadow"
+                                                            id="oeePerformance">-</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -556,10 +1048,17 @@
                                                 <div class="card border-0 shadow-sm h-100">
                                                     <div class="card-body py-4">
                                                         <div class="fw-bold text-dark mb-3">
-                                                            <i class="bi bi-emoji-smile text-success fs-4 d-block mb-2"></i>
+                                                            <i
+                                                                class="bi bi-emoji-smile text-success fs-4 d-block mb-2"></i>
                                                             Quality
+                                                            <span class="tooltip-help"
+                                                                data-tooltip="<span class='tooltip-formula'>Quality = (Good Pieces ÷ Total Pieces) × 100</span>">
+                                                                <i class="bi bi-info-circle text-primary"></i>
+                                                            </span>
                                                         </div>
-                                                        <span class="badge bg-success fs-4 px-4 py-3 rounded-pill shadow" id="oeeQuality">-</span>
+                                                        <span
+                                                            class="badge bg-success fs-4 px-4 py-3 rounded-pill shadow"
+                                                            id="oeeQuality">-</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -567,11 +1066,19 @@
                                                 <div class="card border-warning border-3 shadow h-100">
                                                     <div class="card-body py-4">
                                                         <div class="fw-bold text-dark mb-3">
-                                                            <i class="bi bi-star-fill text-warning fs-4 d-block mb-2"></i>
-                                                            <strong>OEE Total</strong>
+                                                            <i
+                                                                class="bi bi-star-fill text-warning fs-4 d-block mb-2"></i>
+                                                            <strong>OEE Total
+                                                                <span class="tooltip-help"
+                                                                    data-tooltip="<span class='tooltip-formula'>OEE = Availability × Performance × Quality</span>">
+                                                                    <i class="bi bi-info-circle text-primary"></i>
+                                                                </span>
+                                                            </strong>
                                                         </div>
-                                                        <span class="badge bg-gradient fs-3 px-4 py-3 rounded-pill shadow-lg" 
-                                                              id="oeeTotal" style="background: linear-gradient(135deg, #ffc107 0%, #fd7e14 100%); color: #212529;">-</span>
+                                                        <span
+                                                            class="badge bg-gradient fs-3 px-4 py-3 rounded-pill shadow-lg"
+                                                            id="oeeTotal"
+                                                            style="background: linear-gradient(135deg, #ffc107 0%, #fd7e14 100%); color: #212529;">-</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -590,7 +1097,8 @@
             <div id="mainToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
                 <div class="d-flex">
                     <div class="toast-body fw-bold" id="mainToastBody"></div>
-                    <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                    <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast"
+                        aria-label="Close"></button>
                 </div>
             </div>
         </div>
@@ -599,7 +1107,47 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="js/navigation.js"></script>
+    <script src="js/partial-sessions-helper.js"></script>
     <script src="confirm-complete.js"></script>
+
+    <!-- Tooltip JavaScript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            console.log('Tooltip script loaded');
+
+            // จัดการ tooltip ที่ใช้ data-tooltip attribute
+            const tooltipElements = document.querySelectorAll('[data-tooltip]');
+            console.log('Found', tooltipElements.length, 'tooltip elements');
+
+            tooltipElements.forEach((element, index) => {
+                const tooltipText = element.getAttribute('data-tooltip');
+                console.log('Processing tooltip', index, 'with text length:', tooltipText.length);
+
+                // ตรวจสอบว่ามี tooltip-content อยู่แล้วหรือไม่
+                if (!element.querySelector('.tooltip-content')) {
+                    // สร้าง div สำหรับแสดง tooltip content
+                    const tooltipContent = document.createElement('div');
+                    tooltipContent.className = 'tooltip-content';
+                    tooltipContent.innerHTML = tooltipText;
+                    element.appendChild(tooltipContent);
+                    console.log('Added tooltip content to element', index);
+                } else {
+                    console.log('Element', index, 'already has tooltip content');
+                }
+            });
+
+            console.log('Tooltip setup completed');
+        });
+    </script>
+
+    <!-- Initialize ConfirmCompleteManager -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🚀 DOM Content Loaded');
+            console.log('ℹ️ ConfirmCompleteManager will be initialized from confirm-complete.js');
+            // การสร้าง ConfirmCompleteManager ถูกย้ายไปทำใน confirm-complete.js แล้ว
+        });
+    </script>
 
 </body>
 

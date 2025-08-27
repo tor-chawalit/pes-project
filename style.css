@@ -1,3 +1,417 @@
+    /* ================================================================
+ * CALENDAR COLUMN BORDERS AND GRID LINES
+ * ================================================================ */
+/* Now indicator line - แบบธรรมดา */
+.fc-timegrid-now-indicator-line {
+    border-color: #dc3545 !important;
+    border-width: 1px !important;
+    box-shadow: none !important;
+    z-index: 100 !important;
+}
+
+.fc-timegrid-now-indicator-arrow {
+    border-color: #dc3545 !important;
+    border-width: 6px !important;
+    box-shadow: none !important;
+}
+
+/* ลบสีพิเศษสำหรับเวลาต่างๆ - ให้เป็นแบบธรรมดาเหมือนกัน */
+.fc-timegrid-slot[data-time*="00:00"] {
+    border-top: 1px solid #e0e0e0 !important; /* สีเดียวกัน */
+    background: transparent !important;
+}
+
+.fc-timegrid-slot[data-time*="08:00"],
+.fc-timegrid-slot[data-time*="12:00"],
+.fc-timegrid-slot[data-time*="17:00"] {
+    border-top: 1px solid #e0e0e0 !important; /* สีเดียวกัน */
+    background: transparent !important;
+}
+
+/* Time labels แบบธรรมดา */
+.fc-timegrid-slot-label {
+    border-right: 1px solid #e0e0e0 !important; /* เส้นแนวตั้งบางเหมือนกัน */
+    background: #f8f9fa !important;
+    color: #495057 !important;
+    font-weight: 500 !important;
+    text-align: center !important;
+    padding: 4px !important;
+}
+
+/* ลบสีพิเศษสำหรับ time labels */
+.fc-timegrid-slot-label[data-time*="00:00"] {
+    background: #f8f9fa !important;
+    color: #495057 !important;
+    font-weight: 500 !important;
+}
+
+.fc-timegrid-slot-label[data-time*="08:00"],
+.fc-timegrid-slot-label[data-time*="12:00"],
+.fc-timegrid-slot-label[data-time*="17:00"] {
+    background: #f8f9fa !important;
+    color: #495057 !important;
+    font-weight: 500 !important;
+}
+
+/* เส้นแบ่ง Column สำหรับ Day Grid (เดือน) - แบบธรรมดาเหมือนแนวนอน */
+.fc-daygrid-day {
+    border-right: 1px solid #e0e0e0 !important; /* เส้นแนวตั้งบางเหมือนแนวนอน */
+    border-bottom: 1px solid #e0e0e0 !important; /* เส้นแนวนอนบาง */
+    position: relative !important;
+    background: transparent !important;
+}
+
+.fc-daygrid-day:first-child {
+    border-left: 1px solid #e0e0e0 !important; /* เส้นแรกด้วย */
+}
+
+.fc-daygrid-day:last-child {
+    border-right: 1px solid #e0e0e0 !important; /* เส้นสุดท้ายด้วย */
+}
+
+/* เส้นกรอบภายนอกของปฏิทิน - แบบธรรมดา */
+.fc-scrollgrid {
+    border: 1px solid #e0e0e0 !important; /* เส้นบางเหมือนเส้นภายใน */
+    border-radius: 8px !important;
+}
+
+/* Force vertical borders สำหรับทุก column ให้บางๆ ไม่เด่น */
+.fc-scrollgrid table,
+.fc-scrollgrid td,
+.fc-scrollgrid th {
+    border-collapse: separate !important;
+    border-spacing: 0 !important;
+}
+
+/* Force vertical lines ให้แสดงแบบบางๆ */
+.fc-timegrid-axis,
+.fc-timegrid-col,
+.fc-col-header-cell {
+    box-shadow: 1px 0 0 0 #e0e0e0 !important;
+}
+
+/* Header ของปฏิทิน - เส้นบางๆ ไม่เด่น */
+.fc-col-header-cell {
+    border-right: 1px solid #e0e0e0 !important; /* เส้นแนวตั้งบางๆ */
+    border-bottom: 1px solid #e0e0e0 !important; /* เส้นแนวนอนบาง */
+    background: #f8f9fa !important; /* สีเทาอ่อนธรรมดา */
+    font-weight: 600 !important;
+    color: #495057 !important;
+}
+
+.fc-col-header-cell:first-child {
+    border-left: 1px solid #e0e0e0 !important; /* เส้นแรกด้วย */
+}
+
+.fc-col-header-cell:last-child {
+    border-right: 1px solid #e0e0e0 !important; /* เส้นสุดท้ายด้วย */
+}
+
+/* ลบ styling พิเศษสำหรับวันเสาร์-อาทิตย์ */
+.fc-day-sat, .fc-day-sun {
+    background: transparent !important;
+}
+
+.fc-day-sat .fc-col-header-cell, 
+.fc-day-sun .fc-col-header-cell {
+    background: #f8f9fa !important;
+    color: #495057 !important;
+}
+
+/* ================================================================
+ * MULTI-DAY EVENTS STYLING (งานข้ามวัน)
+ * ================================================================ */
+
+/* งานข้ามวัน - แสดงเป็นแถบต่อเนื่อง */
+.fc-daygrid-event.fc-event-start:not(.fc-event-end) {
+    border-radius: 6px 0 0 6px !important;
+    border-right: 2px dashed rgba(255, 255, 255, 0.6) !important;
+    margin-right: 0 !important;
+    position: relative !important;
+}
+
+.fc-daygrid-event.fc-event-start:not(.fc-event-end)::after {
+    content: "▶" !important;
+    position: absolute !important;
+    right: 2px !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    color: rgba(255, 255, 255, 0.8) !important;
+    font-size: 0.7rem !important;
+    font-weight: bold !important;
+}
+
+/* วันกลาง - ไม่มีมุมโค้ง */
+.fc-daygrid-event:not(.fc-event-start):not(.fc-event-end) {
+    border-radius: 0 !important;
+    border-left: 2px dashed rgba(255, 255, 255, 0.6) !important;
+    border-right: 2px dashed rgba(255, 255, 255, 0.6) !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    background: linear-gradient(90deg, 
+        transparent 0%, 
+        rgba(255, 255, 255, 0.1) 20%, 
+        rgba(255, 255, 255, 0.1) 80%, 
+        transparent 100%) !important;
+}
+
+.fc-daygrid-event:not(.fc-event-start):not(.fc-event-end)::before {
+    content: "◀ ▶" !important;
+    position: absolute !important;
+    left: 50% !important;
+    top: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    color: rgba(255, 255, 255, 0.6) !important;
+    font-size: 0.6rem !important;
+    font-weight: bold !important;
+}
+
+/* วันสุดท้าย - โค้งด้านขวา */
+.fc-daygrid-event.fc-event-end:not(.fc-event-start) {
+    border-radius: 0 6px 6px 0 !important;
+    border-left: 2px dashed rgba(255, 255, 255, 0.6) !important;
+    margin-left: 0 !important;
+    position: relative !important;
+}
+
+.fc-daygrid-event.fc-event-end:not(.fc-event-start)::before {
+    content: "◀" !important;
+    position: absolute !important;
+    left: 2px !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    color: rgba(255, 255, 255, 0.8) !important;
+    font-size: 0.7rem !important;
+    font-weight: bold !important;
+}
+
+/* งานข้ามวันใน Time Grid */
+.fc-timegrid-event.fc-event-start:not(.fc-event-end) {
+    border-radius: 6px 0 0 6px !important;
+    border-right: 3px solid rgba(255, 255, 255, 0.8) !important;
+    box-shadow: 
+        0 2px 8px rgba(0, 0, 0, 0.15),
+        inset -10px 0 20px -10px rgba(255, 255, 255, 0.2) !important;
+}
+
+.fc-timegrid-event:not(.fc-event-start):not(.fc-event-end) {
+    border-radius: 0 !important;
+    border-left: 3px solid rgba(255, 255, 255, 0.8) !important;
+    border-right: 3px solid rgba(255, 255, 255, 0.8) !important;
+    box-shadow: 
+        0 2px 8px rgba(0, 0, 0, 0.15),
+        inset 0 0 20px -5px rgba(255, 255, 255, 0.15) !important;
+}
+
+.fc-timegrid-event.fc-event-end:not(.fc-event-start) {
+    border-radius: 0 6px 6px 0 !important;
+    border-left: 3px solid rgba(255, 255, 255, 0.8) !important;
+    box-shadow: 
+        0 2px 8px rgba(0, 0, 0, 0.15),
+        inset 10px 0 20px -10px rgba(255, 255, 255, 0.2) !important;
+}
+
+/* Text alignment สำหรับงานข้ามวัน */
+.fc-daygrid-event.fc-event-start:not(.fc-event-end) .fc-event-title-container {
+    text-align: left !important;
+    padding-right: 20px !important;
+}
+
+.fc-daygrid-event:not(.fc-event-start):not(.fc-event-end) .fc-event-title-container {
+    text-align: center !important;
+    padding: 2px 25px !important;
+}
+
+.fc-daygrid-event.fc-event-end:not(.fc-event-start) .fc-event-title-container {
+    text-align: right !important;
+    padding-left: 20px !important;
+}
+
+/* Enhanced visibility สำหรับงานข้ามวัน */
+.fc-daygrid-event.fc-event-start:not(.fc-event-end),
+.fc-daygrid-event:not(.fc-event-start):not(.fc-event-end),
+.fc-daygrid-event.fc-event-end:not(.fc-event-start) {
+    z-index: 10 !important;
+    min-height: 24px !important;
+    opacity: 0.95 !important;
+    transition: all 0.3s ease !important;
+}
+
+.fc-daygrid-event.fc-event-start:not(.fc-event-end):hover,
+.fc-daygrid-event:not(.fc-event-start):not(.fc-event-end):hover,
+.fc-daygrid-event.fc-event-end:not(.fc-event-start):hover {
+    z-index: 50 !important;
+    opacity: 1 !important;
+    transform: scale(1.02) translateY(-1px) !important;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25) !important;
+}
+
+/* Date indicators สำหรับงานข้ามวัน */
+.fc-daygrid-event.fc-event-start:not(.fc-event-end) .fc-event-title-container::after {
+    content: "เริ่ม" !important;
+    position: absolute !important;
+    bottom: 1px !important;
+    right: 15px !important;
+    font-size: 0.5rem !important;
+    background: rgba(0, 0, 0, 0.3) !important;
+    color: white !important;
+    padding: 1px 3px !important;
+    border-radius: 2px !important;
+    font-weight: bold !important;
+}
+
+.fc-daygrid-event.fc-event-end:not(.fc-event-start) .fc-event-title-container::after {
+    content: "สิ้นสุด" !important;
+    position: absolute !important;
+    bottom: 1px !important;
+    left: 15px !important;
+    font-size: 0.5rem !important;
+    background: rgba(0, 0, 0, 0.3) !important;
+    color: white !important;
+    padding: 1px 3px !important;
+    border-radius: 2px !important;
+    font-weight: bold !important;
+}
+
+.fc-daygrid-event:not(.fc-event-start):not(.fc-event-end) .fc-event-title-container::after {
+    content: "ดำเนินต่อ" !important;
+    position: absolute !important;
+    bottom: 1px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    font-size: 0.45rem !important;
+    background: rgba(0, 0, 0, 0.2) !important;
+    color: rgba(255, 255, 255, 0.8) !important;
+    padding: 1px 4px !important;
+    border-radius: 2px !important;
+    font-style: italic !important;
+}
+
+/* ================================================================
+ * MULTI-DAY EVENT DURATION INDICATORS
+ * ================================================================ */
+
+/* Multi-day event styling */
+.fc-event.multi-day-event {
+    position: relative !important;
+    overflow: visible !important;
+    border: 2px solid rgba(255, 255, 255, 0.9) !important;
+    box-shadow: 
+        0 3px 12px rgba(0, 0, 0, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3) !important;
+}
+
+.fc-event.multi-day-event:hover {
+    transform: scale(1.03) translateY(-2px) !important;
+    box-shadow: 
+        0 8px 25px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.4) !important;
+    z-index: 100 !important;
+}
+
+/* Duration indicator animation */
+.multi-day-duration {
+    animation: fadeInUp 0.5s ease-out 0.3s both !important;
+}
+
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive สำหรับ multi-day duration */
+@media (max-width: 768px) {
+    .multi-day-duration {
+        font-size: 0.5rem !important;
+        padding: 1px 4px !important;
+    }
+    
+    .multi-day-duration small {
+        display: none !important;
+    }
+}
+
+/* Container for date picker */
+.date-picker-container {
+    position: relative;
+    display: block;
+    width: 100%;
+}
+
+/* Visible text field */
+.date-display {
+    background-color: white !important;
+    cursor: pointer;
+    position: relative;
+    z-index: 1;
+    padding-right: 45px; /* เว้นพื้นที่สำหรับ icon */
+}
+
+/* Hidden native date picker */
+.date-hidden {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    z-index: 2;
+    cursor: pointer;
+    border: none;
+    background: transparent;
+}
+
+/* Calendar icon */
+.date-picker-container::after {
+    content: '📅';
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 3;
+    pointer-events: none;
+    font-size: 18px;
+}
+
+/* Focus states */
+.date-hidden:focus + .date-display {
+    border-color: #0d6efd;
+    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+}
+
+/* Hover states */
+.date-picker-container:hover .date-display {
+    border-color: #0d6efd;
+}
+
+/* Valid state */
+.date-display.is-valid {
+    border-color: #198754;
+    background-color: #f8fff9 !important;
+}
+
+/* Invalid states */
+.date-hidden.is-invalid + .date-display {
+    border-color: #dc3545;
+}
+
+.date-hidden:focus.is-invalid + .date-display {
+    border-color: #dc3545;
+    box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+}
+
+/* Remove old styles */
+.position-relative input[type="text"][readonly] {
+    /* Reset to default */
+    pointer-events: auto;
+}
+
 /* ================================================================
  * GLOBAL FONT FAMILY - Prompt Font for entire project
  * ================================================================ */
@@ -120,24 +534,116 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 
-/* Enhanced Event Styling for Multiple Events */
+/* Enhanced Event Styling for Multiple Overlapping Events */
 .fc-event {
-    border: none !important;
-    border-radius: 4px !important;
-    font-size: 0.6rem !important;
-    padding: 2px 4px !important;
-    margin: 1px !important;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12) !important;
+    border: 2px solid rgba(255, 255, 255, 0.8) !important;
+    border-radius: 6px !important;
+    font-size: 0.65rem !important;
+    padding: 3px 5px !important;
+    margin: 2px 1px !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15) !important;
     cursor: pointer !important;
-    transition: all 0.2s ease !important;
-    min-height: 50px !important; /* เพิ่มความสูงขั้นต่ำเพื่อให้แสดงข้อมูลครบ */
+    transition: all 0.3s ease !important;
+    min-height: 22px !important;
     display: flex !important;
     align-items: flex-start !important;
     flex-direction: column !important;
     position: relative !important;
-    overflow: hidden !important;
-    min-width: 80px !important;
+    overflow: visible !important;
+    min-width: 85px !important;
     z-index: 1 !important;
+    opacity: 0.95 !important;
+}
+
+/* Overlapping Events Management - Side by Side Layout */
+.fc-daygrid-event {
+    margin: 1px !important;
+    padding: 2px 4px !important;
+    min-height: 20px !important;
+    position: relative !important;
+    z-index: auto !important;
+}
+
+/* ยกเลิก Enhanced stacking - ให้ FullCalendar จัดการ natural positioning */
+.fc-daygrid-event-harness:nth-child(1) .fc-event {
+    /* ลบ cascade effect - ให้แสดงปกติ */
+    margin-left: 0px !important;
+    margin-right: 0px !important;
+    margin-top: 0px !important;
+    z-index: 5 !important;
+    opacity: 1 !important;
+}
+
+.fc-daygrid-event-harness:nth-child(2) .fc-event {
+    /* ลบ cascade effect - ให้แสดงปกติ */
+    margin-left: 0px !important;
+    margin-right: 0px !important;
+    margin-top: 0px !important;
+    z-index: 4 !important;
+    opacity: 1 !important;
+}
+
+.fc-daygrid-event-harness:nth-child(3) .fc-event {
+    /* ลบ cascade effect - ให้แสดงปกติ */
+    margin-left: 0px !important;
+    margin-right: 0px !important;
+    margin-top: 0px !important;
+    z-index: 3 !important;
+    opacity: 1 !important;
+}
+
+.fc-daygrid-event-harness:nth-child(4) .fc-event {
+    /* ลบ cascade effect - ให้แสดงปกติ */
+    margin-left: 0px !important;
+    margin-right: 0px !important;
+    margin-top: 0px !important;
+    z-index: 2 !important;
+    opacity: 1 !important;
+}
+
+.fc-daygrid-event-harness:nth-child(n+5) .fc-event {
+    /* ลบ cascade effect - ให้แสดงปกติ */
+    margin-left: 0px !important;
+    margin-right: 0px !important;
+    margin-top: 0px !important;
+    z-index: 1 !important;
+    opacity: 1 !important;
+}
+
+/* Hover effect to bring events forward */
+.fc-daygrid-event-harness:hover .fc-event {
+    z-index: 20 !important;
+    opacity: 1 !important;
+    transform: scale(1.05) translateY(-2px) !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3) !important;
+    border-width: 3px !important;
+}
+
+/* Multi-event indicator */
+.fc-daygrid-event-harness:nth-child(n+2) .fc-event::after {
+    content: attr(data-event-count) !important;
+    position: absolute !important;
+    top: -5px !important;
+    right: -5px !important;
+    width: 16px !important;
+    height: 16px !important;
+    background: #dc3545 !important;
+    color: white !important;
+    border-radius: 50% !important;
+    font-size: 0.6rem !important;
+    font-weight: bold !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3) !important;
+    z-index: 10 !important;
+    animation: pulse 2s infinite !important;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
 }
 
 
@@ -183,41 +689,168 @@ h1, h2, h3, h4, h5, h6 {
     z-index: 10 !important;
 }
 
-/* Compact display for multiple events */
+/* Enhanced "More Events" link with better visibility */
 .fc-daygrid-more-link {
-    background: #6c757d !important;
+    background: linear-gradient(135deg, #6c757d 0%, #5a6268 100%) !important;
     color: white !important;
-    border-radius: 4px !important;
-    padding: 2px 6px !important;
-    font-size: 0.65rem !important;
-    font-weight: 600 !important;
-    margin: 1px !important;
+    border-radius: 6px !important;
+    padding: 4px 8px !important;
+    font-size: 0.7rem !important;
+    font-weight: 700 !important;
+    margin: 2px !important;
     text-align: center !important;
     cursor: pointer !important;
-    transition: all 0.2s ease !important;
+    transition: all 0.3s ease !important;
+    border: 2px solid rgba(255, 255, 255, 0.3) !important;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2) !important;
+    position: relative !important;
+    z-index: 15 !important;
+    min-height: 28px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
 }
 
 .fc-daygrid-more-link:hover {
-    background: #5a6268 !important;
-    transform: scale(1.05) !important;
+    background: linear-gradient(135deg, #5a6268 0%, #495057 100%) !important;
+    transform: scale(1.08) translateY(-2px) !important;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3) !important;
+    border-color: rgba(255, 255, 255, 0.5) !important;
 }
 
-/* Time grid specific styling - Enhanced for vertical time display */
+.fc-daygrid-more-link::before {
+    content: "👁️ " !important;
+    margin-right: 4px !important;
+}
+
+/* Event count badge for more link */
+.fc-daygrid-more-link::after {
+    content: "" !important;
+    position: absolute !important;
+    top: -8px !important;
+    right: -8px !important;
+    width: 20px !important;
+    height: 20px !important;
+    background: #dc3545 !important;
+    color: white !important;
+    border-radius: 50% !important;
+    font-size: 0.65rem !important;
+    font-weight: bold !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3) !important;
+    animation: bounce 1.5s infinite !important;
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+    40% { transform: translateY(-5px); }
+    60% { transform: translateY(-3px); }
+}
+
+
+/* Fade in animation สำหรับ popup */
+@keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+@keyframes fadeInScale {
+    0% { 
+        opacity: 0; 
+        transform: translate(-50%, -50%) scale(0.8);
+    }
+    100% { 
+        opacity: 1; 
+        transform: translate(-50%, -50%) scale(1);
+    }
+}
+
+/* Overlapping events styling */
+.fc-event.has-overlaps {
+    position: relative !important;
+    border-left: 4px solid #dc3545 !important;
+    box-shadow: 0 3px 12px rgba(220, 53, 69, 0.3) !important;
+}
+
+.fc-event.has-overlaps:hover {
+    z-index: 50 !important;
+    opacity: 1 !important;
+    transform: scale(1.03) translateY(-2px) !important;
+    box-shadow: 0 6px 20px rgba(220, 53, 69, 0.4) !important;
+}
+
+/* Overlap popup styling */
+.overlap-popup {
+    font-family: 'Prompt', sans-serif !important;
+}
+
+.overlap-details-popup h6 {
+    color: #dc3545 !important;
+    font-weight: 600 !important;
+    margin-bottom: 12px !important;
+}
+
+.overlap-event-item {
+    transition: all 0.2s ease !important;
+    border-radius: 6px !important;
+}
+
+.overlap-event-item:hover {
+    background: rgba(13, 110, 253, 0.1) !important;
+    transform: translateX(5px) !important;
+}
+
+.overlap-event-item.current-event {
+    border-left-width: 4px !important;
+    font-weight: 500 !important;
+}
+
+/* ปรับปรุง "More Events" link ให้แสดงจำนวนงานที่ซ้อนทับ */
+.fc-daygrid-more-link {
+    position: relative !important;
+}
+
+.fc-daygrid-more-link[data-overlap-count]::after {
+    content: attr(data-overlap-count) !important;
+    position: absolute !important;
+    top: -8px !important;
+    right: -8px !important;
+    width: 18px !important;
+    height: 18px !important;
+    background: #dc3545 !important;
+    color: white !important;
+    border-radius: 50% !important;
+    font-size: 0.65rem !important;
+    font-weight: bold !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3) !important;
+    animation: pulse-indicator 2s infinite !important;
+}
+
+/* Enhanced Time grid for overlapping events - Side by side with full duration */
 .fc-timegrid .fc-event {
-    min-height: 20px !important;
-    width: calc(100% - 2px) !important;
-    margin-left: 1px !important;
-    margin-right: 1px !important;
-    margin-bottom: 1px !important;
-    font-size: 0.6rem !important;
-    padding: 2px 4px !important;
+    min-height: 22px !important;
+    margin: 1px !important;
+    font-size: 0.65rem !important;
+    padding: 3px 5px !important;
+    border-radius: 6px !important;
+    border: 2px solid rgba(255, 255, 255, 0.5) !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15) !important;
+    opacity: 0.95 !important;
+    transition: all 0.3s ease !important;
+    /* แสดงเต็มความสูงตามช่วงเวลา */
+    height: 100% !important;
 }
 
-/* Ensure events span the full time duration vertically */
+/* Enhanced event positioning for overlapping events - แสดงเต็มเวลา แต่แบ่งความกว้าง */
 .fc-timegrid-event-harness {
     position: absolute !important;
-    left: 1px !important;
-    right: 1px !important;
+    transition: all 0.2s ease !important;
+    /* ให้แสดงเต็มความสูงตามเวลา */
 }
 
 .fc-timegrid-event-harness .fc-event {
@@ -226,36 +859,91 @@ h1, h2, h3, h4, h5, h6 {
     min-height: 100% !important;
 }
 
-/* Events should not overlap vertically, but can be side by side */
-.fc-timegrid-col .fc-timegrid-col-events {
-    position: relative !important;
-    margin: 0 !important;
+.fc-timegrid-event-harness:hover {
+    z-index: 20 !important;
 }
 
-/* Side-by-side events for same time slots */
+.fc-timegrid-event-harness:hover .fc-event {
+    transform: scale(1.02) !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25) !important;
+    border-color: rgba(255, 255, 255, 0.8) !important;
+    opacity: 1 !important;
+}
+
+/* Side-by-side events สำหรับเวลาเดียวกัน - FullCalendar จะจัดการให้เอง */
+/* เราแค่ปรับแต่ง spacing เล็กน้อย */
 .fc-timegrid-event-harness[style*="left: 0%"][style*="width: 50%"] {
-    left: 0% !important;
-    width: 49% !important;
+    left: 1% !important;
+    width: 47% !important;
 }
 
 .fc-timegrid-event-harness[style*="left: 50%"][style*="width: 50%"] {
-    left: 50% !important;
-    width: 49% !important;
+    left: 52% !important;
+    width: 47% !important;
 }
 
+/* Three events side by side */
 .fc-timegrid-event-harness[style*="width: 33.33%"]:nth-child(1) {
-    left: 0% !important;
-    width: 32% !important;
+    left: 1% !important;
+    width: 30% !important;
 }
 
 .fc-timegrid-event-harness[style*="width: 33.33%"]:nth-child(2) {
-    left: 33% !important;
-    width: 32% !important;
+    left: 35% !important;
+    width: 30% !important;
 }
 
 .fc-timegrid-event-harness[style*="width: 33.33%"]:nth-child(3) {
-    left: 66% !important;
-    width: 32% !important;
+    left: 68% !important;
+    width: 30% !important;
+}
+
+/* Four events side by side */
+.fc-timegrid-event-harness[style*="width: 25%"]:nth-child(1) {
+    left: 1% !important;
+    width: 22% !important;
+}
+
+.fc-timegrid-event-harness[style*="width: 25%"]:nth-child(2) {
+    left: 26% !important;
+    width: 22% !important;
+}
+
+.fc-timegrid-event-harness[style*="width: 25%"]:nth-child(3) {
+    left: 51% !important;
+    width: 22% !important;
+}
+
+.fc-timegrid-event-harness[style*="width: 25%"]:nth-child(4) {
+    left: 76% !important;
+    width: 22% !important;
+}
+
+/* More than 4 events - แสดงข้อความเตือนใน event แรก */
+.fc-timegrid-event-harness[style*="width: 20%"] .fc-event,
+.fc-timegrid-event-harness[style*="width: 16.66%"] .fc-event {
+    font-size: 0.6rem !important;
+    padding: 2px 3px !important;
+}
+
+/* แสดงตัวบ่งชี้สำหรับ events ที่มีมากกว่า 3 งาน */
+.fc-timegrid-event-harness:nth-child(n+4) .fc-event::after {
+    content: "+" attr(data-event-count) !important;
+    position: absolute !important;
+    top: 2px !important;
+    right: 2px !important;
+    width: 16px !important;
+    height: 16px !important;
+    background: #dc3545 !important;
+    color: white !important;
+    border-radius: 50% !important;
+    font-size: 0.6rem !important;
+    font-weight: bold !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3) !important;
+    z-index: 10 !important;
 }
 
 /* Event title styling - support for multi-line text display */
@@ -788,35 +1476,129 @@ h1, h2, h3, h4, h5, h6 {
     display: none !important; /* ซ่อนใน day grid เพื่อประหยัดพื้นที่ */
 }
 
-/* Popover for multiple events - FullCalendar built-in */
+/* Enhanced Day Grid Event positioning สำหรับ overlapping events */
+.fc-daygrid-day-events {
+    position: relative !important;
+    margin: 1px !important;
+    min-height: 20px !important;
+}
+
+/* ลบการจัดการ manual positioning - ให้ FullCalendar จัดการเอง */
+.fc-daygrid-event-harness {
+    margin: 0.5px 0 !important;
+    position: relative !important;
+    z-index: auto !important;
+    transition: all 0.2s ease !important;
+    /* ปล่อยให้ FullCalendar จัดการ positioning ตาม algorithm ของมันเอง */
+}
+
+/* ปรับปรุง hover effects */
+.fc-daygrid-event-harness:hover {
+    z-index: 20 !important;
+    opacity: 1 !important;
+}
+
+.fc-daygrid-event-harness:hover .fc-event {
+    transform: scale(1.02) !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25) !important;
+}
+
+/* ปรับปรุง DayGrid events ให้แสดงเต็มเวลา */
+.fc-daygrid-event .fc-event-time {
+    display: block !important;
+    font-size: 0.6rem !important;
+    font-weight: bold !important;
+    color: rgba(255, 255, 255, 0.9) !important;
+    margin-bottom: 2px !important;
+}
+
+.fc-daygrid-event .fc-event-title {
+    font-size: 0.65rem !important;
+    line-height: 1.2 !important;
+    color: white !important;
+}
+
+/* Enhanced Popover for multiple events with better design */
 .fc-popover {
-    background: white !important;
-    border: 1px solid #dee2e6 !important;
-    border-radius: 8px !important;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
-    z-index: 1050 !important;
+    background: rgba(255, 255, 255, 0.98) !important;
+    border: 2px solid #0d6efd !important;
+    border-radius: 12px !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25) !important;
+    backdrop-filter: blur(10px) !important;
+    min-width: 300px !important;
+    max-width: 400px !important;
+    z-index: 1000 !important;
+    animation: popoverFadeIn 0.3s ease-out !important;
+}
+
+@keyframes popoverFadeIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.8) translateY(-10px);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
 }
 
 .fc-popover-header {
-    background: #f8f9fa !important;
-    border-bottom: 1px solid #dee2e6 !important;
-    padding: 8px 12px !important;
-    border-radius: 8px 8px 0 0 !important;
+    background: linear-gradient(135deg, #0d6efd 0%, #0b5ed7 100%) !important;
+    color: white !important;
+    padding: 12px 16px !important;
     font-weight: 600 !important;
-    color: #495057 !important;
+    font-size: 0.9rem !important;
+    border-radius: 10px 10px 0 0 !important;
+    text-align: center !important;
+    border-bottom: none !important;
 }
 
 .fc-popover-body {
     padding: 8px !important;
     max-height: 300px !important;
     overflow-y: auto !important;
+    background: rgba(248, 249, 250, 0.8) !important;
+    border-radius: 0 0 10px 10px !important;
 }
 
+/* Individual events in popover */
 .fc-popover .fc-event {
-    margin: 2px 0 !important;
-    border-radius: 4px !important;
-    font-size: 0.75rem !important;
+    margin: 4px 0 !important;
+    padding: 8px 12px !important;
+    border-radius: 8px !important;
+    border: 1px solid rgba(0, 0, 0, 0.1) !important;
+    background: white !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+    transition: all 0.2s ease !important;
+    cursor: pointer !important;
+    position: relative !important;
+    font-size: 0.8rem !important;
 }
+
+.fc-popover .fc-event:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15) !important;
+    border-color: #0d6efd !important;
+}
+
+/* Status indicator in popover */
+.fc-popover .fc-event::before {
+    content: '' !important;
+    position: absolute !important;
+    left: 0 !important;
+    top: 0 !important;
+    bottom: 0 !important;
+    width: 4px !important;
+    border-radius: 8px 0 0 8px !important;
+    background: var(--event-status-color, #6c757d) !important;
+}
+
+/* Status colors for popover events */
+.fc-popover .fc-event.status-planning::before { --event-status-color: #0d6efd; }
+.fc-popover .fc-event.status-in-progress::before { --event-status-color: #ffc107; }
+.fc-popover .fc-event.status-completed::before { --event-status-color: #28a745; }
+.fc-popover .fc-event.status-pending-confirmation::before { --event-status-color: #17a2b8; }
+.fc-popover .fc-event.status-cancelled::before { --event-status-color: #dc3545; }
 
 /* Event hover effects for better visibility */
 .fc-event:hover {
@@ -2034,3 +2816,151 @@ z
 .fc-timegrid-event[style*="height: 3"] .fc-event-title-container .task-production {
     display: none !important; /* ซ่อนข้อมูลการผลิตใน events สั้นมาก */
 }
+
+/* ================================================================
+ * START WORK ORDER MODAL STYLES
+ * ================================================================ */
+
+/* Start Work Order Modal specific styles */
+#startWorkOrderModal .modal-content {
+    border-radius: 15px;
+    border: none;
+}
+
+#startWorkOrderModal .modal-header {
+    border-radius: 15px 15px 0 0;
+    border-bottom: none;
+    padding: 1.5rem;
+}
+
+#startWorkOrderModal .modal-body {
+    padding: 2rem;
+}
+
+#startWorkOrderModal .alert {
+    border-radius: 10px;
+    border: none;
+}
+
+#startWorkOrderModal .form-control {
+    border-radius: 8px;
+    border: 2px solid #e9ecef;
+    font-size: 1.1rem;
+    padding: 0.75rem 1rem;
+    transition: all 0.3s ease;
+}
+
+#startWorkOrderModal .form-control:focus {
+    border-color: #ffc107;
+    box-shadow: 0 0 0 0.2rem rgba(255, 193, 7, 0.25);
+}
+
+#startWorkOrderModal .form-control.is-invalid {
+    border-color: #dc3545;
+    box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+}
+
+#startWorkOrderModal .form-text {
+    color: #6c757d;
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+}
+
+#startWorkOrderModal .btn {
+    border-radius: 8px;
+    padding: 0.75rem 1.5rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+#startWorkOrderModal .btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Order number input highlight */
+#orderNumber {
+    font-family: 'Courier New', monospace;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+#orderNumber::placeholder {
+    font-family: 'Prompt', sans-serif;
+    font-weight: normal;
+    letter-spacing: normal;
+}
+
+/* Success state for order number display */
+.order-number-display {
+    background: linear-gradient(135deg, #28a745, #20c997);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    font-family: 'Courier New', monospace;
+    font-weight: bold;
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+    display: inline-block;
+    box-shadow: 0 2px 8px rgba(40, 167, 69, 0.3);
+}
+
+/* ================================================================
+ * SUB-DEPARTMENT SELECTION STYLES
+ * ================================================================ */
+
+.sub-department-selection {
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    padding: 1rem;
+    background-color: #f8f9fa;
+    min-height: 120px;
+}
+
+.sub-department-checkbox {
+    background-color: white;
+    border: 1px solid #e9ecef;
+    border-radius: 6px;
+    padding: 0.75rem;
+    margin-bottom: 0.5rem;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.sub-department-checkbox:hover {
+    border-color: #007bff;
+    background-color: #f8f9ff;
+    box-shadow: 0 2px 4px rgba(0, 123, 255, 0.1);
+}
+
+.sub-department-checkbox input[type="checkbox"]:checked + .sub-department-label {
+    color: #007bff;
+    font-weight: 600;
+}
+
+.sub-department-checkbox input[type="checkbox"]:checked ~ * {
+    color: #007bff;
+}
+
+.sub-department-name {
+    font-weight: 500;
+    color: #495057;
+    margin-bottom: 0.25rem;
+}
+
+.sub-department-label {
+    margin-bottom: 0;
+    cursor: pointer;
+    width: 100%;
+}
+
+/* Loading state for sub-department */
+.sub-department-selection .spinner-border {
+    color: #007bff;
+}
+
+/* Empty state styling */
+.sub-department-selection .text-muted {
+    color: #6c757d !important;
+}
+

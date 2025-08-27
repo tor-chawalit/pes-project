@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Content-Language" content="en-US" />
+    <title>Partial Confirmation - บันทึกผลผลิตบางส่วน</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet" />
+    <!-- Google Fonts - Prompt -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Prompt:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="css/navigation.css" />
+    <style>
+        * {
+            font-family: 'Prompt', sans-serif !important;
+        }
+
+        /* Custom Tooltip Styles */
+        .tooltip-help {
+            position: relative;
+            display: inline-block;
+            margin-left: 8px;
+            cursor: help;
+        }
+
+        /* Ensure tooltip container doesn't get clipped */
+        .card {
+            overflow: visible !important;
+        }
+
+        /* Ensure tooltips show above everything */
+        body {
+            overflow-x: visible;
+        }
+        
+        .card-body {
+            overflow: visible !important;
+        }
+
+        .tooltip-help .tooltip-icon {
+            width: 20px;
+            height: 20px;
+            background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 12px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .tooltip-help:hover .tooltip-icon {
+            transform: scale(1.1);
+            box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
+        }
+
+        .tooltip-help .tooltip-content {
+            visibility: hidden;
+            opacity: 0;
+            position: absolute;
+            z-index: 9999;
+            top: -100px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #343a40;
+            color: white;
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-size: 13px;
+            line-height: 1.4;
+            width: 280px;
+            text-align: left;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+            transition: all 0.3s ease;
+            pointer-events: none;
+        }
+
+        .tooltip-help .tooltip-content::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 6px solid transparent;
+            border-top-color: #343a40;
+        }
+
+        .tooltip-help:hover .tooltip-content {
+            visibility: visible;
+            opacity: 1;
+            top: -110px;
+        }
+
+        /* Progress Ring Styles */
+        .progress-ring {
+            position: relative;
+        }
+
+        .progress-ring svg {
+            transform: rotate(-90deg);
+        }
+
+        .progress-ring-circle {
+            transition: stroke-dashoffset 0.5s ease-in-out;
+            fill: transparent;
+            stroke-width: 6;
+            stroke-linecap: round;
+        }
+
+        .session-card {
+            transition: transform 0.2s ease;
+        }
+
+        .session-card:hover {
+            transform: translateY(-2px);
+        }
+
+        .badge-session {
+            font-size: 0.75rem;
+        }
+    </style>
+</head>
+
+<body class="bg-light">
+    <!-- Navigation -->
+    <div id="navbar"></div>
+
+    <!-- Main Content -->
+    <div class="container-fluid py-4">
+        <!-- Loading Section -->
+        <div id="loadingSection" class="text-center py-5">
+            <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+                <span class="visually-hidden">กำลังโหลด...</span>
+            </div>
+            <h5 class="mt-3 text-muted">กำลังโหลดข้อมูล...</h5>
+        </div>
+
+        <!-- Header Section -->
+        <div class="row mb-4" style="display: none;" id="headerSection">
+            <div class="col-12">
+                <div class="card border-0 shadow-sm bg-primary text-white">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col-md-6">
+                                <h4 class="mb-1" id="planTitle">บันทึกผลผลิตบางส่วน</h4>
+                                <div class="d-flex flex-wrap gap-2 mt-2">
+                                    <span class="badge bg-light text-dark" id="targetBadge">เป้าหมาย: -</span>
+                                    <span class="badge bg-success" id="producedBadge">ผลิตแล้ว: -</span>
+                                    <span class="badge bg-warning text-dark" id="remainingBadge">คงเหลือ: -</span>
+                                    <span class="badge bg-info" id="sessionBadge">Session: -</span>
+                                </div>
+                            </div>
+                            <div class="col-md-6 text-end">
+                                <!-- Progress Ring -->
+                                <div class="progress-ring d-inline-block">
+                                    <svg width="100" height="100" class="progress-ring">
+                                        <circle cx="50" cy="50" r="40" stroke="#ffffff30" stroke-width="6" fill="transparent"/>
+                                        <circle cx="50" cy="50" r="40" stroke="#ffffff" stroke-width="6" fill="transparent"
+                                            class="progress-ring-circle" id="progressCircle"
+                                            style="stroke-dasharray: 0 251.2; stroke-dashoffset: 0"/>
+                                    </svg>
+                                    <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: white; font-weight: bold; font-size: 1.2rem;" id="progressText">0%</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Session History Section -->
+        <div id="sessionHistorySection" class="row mb-4" style="display: none;">
+            <div class="col-12">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-header bg-light border-0">
+                        <h6 class="mb-0 fw-bold">
+                            <i class="bi bi-clock-history text-info me-2"></i>ประวัติ Sessions ก่อนหน้า
+                        </h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="row g-2" id="sessionHistoryContainer">
+                            <!-- Session history cards will be inserted here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Partial Confirmation Form -->
+        <form id="partialConfirmForm" class="needs-validation" novalidate style="display: none;">
+            <div class="row">
+                <div class="col-12">
+                    <!-- Current Session Info -->
+                    <div class="card border-0 shadow-sm mb-4">
+                        <div class="card-header bg-primary">
+                            <h5 class="mb-0">
+                                <i class="bi bi-speedometer2 me-2"></i>Session ที่ <span id="currentSessionNumber">1</span>
+                                <span class="badge bg-light text-dark ms-2">คงเหลือ: <span id="currentRemaining">0</span> ชิ้น</span>
+                            </h5>
+                        </div>
+                    </div>
+
+                    <!-- Time Settings Section -->
+                    <div class="card border-0 shadow-sm mb-4">
+                        <div class="card-header bg-light border-0">
+                            <h6 class="mb-0 fw-bold">
+                                <i class="bi bi-clock text-primary me-2"></i>เวลาดำเนินการ Session นี้
+                            </h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="row g-3 mb-4">
+                                <!-- Start Date and Time -->
+                                <div class="col-lg-6">
+                                    <div class="card border-0 shadow-sm h-100">
+                                        <div class="card-body">
+                                            <label for="actualStartDate" class="form-label fw-bold text-success mb-2">
+                                                <i class="bi bi-calendar-date me-1"></i>วันที่เริ่มงาน Session นี้
+                                            </label>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control form-control-lg" id="actualStartDate" placeholder="วัน/เดือน/ปี" readonly />
+                                                <input type="date" class="form-control form-control-lg" id="actualStartDateHidden" name="actualStartDate" required style="position: absolute; opacity: 0; pointer-events: none;" />
+                                                <button class="btn btn-outline-secondary" type="button" id="actualStartDateBtn">
+                                                    <i class="bi bi-calendar3"></i>
+                                                </button>
+                                            </div>
+                                            <div class="invalid-feedback">กรุณาระบุวันที่เริ่มงาน</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="card border-0 shadow-sm h-100">
+                                        <div class="card-body">
+                                            <label for="actualStartTime" class="form-label fw-bold text-success mb-2">
+                                                <i class="bi bi-play-circle me-1"></i>เวลาเริ่มงาน Session นี้
+                                            </label>
+                                            <div class="d-flex align-items-center">
+                                                <select class="form-select form-select-lg" id="actualStartHour" style="width: 80px;" required>
+                                                    <option value="">ชม.</option>
+                                                </select>
+                                                <span class="mx-2 fw-bold">:</span>
+                                                <select class="form-select form-select-lg" id="actualStartMinute" style="width: 80px;" required>
+                                                    <option value="">นที.</option>
+                                                </select>
+                                                <span class="ms-2">น.</span>
+                                            </div>
+                                            <div class="invalid-feedback">กรุณาระบุเวลาเริ่มงาน</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row g-3 mb-4">
+                                <!-- End Date and Time -->
+                                <div class="col-lg-6">
+                                    <div class="card border-0 shadow-sm h-100">
+                                        <div class="card-body">
+                                            <label for="actualEndDate" class="form-label fw-bold text-danger mb-2">
+                                                <i class="bi bi-calendar-date me-1"></i>วันที่สิ้นสุดงาน Session นี้
+                                            </label>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control form-control-lg" id="actualEndDate" placeholder="วัน/เดือน/ปี" readonly />
+                                                <input type="date" class="form-control form-control-lg" id="actualEndDateHidden" name="actualEndDate" required style="position: absolute; opacity: 0; pointer-events: none;" />
+                                                <button class="btn btn-outline-secondary" type="button" id="actualEndDateBtn">
+                                                    <i class="bi bi-calendar3"></i>
+                                                </button>
+                                            </div>
+                                            <div class="invalid-feedback">กรุณาระบุวันที่สิ้นสุดงาน</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="card border-0 shadow-sm h-100">
+                                        <div class="card-body">
+                                            <label for="actualEndTime" class="form-label fw-bold text-danger mb-2">
+                                                <i class="bi bi-stop-circle me-1"></i>เวลาสิ้นสุดงาน Session นี้
+                                            </label>
+                                            <div class="d-flex align-items-center">
+                                                <select class="form-select form-select-lg" id="actualEndHour" style="width: 80px;" required>
+                                                    <option value="">ชม.</option>
+                                                </select>
+                                                <span class="mx-2 fw-bold">:</span>
+                                                <select class="form-select form-select-lg" id="actualEndMinute" style="width: 80px;" required>
+                                                    <option value="">นที.</option>
+                                                </select>
+                                                <span class="ms-2">น.</span>
+                                            </div>
+                                            <div class="invalid-feedback">กรุณาระบุเวลาสิ้นสุดงาน</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Net Working Time Display -->
+                            <div class="card border-info">
+                                <div class="card-body text-center">
+                                    <h6 class="mb-1 fw-bold text-info">เวลาทำงานสุทธิ Session นี้</h6>
+                                    <input type="text" class="form-control form-control-lg text-center fw-bold" id="netWorkingTime" value="0 นาที" readonly />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Break Time and Downtime Section -->
+                    <div class="container-fluid py-4">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="d-flex align-items-center mb-4">
+                                    <div class="bg-primary rounded-circle d-flex align-items-center justify-content-center me-3"
+                                        style="width: 50px; height: 50px;">
+                                        <i class="bi bi-clock text-white fs-4"></i>
+                                    </div>
+                                    <div>
+                                        <h5 class="mb-0 fw-bold text-dark">Availability</h5>
+                                        <small class="text-muted">การใช้ประโยชน์จากเวลา - Break Time และ Downtime</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Break Time -->
+                        <div class="card border-0 shadow-sm mb-4">
+                            <div class="card-header bg-light border-0">
+                                <h6 class="mb-0 fw-bold">
+                                    <i class="bi bi-pause-circle text-warning me-2"></i>Break Time
+                                    <span class="tooltip-help"
+                                        data-tooltip="<span class='tooltip-formula'>Break Time = รวมเวลาพักทั้งหมด</span>">
+                                        <i class="bi bi-info-circle text-primary"></i>
+                                    </span>
+                                </h6>
+                            </div>
+                            <div class="card-body">
+                                <div class="row g-3">
+                                    <div class="col-md-4">
+                                        <div class="form-check form-check-lg">
+                                            <input class="form-check-input" type="checkbox" value="morning"
+                                                id="breakMorning" name="breakTime[]" />
+                                            <label class="form-check-label fw-semibold" for="breakMorning">
+                                                <i class="bi bi-sunrise text-warning me-1"></i>เช้า
+                                                <span class="badge bg-warning text-dark ms-1">15 นาที</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-check form-check-lg">
+                                            <input class="form-check-input" type="checkbox" value="lunch"
+                                                id="breakLunch" name="breakTime[]" />
+                                            <label class="form-check-label fw-semibold" for="breakLunch">
+                                                <i class="bi bi-sun text-primary me-1"></i>เที่ยง
+                                                <span class="badge bg-primary ms-1">60 นาที</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-check form-check-lg">
+                                            <input class="form-check-input" type="checkbox" value="evening"
+                                                id="breakEvening" name="breakTime[]" />
+                                            <label class="form-check-label fw-semibold" for="breakEvening">
+                                                <i class="bi bi-sunset text-info me-1"></i>เย็น
+                                                <span class="badge bg-info ms-1">15 นาที</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="alert alert-info mt-3 py-2" id="breakTotalDisplay"
+                                    style="display:none">
+                                    <i class="bi bi-clock-history me-1"></i>
+                                    รวมเวลาพัก: <span id="breakTotalMinutes" class="fw-bold">0</span> นาที
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Downtime -->
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <div class="card border-danger border-2">
+                                    <div class="card-body">
+                                        <label for="downtimeMinutes" class="form-label fw-bold text-danger mb-2">
+                                            <i class="bi bi-exclamation-triangle-fill me-1"></i>Downtime
+                                            <span class="tooltip-help">
+                                                <div class="tooltip-icon">?</div>
+                                                <div class="tooltip-content">
+                                                    <strong>Downtime</strong><br>
+                                                    เวลาที่เครื่องจักรหยุดทำงาน ไม่สามารถผลิตได้<br><br>
+                                                    <div class="tooltip-formula">Availability = (Operating Time) / (Planned Production Time) × 100</div>
+                                                    <div class="tooltip-example">Operating Time = Planned Production Time - Downtime</div>
+                                                    เวลา Downtime จะส่งผลต่อค่า Availability ใน OEE
+                                                </div>
+                                            </span>
+                                        </label>
+                                        <div class="input-group">
+                                            <input type="number" class="form-control form-control-lg" id="downtimeMinutes" name="downtimeMinutes" value="0" min="0" />
+                                            <span class="input-group-text fw-bold">นาที</span>
+                                        </div>
+                                        <small class="text-muted">เวลาที่เครื่องหยุดทำงาน</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card border-danger border-2">
+                                    <div class="card-body">
+                                        <label for="downtimeReason" class="form-label fw-bold text-danger mb-2">
+                                            <i class="bi bi-chat-text me-1"></i>สาเหตุการหยุด
+                                            <span class="tooltip-help">
+                                                <div class="tooltip-icon">?</div>
+                                                <div class="tooltip-content">
+                                                    <strong>สาเหตุการหยุด</strong><br>
+                                                    ระบุสาเหตุที่ทำให้เครื่องจักรหยุดทำงาน<br><br>
+                                                    <div class="tooltip-example">เช่น: เครื่องเสีย, รอวัตถุดิบ, ปรับตั้งเครื่อง, ซ่อมบำรุง</div>
+                                                    ข้อมูลนี้จะช่วยในการวิเคราะห์และปรับปรุงประสิทธิภาพ
+                                                </div>
+                                            </span>
+                                        </label>
+                                        <input type="text" class="form-control form-control-lg" id="downtimeReason" name="downtimeReason" placeholder="ระบุสาเหตุ (ถ้ามี)" />
+                                        <small class="text-muted">เช่น เครื่องเสีย, รอวัตถุดิบ</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section Divider -->
+                    <div class="bg-light py-3">
+                        <div class="container-fluid">
+                            <div class="text-center">
+                                <div class="bg-info rounded-circle d-inline-flex align-items-center justify-content-center mx-auto"
+                                    style="width: 50px; height: 50px;">
+                                    <i class="bi bi-speedometer2 text-white fs-4"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Production Quantity Section -->
+                    <div class="card border-0 shadow-sm mb-4">
+                        <div class="card-header bg-light border-0">
+                            <h6 class="mb-0 fw-bold">
+                                <i class="bi bi-box-seam text-success me-2"></i>จำนวนผลผลิต Session นี้
+                            </h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label for="sessionQuantity" class="form-label fw-semibold text-primary">
+                                        <i class="bi bi-plus-circle me-1"></i>จำนวนที่ผลิตได้ Session นี้ <span class="text-danger">*</span>
+                                    </label>
+                                    <div class="input-group">
+                                        <input type="number" class="form-control form-control-lg" id="sessionQuantity" name="sessionQuantity" min="0" required />
+                                        <span class="input-group-text">ชิ้น</span>
+                                    </div>
+                                    <div class="invalid-feedback">กรุณาระบุจำนวนผลผลิต</div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="rejectQuantity" class="form-label fw-semibold text-warning">
+                                        <i class="bi bi-x-circle me-1"></i>จำนวนของเสีย Session นี้
+                                    </label>
+                                    <div class="input-group">
+                                        <input type="number" class="form-control form-control-lg" id="rejectQuantity" name="rejectQuantity" value="0" min="0" />
+                                        <span class="input-group-text">ชิ้น</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="reworkQuantity" class="form-label fw-semibold text-info">
+                                        <i class="bi bi-arrow-repeat me-1"></i>จำนวน Rework Session นี้
+                                    </label>
+                                    <div class="input-group">
+                                        <input type="number" class="form-control form-control-lg" id="reworkQuantity" name="reworkQuantity" value="0" min="0" />
+                                        <span class="input-group-text">ชิ้น</span>
+                                    </div>
+                                    <small class="text-muted">สินค้าที่ต้องแก้ไข/ทำใหม่</small>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="Remark" class="form-label fw-semibold text-secondary">
+                                        <i class="bi bi-chat-square-text me-1"></i>หมายเหตุคุณภาพ
+                                    </label>
+                                    <textarea class="form-control" id="Remark" name="Remark" rows="3" placeholder="หมายเหตุเกี่ยวกับคุณภาพ, ปัญหา, หรือข้อสังเกต..."></textarea>
+                                </div>
+                            </div>
+                            
+                            <!-- Real-time Calculations -->
+                            <div class="row g-3 mt-3">
+                                <div class="col-12">
+                                    <div class="card border-success bg-light">
+                                        <div class="card-body">
+                                            <h6 class="fw-bold text-success mb-3">
+                                                <i class="bi bi-calculator me-2"></i>คำนวณผลรวม
+                                            </h6>
+                                            <div class="row text-center">
+                                                <div class="col-md-2">
+                                                    <div class="fw-bold text-success fs-4" id="goodQuantityDisplay">0</div>
+                                                    <small class="text-muted">ผลิตดี Session นี้</small>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <div class="fw-bold text-info fs-4" id="reworkQuantityDisplay">0</div>
+                                                    <small class="text-muted">Rework Session นี้</small>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <div class="fw-bold text-primary fs-4" id="totalProducedDisplay">0</div>
+                                                    <small class="text-muted">ผลิตรวมทั้งหมด</small>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <div class="fw-bold text-warning fs-4" id="remainingAfterDisplay">0</div>
+                                                    <small class="text-muted">คงเหลือ </small>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <div class="fw-bold" id="completionStatusDisplay">
+                                                        <span class="badge bg-secondary">ยังไม่เสร็จ</span>
+                                                    </div>
+                                                    <small class="text-muted">สถานะ</small>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <div class="fw-bold text-secondary fs-6" id="remarkPreview">ไม่มีหมายเหตุ</div>
+                                                    <small class="text-muted">หมายเหตุ</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-body text-center">
+                            <button type="submit" class="btn btn-primary btn-lg" id="savePartialBtn">
+                                <i class="bi bi-save me-2"></i>บันทึก Session นี้
+                            </button>
+                            <a href="index.html" class="btn btn-outline-secondary btn-lg ms-3">
+                                <i class="bi bi-arrow-left me-2"></i>กลับหน้าหลัก
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+        <!-- Completion Section -->
+        <div id="completionSection" class="row" style="display: none;">
+            <div class="col-12">
+                <div class="card border-0 shadow-sm border-success">
+                    <div class="card-header bg-success text-white text-center">
+                        <h4 class="mb-0">
+                            <i class="bi bi-check-circle-fill me-2"></i>เสร็จสิ้นการผลิต!
+                        </h4>
+                    </div>
+                    <div class="card-body text-center">
+                        <div class="row mb-4">
+                            <div class="col-md-4">
+                                <div class="fw-bold text-info fs-3" id="totalSessionsDisplay">0</div>
+                                <small class="text-muted">Sessions รวม</small>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="fw-bold text-success fs-3" id="totalRuntimeDisplay">0 นาที</div>
+                                <small class="text-muted">เวลาทำงานรวม</small>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="fw-bold text-primary fs-3" id="finalProducedDisplay">0 ชิ้น</div>
+                                <small class="text-muted">ผลผลิตรวม</small>
+                            </div>
+                        </div>
+                        <p class="text-muted mb-4">
+                            การผลิตครบตามเป้าหมายแล้ว ตอนนี้สามารถไปยืนยันผลผลิตขั้นสุดท้ายเพื่อคำนวณ OEE
+                        </p>
+                        <button class="btn btn-success btn-lg" id="proceedToFinalConfirmBtn">
+                            <i class="bi bi-arrow-right-circle me-2"></i>ไปยืนยันผลผลิตขั้นสุดท้าย
+                        </button>
+                        <a href="index.html" class="btn btn-outline-secondary btn-lg ms-3">
+                            <i class="bi bi-house me-2"></i>กลับหน้าหลัก
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 1080">
+        <div id="mainToast" class="toast align-items-center border-0" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="d-flex">
+                <div class="toast-body" id="mainToastBody">ดำเนินการสำเร็จ</div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Navigation Component JS -->
+    <script src="js/navigation.js"></script>
+    
+    <!-- Main logic for this page -->
+    <script src="partial-confirm.js"></script>
+</body>
+
+</html>
