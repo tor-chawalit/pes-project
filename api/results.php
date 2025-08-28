@@ -163,7 +163,18 @@ if ($action === 'save_production_result') {
         // จัดการ Unicode และ String Length
         $safeMachineName = mb_substr($machineName, 0, 200, 'UTF-8');
         $safeDepartment = mb_substr($plan['DepartmentName'] ?? 'ไม่ระบุ', 0, 200, 'UTF-8');
-        $safeSubdepartment = mb_substr($plan['SubdepartmentName'] ?? '', 0, 200, 'UTF-8');
+        // รองรับหลายแผนกย่อย: ถ้า data[SubdepartmentName] มีค่า (string หรือ array) ให้ใช้ค่านี้ก่อน
+        $subdepartmentName = '';
+        if (!empty($data['SubdepartmentName'])) {
+            if (is_array($data['SubdepartmentName'])) {
+                $subdepartmentName = implode(', ', array_map('trim', $data['SubdepartmentName']));
+            } else {
+                $subdepartmentName = trim($data['SubdepartmentName']);
+            }
+        } else {
+            $subdepartmentName = $plan['SubdepartmentName'] ?? '';
+        }
+        $safeSubdepartment = mb_substr($subdepartmentName, 0, 200, 'UTF-8');
         
         $params = [
             $planId,
@@ -257,6 +268,8 @@ if ($action === 'save_production_result') {
                 'MachineName' => $machineName,
                 'MachineSource' => !empty($machineNameFromDB) ? 'ProductionPlanMachines' : 
                                  (!empty($data['MachineName']) ? 'Frontend' : 'Fallback'),
+                'SubdepartmentName' => $safeSubdepartment,
+                'SubdepartmentSource' => !empty($data['SubdepartmentName']) ? 'Frontend' : 'FromPlan',
                 'IsUpdate' => $exists ? true : false
             ]
         ], JSON_UNESCAPED_UNICODE);

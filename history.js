@@ -1398,16 +1398,17 @@ function createJobDetailsContent(item) {
                                                 <td><span class="badge bg-primary">${item.Department || item.DepartmentName || 'ไม่ระบุ'}</span></td>
                                             </tr>
                                             <tr>
+                                                <td class="fw-bold">แผนกย่อย:</td>
+                                                <td><span class="badge bg-secondary">${item.SubdepartmentName || item.Subdepartment || '-'}</span></td>
+                                            </tr>
+                                
+                                            <tr>
                                                 <td class="fw-bold">เครื่องจักร:</td>
                                                 <td><span class="badge bg-success">${item.MachineName || 'ไม่ระบุ'}</span></td>
                                             </tr>
                                             <tr>
                                                 <td class="fw-bold">สถานะงาน:</td>
                                                 <td><span class="badge bg-success">เสร็จสิ้น</span></td>
-                                            </tr>
-                                            <tr>
-                                                <td class="fw-bold">ผู้รับผิดชอบ:</td>
-                                                <td>${item.OperatorName || 'ไม่ระบุ'}</td>
                                             </tr>
                                         </table>
                                     </div>
@@ -1523,6 +1524,18 @@ function createJobDetailsContent(item) {
                                         <td class="fw-bold">ของเสีย:</td>
                                         <td class="text-end">
                                             <span class="fw-bold text-danger">${formatNumber(rejectPieces)}</span> ชิ้น
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="fw-bold">จำนวนแก้ไข (Rework):</td>
+                                        <td class="text-end">
+                                            <span class="fw-bold text-warning">${typeof item.ReworkPieces !== 'undefined' ? formatNumber(item.ReworkPieces) : '-'}</span> ชิ้น
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="fw-bold">หมายเหตุ (Remark):</td>
+                                        <td class="text-end">
+                                            <span class="fw-bold text-info">${item.Remark || '-'}</span>
                                         </td>
                                     </tr>
                                 </table>

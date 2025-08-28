@@ -2569,7 +2569,7 @@ class ConfirmCompleteManager {
                     <!-- เวลาสุทธิ -->
                     <div class="bg-success bg-opacity-10 p-2 rounded mb-3">
                         <div class="text-center">
-                            <small class="text-muted d-block">เวลาทำงานสุทธิรวม (หักเบรก + downtime แล้ว)</small>
+                            <small class="text-muted d-block">เวลาทำงานสุทธิรวม (หักเบรก และ downtime แล้ว)</small>
                             <h5 class="text-success mb-0 fw-bold" id="totalNetRuntimeFromPartial">
                                 ${totalNetRuntime} นาที (${Math.round(totalNetRuntime / 60 * 100) / 100} ชม.)
                             </h5>
@@ -2586,13 +2586,6 @@ class ConfirmCompleteManager {
                         </div>
                     </div>
                     
-                    <div class="mt-3 p-2 bg-warning bg-opacity-10 rounded">
-                        <small class="text-dark">
-                            <i class="bi bi-info-circle me-1"></i>
-                            <strong>คำแนะนำ:</strong> ข้อมูลนี้เป็นการอ้างอิงจาก partial sessions 
-                            กรุณากรอกเวลาจริงที่ใช้ในการผลิตในช่องด้านบน
-                        </small>
-                    </div>
                     
                     <div class="mt-2 text-center">
                         <span class="badge bg-info">
@@ -2667,7 +2660,7 @@ class ConfirmCompleteManager {
             return `
                 <div class="col-6 col-md-3">
                     <div class="text-center p-2 bg-white rounded border">
-                        <div class="fw-bold text-primary">S${index + 1}</div>
+                        <div class="fw-bold text-primary">Session ${index + 1}</div>
                         <div class="small text-muted">${startTime}-${endTime}</div>
                         <div class="small">
                             <span class="badge bg-success">${netWorkingTime}น.</span>
@@ -3806,25 +3799,11 @@ class ConfirmCompleteManager {
                 throw new Error(result.error || 'การบันทึกข้อมูลล้มเหลว');
             }
 
-            // แสดงข้อความสำเร็จตาม partial status
-            if (formData.IsPartialConfirmation) {
-                this.showToast(
-                    `บันทึกข้อมูลสำเร็จ! คงเหลือที่ต้องผลิต: ${formData.RemainingQuantity} ชิ้น`, 
-                    'success'
-                );
-                
-                // รีโหลดหน้าเดิมเพื่อบันทึกต่อ
-                setTimeout(() => {
-                    window.location.reload();
-                }, 2000);
-            } else {
-                this.showToast('บันทึกข้อมูลสำเร็จ! งานเสร็จสิ้นครบถ้วนแล้ว', 'success');
-                
-                // กลับไปหน้าหลัก
-                setTimeout(() => {
-                    window.location.href = 'index.html';
-                }, 2000);
-            }
+            // แสดงข้อความสำเร็จและกลับไปหน้า index เสมอ (Confirm คือขั้นตอนสุดท้าย)
+            this.showToast('บันทึกสำเร็จ', 'success');
+            setTimeout(() => {
+                window.location.href = 'index.html';
+            }, 1200);
 
         } catch (error) {
             console.error('เกิดข้อผิดพลาดในการส่งฟอร์ม:', error);
@@ -4033,22 +4012,9 @@ class ConfirmCompleteManager {
                 breakMorning, breakLunch, breakEvening
             });
             
-            // คำนวณ Downtime จาก partial sessions
-            let downtimeMinutes = 0;
-            let downtimeReason = '';
-            
-            if (this.partialSessions && this.partialSessions.length > 0) {
-                this.partialSessions.forEach(session => {
-                    downtimeMinutes += session.DowntimeMinutes || 0;
-                    if (session.DowntimeReason) {
-                        downtimeReason += (downtimeReason ? ' | ' : '') + 
-                            `S${session.SessionNumber}: ${session.DowntimeReason}`;
-                    }
-                });
-            } else {
-                downtimeMinutes = parseInt(document.getElementById('downtime')?.value || '0');
-                downtimeReason = document.getElementById('downtimeDetail')?.value || '';
-            }
+            // Downtime และ Remark: ใช้จากฟอร์มเท่านั้น ไม่รวมจาก session
+            let downtimeMinutes = parseInt(document.getElementById('downtime')?.value || '0');
+            let downtimeReason = document.getElementById('downtimeDetail')?.value || '';
             
             // รวมข้อมูลจำนวนผลิตจาก partial sessions และฟอร์มปัจจุบัน
             let totalPieces = 0;

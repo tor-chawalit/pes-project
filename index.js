@@ -2618,9 +2618,100 @@ class ModalManager {
         </div>
       </div>
     `;
+    // Inject into the correct modal body
     const taskDetailBody = document.getElementById("taskDetailBody");
     if (taskDetailBody) {
-      taskDetailBody.innerHTML = detailHTML;
+      taskDetailBody.innerHTML = detailHTML + `<div id="partialSessionsSection" class="my-3"><div class="text-center text-secondary"><span class="spinner-border spinner-border-sm"></span> กำลังโหลดข้อมูล Session Partial...</div></div>`;
+      // Fetch and display partial sessions
+      const planId = plan.PlanID || plan.PlanId || plan.plan_id;
+      if (planId) {
+        fetch('api/production-sessions.php?action=get_sessions&plan_id=' + planId)
+          .then(res => res.json())
+          .then(result => {
+            let html = '';
+            let sessions = (result && result.success && result.data && Array.isArray(result.data.sessions)) ? result.data.sessions : [];
+            // Calculate remaining quantity from partials
+            let totalProduced = 0;
+            sessions.forEach(s => {
+              totalProduced += (parseInt(s.SessionGoodQuantity) || 0);
+            });
+            let remaining = (plan.TargetOutput || 0) - totalProduced;
+            // Update remaining badge in Production Target Card
+            const prodTargetCard = document.querySelector('.card.border-success .card-body');
+            if (prodTargetCard) {
+              let badge = prodTargetCard.querySelector('.badge.bg-danger');
+              if (!badge) {
+                // Insert after target output
+                const targetDiv = prodTargetCard.querySelector('.detail-item:nth-child(2) .detail-value');
+                if (targetDiv) {
+                  targetDiv.insertAdjacentHTML('afterend', `<div class="detail-value mt-1"><span class="badge bg-danger fs-6">คงเหลือ: ${remaining < 0 ? 0 : remaining} ชิ้น</span></div>`);
+                }
+              } else {
+                badge.textContent = `คงเหลือ: ${remaining < 0 ? 0 : remaining} ชิ้น`;
+              }
+            }
+            if (sessions.length > 0) {
+              html += `<div class="row g-2 mt-2">`;
+              sessions.forEach((s, idx) => {
+                const startDateObj = s.ActualStartDateTime ? new Date(s.ActualStartDateTime) : null;
+                const endDateObj = s.ActualEndDateTime ? new Date(s.ActualEndDateTime) : null;
+                const startTime = startDateObj ? startDateObj.toLocaleTimeString('th-TH', { hour: '2-digit', minute: '2-digit' }) : '-';
+                const endTime = endDateObj ? endDateObj.toLocaleTimeString('th-TH', { hour: '2-digit', minute: '2-digit' }) : '-';
+                const startDateStr = startDateObj ? `${String(startDateObj.getDate()).padStart(2, '0')}/${String(startDateObj.getMonth() + 1).padStart(2, '0')}/${startDateObj.getFullYear()}` : '-';
+                const endDateStr = endDateObj ? `${String(endDateObj.getDate()).padStart(2, '0')}/${String(endDateObj.getMonth() + 1).padStart(2, '0')}/${endDateObj.getFullYear()}` : '';
+                let dateRange = '';
+                if (startDateStr && endDateStr && startDateStr !== '-' && endDateStr !== '' && startDateStr !== endDateStr) {
+                  dateRange = `<i class=\"bi bi-calendar-event me-1\"></i>วันที่: ${startDateStr} - ${endDateStr}`;
+                } else if (startDateStr && startDateStr !== '-') {
+                  dateRange = `<i class=\"bi bi-calendar-event me-1\"></i>วันที่: ${startDateStr}`;
+                } else {
+                  dateRange = '';
+                }
+                html += `
+                  <div class="col-md-4 col-sm-6">
+                    <div class="card session-card border-info h-100">
+                      <div class="card-body p-3">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                          <span class="badge badge-session bg-info">Session ${idx + 1}</span>
+                          <small class="text-muted">${startTime} - ${endTime}</small>
+                        </div>
+                        ${dateRange ? `<div class=\"mb-2 text-secondary small\">${dateRange}</div>` : ''}
+                        <div class="row g-1 small">
+                          <div class="col-6">
+                            <strong class="text-success">${s.SessionGoodQuantity ?? '-'}</strong>
+                            <small class="text-muted d-block">ผลิตดี</small>
+                          </div>
+                          <div class="col-6">
+                            <strong class="text-primary">${Math.round(s.WorkingMinutes || 0)}</strong>
+                            <small class="text-muted d-block">นาทีสุทธิ</small>
+                          </div>
+                          <div class="col-6">
+                            <strong class="text-danger">${s.SessionRejectQuantity ?? 0}</strong>
+                            <small class="text-muted d-block">ของเสีย</small>
+                          </div>
+                          <div class="col-6">
+                            <strong class="text-info">${s.SessionReworkQuantity ?? 0}</strong>
+                            <small class="text-muted d-block">Rework</small>
+                          </div>
+                        </div>
+                        ${s.Remark ? `<div class="mt-2"><small class="text-muted">หมายเหตุ: ${s.Remark.length > 50 ? s.Remark.substring(0, 50) + '...' : s.Remark}</small></div>` : ''}
+                      </div>
+                    </div>
+                  </div>
+                `;
+              });
+              html += `</div>`;
+            } else {
+              html = '<div class="text-center text-muted">ไม่พบข้อมูล Session Partial<\/div>';
+            }
+            const section = document.getElementById('partialSessionsSection');
+            if (section) section.innerHTML = `<h6 class="mt-3 mb-2 text-primary"><i class="bi bi-list-check me-1"></i>Session Partial (ยืนยันบางส่วน)</h6>` + html;
+          })
+          .catch(() => {
+            const section = document.getElementById('partialSessionsSection');
+            if (section) section.innerHTML = '<div class="text-danger">เกิดข้อผิดพลาดในการโหลดข้อมูล Session Partial</div>';
+          });
+      }
     }
     setTimeout(() => {
       const editBtn = document.getElementById("editPlanBtn");

@@ -953,3 +953,187 @@
 [27-Aug-2025 05:07:50 Europe/Berlin] Final MachineName result: เครื่องห่อฟิล์ม 1,เครื่องห่อฟิล์ม 2
 [27-Aug-2025 05:07:50 Europe/Berlin] Plan Detail Debug - PlanID: 9
 [27-Aug-2025 05:07:50 Europe/Berlin] Setup/Break Data: {"SetupMinutes":30,"SetupNote":"test","BreakMorningMinutes":15,"BreakLunchMinutes":60,"BreakEveningMinutes":15,"PlannedMinutes":3720}
+[27-Aug-2025 06:20:02 Europe/Berlin] Received save_partial_confirmation data: Array
+(
+    [PlanID] => 10
+    [SessionQuantity] => 2000
+    [SessionRejectQuantity] => 0
+    [SessionReworkQuantity] => 100
+    [WorkingMinutes] => 830
+    [Remark] => testss1
+    [ActualStartTime] => 2025-08-24 06:00:00
+    [ActualEndTime] => 2025-08-24 21:00:00
+    [BreakMorningMinutes] => 0
+    [BreakLunchMinutes] => 60
+    [BreakEveningMinutes] => 0
+    [DowntimeMinutes] => 10
+    [DowntimeReason] => Testss1
+    [CreatedBy] => User
+)
+
+[27-Aug-2025 06:20:02 Europe/Berlin] Processing save_partial_confirmation for PlanID: 10
+[27-Aug-2025 06:20:40 Europe/Berlin] Received save_partial_confirmation data: Array
+(
+    [PlanID] => 10
+    [SessionQuantity] => 2000
+    [SessionRejectQuantity] => 0
+    [SessionReworkQuantity] => 100
+    [WorkingMinutes] => 650
+    [Remark] => testss2
+    [ActualStartTime] => 2025-08-25 09:00:00
+    [ActualEndTime] => 2025-08-25 21:00:00
+    [BreakMorningMinutes] => 0
+    [BreakLunchMinutes] => 60
+    [BreakEveningMinutes] => 0
+    [DowntimeMinutes] => 10
+    [DowntimeReason] => testss2
+    [CreatedBy] => User
+)
+
+[27-Aug-2025 06:20:40 Europe/Berlin] Processing save_partial_confirmation for PlanID: 10
+[27-Aug-2025 06:20:48 Europe/Berlin] Debug Machine data from JOIN: MachineNames=เครื่อง Inkjet,เครื่องเลเซอร์ CO2, PrimaryMachineName=เครื่อง Inkjet
+[27-Aug-2025 06:20:48 Europe/Berlin] Final MachineName result: เครื่อง Inkjet,เครื่องเลเซอร์ CO2
+[27-Aug-2025 06:20:48 Europe/Berlin] Plan Detail Debug - PlanID: 10
+[27-Aug-2025 06:20:48 Europe/Berlin] Setup/Break Data: {"SetupMinutes":30,"SetupNote":"test","BreakMorningMinutes":0,"BreakLunchMinutes":60,"BreakEveningMinutes":15,"PlannedMinutes":3735}
+[27-Aug-2025 06:22:25 Europe/Berlin] Using MachineName from ProductionPlanMachines: เครื่อง Inkjet,เครื่องเลเซอร์ CO2
+[27-Aug-2025 06:22:25 Europe/Berlin] ActiveWorkMinutes เริ่มต้น: 3750 นาที
+[27-Aug-2025 06:22:25 Europe/Berlin] ActiveWorkMinutes จาก frontend (รวม sessions แล้ว): 3750 นาที
+[27-Aug-2025 06:22:25 Europe/Berlin] จะบันทึก ActiveWorkMinutes รวม: 3750 นาที
+[27-Aug-2025 06:22:27 Europe/Berlin] Debug Machine data from JOIN: MachineNames=เครื่อง Inkjet,เครื่องเลเซอร์ CO2, PrimaryMachineName=เครื่อง Inkjet
+[27-Aug-2025 06:22:27 Europe/Berlin] Final MachineName result: เครื่อง Inkjet,เครื่องเลเซอร์ CO2
+[27-Aug-2025 06:22:27 Europe/Berlin] Plan Detail Debug - PlanID: 10
+[27-Aug-2025 06:22:27 Europe/Berlin] Setup/Break Data: {"SetupMinutes":30,"SetupNote":"test","BreakMorningMinutes":0,"BreakLunchMinutes":60,"BreakEveningMinutes":15,"PlannedMinutes":3735}
+[27-Aug-2025 09:54:41 Europe/Berlin] Received save_partial_confirmation data: Array
+(
+    [PlanID] => 11
+    [SessionQuantity] => 4000
+    [SessionRejectQuantity] => 0
+    [SessionReworkQuantity] => 100
+    [WorkingMinutes] => 530
+    [Remark] => test1
+    [ActualStartTime] => 2025-08-26 08:00:00
+    [ActualEndTime] => 2025-08-26 18:00:00
+    [BreakMorningMinutes] => 0
+    [BreakLunchMinutes] => 60
+    [BreakEveningMinutes] => 0
+    [DowntimeMinutes] => 10
+    [DowntimeReason] => test
+    [CreatedBy] => User
+)
+
+[27-Aug-2025 09:54:41 Europe/Berlin] Processing save_partial_confirmation for PlanID: 11
+[27-Aug-2025 09:54:44 Europe/Berlin] Debug Machine data from JOIN: MachineNames=เครื่อง Inkjet,เครื่องเลเซอร์ CO2, PrimaryMachineName=เครื่อง Inkjet
+[27-Aug-2025 09:54:44 Europe/Berlin] Final MachineName result: เครื่อง Inkjet,เครื่องเลเซอร์ CO2
+[27-Aug-2025 09:54:44 Europe/Berlin] Plan Detail Debug - PlanID: 11
+[27-Aug-2025 09:54:44 Europe/Berlin] Setup/Break Data: {"SetupMinutes":30,"SetupNote":"test","BreakMorningMinutes":15,"BreakLunchMinutes":60,"BreakEveningMinutes":15,"PlannedMinutes":2040}
+[27-Aug-2025 09:56:29 Europe/Berlin] Debug Machine data from JOIN: MachineNames=เครื่อง Inkjet,เครื่องเลเซอร์ CO2, PrimaryMachineName=เครื่อง Inkjet
+[27-Aug-2025 09:56:29 Europe/Berlin] Final MachineName result: เครื่อง Inkjet,เครื่องเลเซอร์ CO2
+[27-Aug-2025 09:56:29 Europe/Berlin] Plan Detail Debug - PlanID: 11
+[27-Aug-2025 09:56:29 Europe/Berlin] Setup/Break Data: {"SetupMinutes":30,"SetupNote":"test","BreakMorningMinutes":15,"BreakLunchMinutes":60,"BreakEveningMinutes":15,"PlannedMinutes":2040}
+[27-Aug-2025 09:56:39 Europe/Berlin] Debug Machine data from JOIN: MachineNames=เครื่อง Inkjet,เครื่องเลเซอร์ CO2, PrimaryMachineName=เครื่อง Inkjet
+[27-Aug-2025 09:56:39 Europe/Berlin] Final MachineName result: เครื่อง Inkjet,เครื่องเลเซอร์ CO2
+[27-Aug-2025 09:56:39 Europe/Berlin] Plan Detail Debug - PlanID: 11
+[27-Aug-2025 09:56:39 Europe/Berlin] Setup/Break Data: {"SetupMinutes":30,"SetupNote":"test","BreakMorningMinutes":15,"BreakLunchMinutes":60,"BreakEveningMinutes":15,"PlannedMinutes":2040}
+[27-Aug-2025 09:59:09 Europe/Berlin] Debug Machine data from JOIN: MachineNames=เครื่อง Inkjet,เครื่องเลเซอร์ CO2, PrimaryMachineName=เครื่อง Inkjet
+[27-Aug-2025 09:59:09 Europe/Berlin] Final MachineName result: เครื่อง Inkjet,เครื่องเลเซอร์ CO2
+[27-Aug-2025 09:59:09 Europe/Berlin] Plan Detail Debug - PlanID: 11
+[27-Aug-2025 09:59:09 Europe/Berlin] Setup/Break Data: {"SetupMinutes":30,"SetupNote":"test","BreakMorningMinutes":15,"BreakLunchMinutes":60,"BreakEveningMinutes":15,"PlannedMinutes":2040}
+[27-Aug-2025 09:59:17 Europe/Berlin] Debug Machine data from JOIN: MachineNames=เครื่อง Inkjet,เครื่องเลเซอร์ CO2, PrimaryMachineName=เครื่อง Inkjet
+[27-Aug-2025 09:59:17 Europe/Berlin] Final MachineName result: เครื่อง Inkjet,เครื่องเลเซอร์ CO2
+[27-Aug-2025 09:59:17 Europe/Berlin] Plan Detail Debug - PlanID: 11
+[27-Aug-2025 09:59:17 Europe/Berlin] Setup/Break Data: {"SetupMinutes":30,"SetupNote":"test","BreakMorningMinutes":15,"BreakLunchMinutes":60,"BreakEveningMinutes":15,"PlannedMinutes":2040}
+[27-Aug-2025 09:59:27 Europe/Berlin] Debug Machine data from JOIN: MachineNames=เครื่อง Inkjet,เครื่องเลเซอร์ CO2, PrimaryMachineName=เครื่อง Inkjet
+[27-Aug-2025 09:59:27 Europe/Berlin] Final MachineName result: เครื่อง Inkjet,เครื่องเลเซอร์ CO2
+[27-Aug-2025 09:59:27 Europe/Berlin] Plan Detail Debug - PlanID: 11
+[27-Aug-2025 09:59:27 Europe/Berlin] Setup/Break Data: {"SetupMinutes":30,"SetupNote":"test","BreakMorningMinutes":15,"BreakLunchMinutes":60,"BreakEveningMinutes":15,"PlannedMinutes":2040}
+[27-Aug-2025 10:00:54 Europe/Berlin] Debug Machine data from JOIN: MachineNames=เครื่อง Inkjet,เครื่องเลเซอร์ CO2, PrimaryMachineName=เครื่อง Inkjet
+[27-Aug-2025 10:00:54 Europe/Berlin] Final MachineName result: เครื่อง Inkjet,เครื่องเลเซอร์ CO2
+[27-Aug-2025 10:00:54 Europe/Berlin] Plan Detail Debug - PlanID: 11
+[27-Aug-2025 10:00:54 Europe/Berlin] Setup/Break Data: {"SetupMinutes":30,"SetupNote":"test","BreakMorningMinutes":15,"BreakLunchMinutes":60,"BreakEveningMinutes":15,"PlannedMinutes":2040}
+[27-Aug-2025 10:01:03 Europe/Berlin] Debug Machine data from JOIN: MachineNames=เครื่อง Inkjet,เครื่องเลเซอร์ CO2, PrimaryMachineName=เครื่อง Inkjet
+[27-Aug-2025 10:01:03 Europe/Berlin] Final MachineName result: เครื่อง Inkjet,เครื่องเลเซอร์ CO2
+[27-Aug-2025 10:01:03 Europe/Berlin] Plan Detail Debug - PlanID: 11
+[27-Aug-2025 10:01:03 Europe/Berlin] Setup/Break Data: {"SetupMinutes":30,"SetupNote":"test","BreakMorningMinutes":15,"BreakLunchMinutes":60,"BreakEveningMinutes":15,"PlannedMinutes":2040}
+[27-Aug-2025 10:07:52 Europe/Berlin] Debug Machine data from JOIN: MachineNames=เครื่อง Inkjet,เครื่องเลเซอร์ CO2, PrimaryMachineName=เครื่อง Inkjet
+[27-Aug-2025 10:07:52 Europe/Berlin] Final MachineName result: เครื่อง Inkjet,เครื่องเลเซอร์ CO2
+[27-Aug-2025 10:07:52 Europe/Berlin] Plan Detail Debug - PlanID: 11
+[27-Aug-2025 10:07:52 Europe/Berlin] Setup/Break Data: {"SetupMinutes":30,"SetupNote":"test","BreakMorningMinutes":15,"BreakLunchMinutes":60,"BreakEveningMinutes":15,"PlannedMinutes":2040}
+[27-Aug-2025 10:22:04 Europe/Berlin] Debug Machine data from JOIN: MachineNames=เครื่อง Inkjet,เครื่องเลเซอร์ CO2, PrimaryMachineName=เครื่อง Inkjet
+[27-Aug-2025 10:22:04 Europe/Berlin] Final MachineName result: เครื่อง Inkjet,เครื่องเลเซอร์ CO2
+[27-Aug-2025 10:22:04 Europe/Berlin] Plan Detail Debug - PlanID: 11
+[27-Aug-2025 10:22:04 Europe/Berlin] Setup/Break Data: {"SetupMinutes":30,"SetupNote":"test","BreakMorningMinutes":15,"BreakLunchMinutes":60,"BreakEveningMinutes":15,"PlannedMinutes":2040}
+[27-Aug-2025 10:24:28 Europe/Berlin] Debug Machine data from JOIN: MachineNames=เครื่อง Inkjet,เครื่องเลเซอร์ CO2, PrimaryMachineName=เครื่อง Inkjet
+[27-Aug-2025 10:24:28 Europe/Berlin] Final MachineName result: เครื่อง Inkjet,เครื่องเลเซอร์ CO2
+[27-Aug-2025 10:24:28 Europe/Berlin] Plan Detail Debug - PlanID: 11
+[27-Aug-2025 10:24:28 Europe/Berlin] Setup/Break Data: {"SetupMinutes":30,"SetupNote":"test","BreakMorningMinutes":15,"BreakLunchMinutes":60,"BreakEveningMinutes":15,"PlannedMinutes":2040}
+[27-Aug-2025 10:26:18 Europe/Berlin] Debug Machine data from JOIN: MachineNames=เครื่อง Inkjet,เครื่องเลเซอร์ CO2, PrimaryMachineName=เครื่อง Inkjet
+[27-Aug-2025 10:26:18 Europe/Berlin] Final MachineName result: เครื่อง Inkjet,เครื่องเลเซอร์ CO2
+[27-Aug-2025 10:26:18 Europe/Berlin] Plan Detail Debug - PlanID: 11
+[27-Aug-2025 10:26:18 Europe/Berlin] Setup/Break Data: {"SetupMinutes":30,"SetupNote":"test","BreakMorningMinutes":15,"BreakLunchMinutes":60,"BreakEveningMinutes":15,"PlannedMinutes":2040}
+[27-Aug-2025 10:43:42 Europe/Berlin] Debug Machine data from JOIN: MachineNames=เครื่อง Inkjet,เครื่องเลเซอร์ CO2, PrimaryMachineName=เครื่อง Inkjet
+[27-Aug-2025 10:43:42 Europe/Berlin] Final MachineName result: เครื่อง Inkjet,เครื่องเลเซอร์ CO2
+[27-Aug-2025 10:43:42 Europe/Berlin] Plan Detail Debug - PlanID: 11
+[27-Aug-2025 10:43:42 Europe/Berlin] Setup/Break Data: {"SetupMinutes":30,"SetupNote":"test","BreakMorningMinutes":15,"BreakLunchMinutes":60,"BreakEveningMinutes":15,"PlannedMinutes":2040}
+[27-Aug-2025 10:47:05 Europe/Berlin] Debug Machine data from JOIN: MachineNames=เครื่อง Inkjet,เครื่องเลเซอร์ CO2, PrimaryMachineName=เครื่อง Inkjet
+[27-Aug-2025 10:47:05 Europe/Berlin] Final MachineName result: เครื่อง Inkjet,เครื่องเลเซอร์ CO2
+[27-Aug-2025 10:47:05 Europe/Berlin] Plan Detail Debug - PlanID: 11
+[27-Aug-2025 10:47:05 Europe/Berlin] Setup/Break Data: {"SetupMinutes":30,"SetupNote":"test","BreakMorningMinutes":15,"BreakLunchMinutes":60,"BreakEveningMinutes":15,"PlannedMinutes":2040}
+[27-Aug-2025 10:47:24 Europe/Berlin] Debug Machine data from JOIN: MachineNames=เครื่อง Inkjet,เครื่องเลเซอร์ CO2, PrimaryMachineName=เครื่อง Inkjet
+[27-Aug-2025 10:47:24 Europe/Berlin] Final MachineName result: เครื่อง Inkjet,เครื่องเลเซอร์ CO2
+[27-Aug-2025 10:47:24 Europe/Berlin] Plan Detail Debug - PlanID: 11
+[27-Aug-2025 10:47:24 Europe/Berlin] Setup/Break Data: {"SetupMinutes":30,"SetupNote":"test","BreakMorningMinutes":15,"BreakLunchMinutes":60,"BreakEveningMinutes":15,"PlannedMinutes":2040}
+[27-Aug-2025 11:02:31 Europe/Berlin] Debug Machine data from JOIN: MachineNames=เครื่อง Inkjet,เครื่องเลเซอร์ CO2, PrimaryMachineName=เครื่อง Inkjet
+[27-Aug-2025 11:02:31 Europe/Berlin] Final MachineName result: เครื่อง Inkjet,เครื่องเลเซอร์ CO2
+[27-Aug-2025 11:02:31 Europe/Berlin] Plan Detail Debug - PlanID: 11
+[27-Aug-2025 11:02:31 Europe/Berlin] Setup/Break Data: {"SetupMinutes":30,"SetupNote":"test","BreakMorningMinutes":15,"BreakLunchMinutes":60,"BreakEveningMinutes":15,"PlannedMinutes":2040}
+[27-Aug-2025 11:02:40 Europe/Berlin] Debug Machine data from JOIN: MachineNames=เครื่อง Inkjet,เครื่องเลเซอร์ CO2, PrimaryMachineName=เครื่อง Inkjet
+[27-Aug-2025 11:02:40 Europe/Berlin] Final MachineName result: เครื่อง Inkjet,เครื่องเลเซอร์ CO2
+[27-Aug-2025 11:02:40 Europe/Berlin] Plan Detail Debug - PlanID: 11
+[27-Aug-2025 11:02:40 Europe/Berlin] Setup/Break Data: {"SetupMinutes":30,"SetupNote":"test","BreakMorningMinutes":15,"BreakLunchMinutes":60,"BreakEveningMinutes":15,"PlannedMinutes":2040}
+[27-Aug-2025 11:03:13 Europe/Berlin] Using MachineName from ProductionPlanMachines: เครื่อง Inkjet,เครื่องเลเซอร์ CO2
+[27-Aug-2025 11:03:13 Europe/Berlin] ActiveWorkMinutes เริ่มต้น: 1060 นาที
+[27-Aug-2025 11:03:13 Europe/Berlin] ActiveWorkMinutes จาก frontend (รวม sessions แล้ว): 1060 นาที
+[27-Aug-2025 11:03:13 Europe/Berlin] จะบันทึก ActiveWorkMinutes รวม: 1060 นาที
+[28-Aug-2025 09:14:19 Europe/Berlin] Received save_partial_confirmation data: Array
+(
+    [PlanID] => 12
+    [SessionQuantity] => 4000
+    [SessionRejectQuantity] => 0
+    [SessionReworkQuantity] => 200
+    [WorkingMinutes] => 650
+    [Remark] => test
+    [ActualStartTime] => 2025-08-27 09:00:00
+    [ActualEndTime] => 2025-08-27 21:00:00
+    [BreakMorningMinutes] => 0
+    [BreakLunchMinutes] => 60
+    [BreakEveningMinutes] => 0
+    [DowntimeMinutes] => 10
+    [DowntimeReason] => test
+    [CreatedBy] => User
+)
+
+[28-Aug-2025 09:14:19 Europe/Berlin] Processing save_partial_confirmation for PlanID: 12
+[28-Aug-2025 10:05:17 Europe/Berlin] Debug Machine data from JOIN: MachineNames=เครื่องห่อฟิล์ม 1,เครื่องห่อฟิล์ม 2,เครื่องห่อฟิล์ม 3, PrimaryMachineName=เครื่องห่อฟิล์ม 1
+[28-Aug-2025 10:05:17 Europe/Berlin] Final MachineName result: เครื่องห่อฟิล์ม 1,เครื่องห่อฟิล์ม 2,เครื่องห่อฟิล์ม 3
+[28-Aug-2025 10:05:17 Europe/Berlin] Plan Detail Debug - PlanID: 12
+[28-Aug-2025 10:05:17 Europe/Berlin] Setup/Break Data: {"SetupMinutes":30,"SetupNote":"30minsetup","BreakMorningMinutes":15,"BreakLunchMinutes":60,"BreakEveningMinutes":15,"PlannedMinutes":2160}
+[28-Aug-2025 10:49:39 Europe/Berlin] Debug Machine data from JOIN: MachineNames=เครื่องห่อฟิล์ม 1,เครื่องห่อฟิล์ม 2,เครื่องห่อฟิล์ม 3, PrimaryMachineName=เครื่องห่อฟิล์ม 1
+[28-Aug-2025 10:49:39 Europe/Berlin] Final MachineName result: เครื่องห่อฟิล์ม 1,เครื่องห่อฟิล์ม 2,เครื่องห่อฟิล์ม 3
+[28-Aug-2025 10:49:39 Europe/Berlin] Plan Detail Debug - PlanID: 12
+[28-Aug-2025 10:49:39 Europe/Berlin] Setup/Break Data: {"SetupMinutes":30,"SetupNote":"30minsetup","BreakMorningMinutes":15,"BreakLunchMinutes":60,"BreakEveningMinutes":15,"PlannedMinutes":2160}
+[28-Aug-2025 11:03:11 Europe/Berlin] Debug Machine data from JOIN: MachineNames=เครื่องห่อฟิล์ม 1,เครื่องห่อฟิล์ม 2,เครื่องห่อฟิล์ม 3, PrimaryMachineName=เครื่องห่อฟิล์ม 1
+[28-Aug-2025 11:03:11 Europe/Berlin] Final MachineName result: เครื่องห่อฟิล์ม 1,เครื่องห่อฟิล์ม 2,เครื่องห่อฟิล์ม 3
+[28-Aug-2025 11:03:11 Europe/Berlin] Plan Detail Debug - PlanID: 12
+[28-Aug-2025 11:03:11 Europe/Berlin] Setup/Break Data: {"SetupMinutes":30,"SetupNote":"30minsetup","BreakMorningMinutes":15,"BreakLunchMinutes":60,"BreakEveningMinutes":15,"PlannedMinutes":2160}
+[28-Aug-2025 11:55:38 Europe/Berlin] Debug Machine data from JOIN: MachineNames=เครื่องห่อฟิล์ม 1,เครื่องห่อฟิล์ม 2,เครื่องห่อฟิล์ม 3, PrimaryMachineName=เครื่องห่อฟิล์ม 1
+[28-Aug-2025 11:55:38 Europe/Berlin] Final MachineName result: เครื่องห่อฟิล์ม 1,เครื่องห่อฟิล์ม 2,เครื่องห่อฟิล์ม 3
+[28-Aug-2025 11:55:38 Europe/Berlin] Plan Detail Debug - PlanID: 12
+[28-Aug-2025 11:55:38 Europe/Berlin] Setup/Break Data: {"SetupMinutes":30,"SetupNote":"30minsetup","BreakMorningMinutes":15,"BreakLunchMinutes":60,"BreakEveningMinutes":15,"PlannedMinutes":2160}
+[28-Aug-2025 11:56:16 Europe/Berlin] Debug Machine data from JOIN: MachineNames=เครื่องห่อฟิล์ม 1,เครื่องห่อฟิล์ม 2,เครื่องห่อฟิล์ม 3, PrimaryMachineName=เครื่องห่อฟิล์ม 1
+[28-Aug-2025 11:56:16 Europe/Berlin] Final MachineName result: เครื่องห่อฟิล์ม 1,เครื่องห่อฟิล์ม 2,เครื่องห่อฟิล์ม 3
+[28-Aug-2025 11:56:16 Europe/Berlin] Plan Detail Debug - PlanID: 12
+[28-Aug-2025 11:56:16 Europe/Berlin] Setup/Break Data: {"SetupMinutes":30,"SetupNote":"30minsetup","BreakMorningMinutes":15,"BreakLunchMinutes":60,"BreakEveningMinutes":15,"PlannedMinutes":2160}
+[28-Aug-2025 12:04:06 Europe/Berlin] Debug Machine data from JOIN: MachineNames=เครื่องห่อฟิล์ม 1,เครื่องห่อฟิล์ม 2,เครื่องห่อฟิล์ม 3, PrimaryMachineName=เครื่องห่อฟิล์ม 1
+[28-Aug-2025 12:04:06 Europe/Berlin] Final MachineName result: เครื่องห่อฟิล์ม 1,เครื่องห่อฟิล์ม 2,เครื่องห่อฟิล์ม 3
+[28-Aug-2025 12:04:06 Europe/Berlin] Plan Detail Debug - PlanID: 12
+[28-Aug-2025 12:04:06 Europe/Berlin] Setup/Break Data: {"SetupMinutes":30,"SetupNote":"30minsetup","BreakMorningMinutes":15,"BreakLunchMinutes":60,"BreakEveningMinutes":15,"PlannedMinutes":2160}

@@ -522,16 +522,22 @@ class PartialConfirmationManager {
     createSessionHistoryCard(session) {
         const div = document.createElement('div');
         div.className = 'col-md-3 col-sm-6';
-        
-        const startTime = new Date(session.ActualStartDateTime).toLocaleTimeString('th-TH', {
-            hour: '2-digit',
-            minute: '2-digit'
-        });
-        const endTime = new Date(session.ActualEndDateTime).toLocaleTimeString('th-TH', {
-            hour: '2-digit',
-            minute: '2-digit'
-        });
-        
+
+        const startDateObj = session.ActualStartDateTime ? new Date(session.ActualStartDateTime) : null;
+        const endDateObj = session.ActualEndDateTime ? new Date(session.ActualEndDateTime) : null;
+        const startTime = startDateObj ? startDateObj.toLocaleTimeString('th-TH', { hour: '2-digit', minute: '2-digit' }) : '-';
+        const endTime = endDateObj ? endDateObj.toLocaleTimeString('th-TH', { hour: '2-digit', minute: '2-digit' }) : '-';
+        const startDateStr = startDateObj ? `${String(startDateObj.getDate()).padStart(2, '0')}/${String(startDateObj.getMonth() + 1).padStart(2, '0')}/${startDateObj.getFullYear()}` : '-';
+        const endDateStr = endDateObj ? `${String(endDateObj.getDate()).padStart(2, '0')}/${String(endDateObj.getMonth() + 1).padStart(2, '0')}/${endDateObj.getFullYear()}` : '';
+        let dateRange = '';
+        if (startDateStr && endDateStr && startDateStr !== '-' && endDateStr !== '' && startDateStr !== endDateStr) {
+          dateRange = `<i class=\"bi bi-calendar-event me-1\"></i>วันที่: ${startDateStr} - ${endDateStr}`;
+        } else if (startDateStr && startDateStr !== '-') {
+          dateRange = `<i class=\"bi bi-calendar-event me-1\"></i>วันที่: ${startDateStr}`;
+        } else {
+          dateRange = '';
+        }
+
         div.innerHTML = `
             <div class="card session-card border-info">
                 <div class="card-body p-3">
@@ -539,6 +545,7 @@ class PartialConfirmationManager {
                         <span class="badge badge-session bg-info">Session ${session.SessionNumber}</span>
                         <small class="text-muted">${startTime}-${endTime}</small>
                     </div>
+                    ${dateRange ? `<div class=\"mb-2 text-secondary small\">${dateRange}</div>` : ''}
                     <div class="row g-1 small">
                         <div class="col-6">
                             <strong class="text-success">${session.SessionGoodQuantity || (session.SessionQuantity - session.SessionRejectQuantity)}</strong>
@@ -565,7 +572,7 @@ class PartialConfirmationManager {
                 </div>
             </div>
         `;
-        
+
         return div;
     }
 

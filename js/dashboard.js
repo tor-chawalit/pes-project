@@ -421,10 +421,13 @@ function updateOEEStats(oeeStats) {
     
     if (!oeeStats) {
         // ค่าเริ่มต้นเมื่อไม่มีข้อมูล
-        document.getElementById('availability').textContent = '0%';
-        document.getElementById('performance').textContent = '0%';
-        document.getElementById('quality').textContent = '0%';
-        document.getElementById('oee').textContent = '0%';
+        const ids = ['availability','performance','quality','oee'];
+        ids.forEach(id => {
+            const el = document.getElementById(id);
+            if (el) el.textContent = 'ไม่มีข้อมูล';
+        });
+        const oeeInfoElement = document.getElementById('oeeInfoText');
+        if (oeeInfoElement) oeeInfoElement.textContent = 'ไม่มีข้อมูล OEE';
         return;
     }
     
@@ -502,76 +505,33 @@ function updateChangeIndicator(elementId, type, value) {
 function createProductionChart(chartData) {
     const canvas = document.getElementById('productionChart');
     if (!canvas) return;
-    
+    if (!chartData || !Array.isArray(chartData.data) || chartData.data.length === 0) {
+        // No data fallback
+        canvas.parentElement.innerHTML = '<div class="text-center text-muted pt-5">ไม่มีข้อมูลการผลิต</div>';
+        return;
+    }
     const ctx = canvas.getContext('2d');
     const labels = chartData.labels || [];
     const data = chartData.data || [];
-    
     const prod = data.map(d => parseInt(d.production) || 0);
     const qual = data.map(d => parseInt(d.quality) || 0);
     const maint = data.map(d => parseInt(d.maintenance) || 0);
     const pack = data.map(d => parseInt(d.packaging) || 0);
-    
-    if (productionChart) {
-        productionChart.destroy();
-    }
-    
+    if (productionChart) productionChart.destroy();
     productionChart = new Chart(ctx, {
         type: 'bar',
         data: {
             labels: labels,
             datasets: [
-                { 
-                    label: 'แผนกผลิต', 
-                    data: prod, 
-                    backgroundColor: 'rgba(54,162,235,0.8)',
-                    borderColor: 'rgba(54,162,235,1)',
-                    borderWidth: 1
-                },
-                { 
-                    label: 'แผนกคุณภาพ', 
-                    data: qual, 
-                    backgroundColor: 'rgba(153,102,255,0.8)',
-                    borderColor: 'rgba(153,102,255,1)',
-                    borderWidth: 1
-                },
-                { 
-                    label: 'แผนกซ่อมบำรุง', 
-                    data: maint, 
-                    backgroundColor: 'rgba(255,159,64,0.8)',
-                    borderColor: 'rgba(255,159,64,1)',
-                    borderWidth: 1
-                },
-                { 
-                    label: 'แผนกบรรจุ', 
-                    data: pack, 
-                    backgroundColor: 'rgba(75,192,192,0.8)',
-                    borderColor: 'rgba(75,192,192,1)',
-                    borderWidth: 1
-                }
+                { label: 'แผนกผลิต', data: prod, backgroundColor: 'rgba(54,162,235,0.8)', borderColor: 'rgba(54,162,235,1)', borderWidth: 1 },
+                { label: 'แผนกคุณภาพ', data: qual, backgroundColor: 'rgba(153,102,255,0.8)', borderColor: 'rgba(153,102,255,1)', borderWidth: 1 },
+                { label: 'แผนกซ่อมบำรุง', data: maint, backgroundColor: 'rgba(255,159,64,0.8)', borderColor: 'rgba(255,159,64,1)', borderWidth: 1 },
+                { label: 'แผนกบรรจุ', data: pack, backgroundColor: 'rgba(75,192,192,0.8)', borderColor: 'rgba(75,192,192,1)', borderWidth: 1 }
             ]
         },
-        options: { 
-            responsive: true, 
-            maintainAspectRatio: false,
-            plugins: {
-                legend: {
-                    position: 'top',
-                },
-                title: {
-                    display: false
-                }
-            },
-            scales: {
-                y: {
-                    beginAtZero: true,
-                    ticks: {
-                        callback: function(value) {
-                            return value.toLocaleString();
-                        }
-                    }
-                }
-            }
+        options: { responsive: true, maintainAspectRatio: false,
+            plugins: { legend: { position: 'top' }, title: { display: false } },
+            scales: { y: { beginAtZero: true, ticks: { callback: function(value) { return value.toLocaleString(); } } } }
         }
     });
 }
@@ -582,13 +542,12 @@ function createProductionChart(chartData) {
 function createDepartmentChart(deptCounts) {
     const canvas = document.getElementById('departmentChart');
     if (!canvas) return;
-    
-    const ctx = canvas.getContext('2d');
-    
-    if (departmentChart) {
-        departmentChart.destroy();
+    if (!deptCounts || (deptCounts.production === 0 && deptCounts.quality === 0 && deptCounts.maintenance === 0 && deptCounts.packaging === 0)) {
+        canvas.parentElement.innerHTML = '<div class="text-center text-muted pt-5">ไม่มีข้อมูลแผนก</div>';
+        return;
     }
-    
+    const ctx = canvas.getContext('2d');
+    if (departmentChart) departmentChart.destroy();
     departmentChart = new Chart(ctx, {
         type: 'doughnut',
         data: {
@@ -615,15 +574,7 @@ function createDepartmentChart(deptCounts) {
                 borderWidth: 2
             }]
         },
-        options: { 
-            responsive: true, 
-            maintainAspectRatio: false,
-            plugins: {
-                legend: {
-                    position: 'bottom'
-                }
-            }
-        }
+        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom' } } }
     });
 }
 
@@ -633,23 +584,25 @@ function createDepartmentChart(deptCounts) {
 function updateProductionProgress(progress) {
     const container = document.getElementById('productionProgress');
     if (!container) return;
-    
+    if (!progress || typeof progress !== 'object') {
+        container.innerHTML = '<div class="text-center text-muted">ไม่มีข้อมูลเป้าหมายการผลิต</div>';
+        return;
+    }
     const departments = [
         { key: 'production', name: 'แผนกผลิต' },
         { key: 'quality', name: 'แผนกคุณภาพ' },
         { key: 'maintenance', name: 'แผนกซ่อมบำรุง' },
         { key: 'packaging', name: 'แผนกบรรจุ' }
     ];
-    
     let progressHTML = '';
-    
+    let hasData = false;
     departments.forEach(dept => {
-        const deptData = progress[dept.key] || { actual: 0, target: 1 };
-        const target = deptData.target || 1;
+        const deptData = progress[dept.key] || { actual: 0, target: 0 };
+        const target = deptData.target || 0;
         const actual = deptData.actual || 0;
-        const percentage = Math.round((actual / target) * 100);
+        if (target > 0) hasData = true;
+        const percentage = target > 0 ? Math.round((actual / target) * 100) : 0;
         const progressColor = percentage >= 90 ? '#28a745' : percentage >= 70 ? '#ffc107' : '#dc3545';
-        
         progressHTML += `
             <div class="progress-container">
                 <div class="progress-header">
@@ -666,8 +619,7 @@ function updateProductionProgress(progress) {
             </div>
         `;
     });
-    
-    container.innerHTML = progressHTML;
+    container.innerHTML = hasData ? progressHTML : '<div class="text-center text-muted">ไม่มีข้อมูลเป้าหมายการผลิต</div>';
 }
 
 /**
@@ -676,38 +628,8 @@ function updateProductionProgress(progress) {
 function updateAlerts(alerts) {
     const container = document.getElementById('alertsContainer');
     if (!container) return;
-    
     let alertsHTML = '';
-    
-    if (alerts.unconfirmedTasks > 0) {
-        alertsHTML += `
-            <div class="alert-item warning">
-                <div class="d-flex align-items-center">
-                    <i class="bi bi-exclamation-triangle me-2"></i>
-                    <div>
-                        <strong>งานยังไม่ได้ยืนยัน</strong><br>
-                        <small>มีงานชั่วคราว ${alerts.unconfirmedTasks} งานที่ยังไม่ได้ยืนยัน</small>
-                    </div>
-                </div>
-            </div>
-        `;
-    }
-    
-    if (alerts.overdueTasks > 0) {
-        alertsHTML += `
-            <div class="alert-item danger">
-                <div class="d-flex align-items-center">
-                    <i class="bi bi-clock me-2"></i>
-                    <div>
-                        <strong>งานเกินกำหนด</strong><br>
-                        <small>มีงาน ${alerts.overdueTasks} งานที่เกินกำหนดเวลา</small>
-                    </div>
-                </div>
-            </div>
-        `;
-    }
-    
-    if (alertsHTML === '') {
+    if (!alerts || (alerts.unconfirmedTasks === 0 && alerts.overdueTasks === 0)) {
         alertsHTML = `
             <div class="alert-item info">
                 <div class="d-flex align-items-center">
@@ -719,8 +641,34 @@ function updateAlerts(alerts) {
                 </div>
             </div>
         `;
+    } else {
+        if (alerts.unconfirmedTasks > 0) {
+            alertsHTML += `
+                <div class="alert-item warning">
+                    <div class="d-flex align-items-center">
+                        <i class="bi bi-exclamation-triangle me-2"></i>
+                        <div>
+                            <strong>งานยังไม่ได้ยืนยัน</strong><br>
+                            <small>มีงานชั่วคราว ${alerts.unconfirmedTasks} งานที่ยังไม่ได้ยืนยัน</small>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+        if (alerts.overdueTasks > 0) {
+            alertsHTML += `
+                <div class="alert-item danger">
+                    <div class="d-flex align-items-center">
+                        <i class="bi bi-clock me-2"></i>
+                        <div>
+                            <strong>งานเกินกำหนด</strong><br>
+                            <small>มีงาน ${alerts.overdueTasks} งานที่เกินกำหนดเวลา</small>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
     }
-    
     container.innerHTML = alertsHTML;
 }
 
